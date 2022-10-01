@@ -536,6 +536,10 @@ namespace FuryRoad
             {
                 gameSpeed = 26;
             }
+            if (score >= 180 && score < 200)
+            {
+                gameSpeed = 28;
+            }
         }
 
         #endregion
