@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
@@ -21,9 +22,6 @@ using Windows.Foundation.Collections;
 using Windows.Graphics.Printing.PrintTicket;
 using Windows.System;
 using Windows.UI.Core;
-using Rectangle = Microsoft.UI.Xaml.Shapes.Rectangle;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace FuryRoad
 {
@@ -35,7 +33,7 @@ namespace FuryRoad
         #region Fields
 
         PeriodicTimer gameTimer;
-        List<Rectangle> itemRemover = new List<Rectangle>();
+        List<GameObject> itemRemover = new List<GameObject>();
 
         Random rand = new Random(); // make a new instance of the random class called rand
 
@@ -121,7 +119,7 @@ namespace FuryRoad
 
             // run a initial foreach loop to set up the cars and remove any star in the game
 
-            foreach (var x in myCanvas.Children.OfType<Rectangle>())
+            foreach (var x in myCanvas.Children.OfType<GameObject>())
             {
                 var tag = (string)x.Tag;
 
@@ -201,10 +199,10 @@ namespace FuryRoad
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var x in myCanvas.Children.OfType<Rectangle>())
+            foreach (var gameObject in myCanvas.Children.OfType<GameObject>())
             {
                 // first we search through all of the rectangles in this game
-                var tag = (string)x.Tag;
+                var tag = (string)gameObject.Tag;
 
                 switch (tag)
                 {
@@ -212,27 +210,27 @@ namespace FuryRoad
                         {
                             // if we find any of the rectangles with the road marks tag on it then 
 
-                            Canvas.SetTop(x, Canvas.GetTop(x) + speed); // move it down using the speed variable
+                            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + speed); // move it down using the speed variable
 
                             // if the road marks goes below the screen then move it back up top of the screen
-                            if (Canvas.GetTop(x) > myCanvas.Height)
+                            if (Canvas.GetTop(gameObject) > myCanvas.Height)
                             {
-                                Canvas.SetTop(x, -152);
+                                Canvas.SetTop(gameObject, -152);
                             }
                         }
                         break;
                     case "car":
                         {
-                            Canvas.SetTop(x, Canvas.GetTop(x) + speed); // move the rectangle down using the speed variable
+                            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameObject.Speed); // move the rectangle down using the speed variable
 
                             // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-                            if (Canvas.GetTop(x) > myCanvas.Height)
+                            if (Canvas.GetTop(gameObject) > myCanvas.Height)
                             {
-                                ChangeCars(x);
+                                ChangeCars(gameObject);
                             }
 
                             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-                            Rect carHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                            Rect carHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
 
                             if (playerHitBox.IntersectsWith(carHitBox))
                             {
@@ -240,7 +238,7 @@ namespace FuryRoad
                                 if (powerMode)
                                 {
                                     // run the change cars function with the cars rectangle X inside of it
-                                    ChangeCars(x);
+                                    ChangeCars(gameObject);
                                 }
                                 else
                                 {
@@ -251,23 +249,23 @@ namespace FuryRoad
                         break;
                     case "truck":
                         {
-                            Canvas.SetTop(x, Canvas.GetTop(x) + speed); // move the rectangle down using the speed variable
+                            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameObject.Speed); // move the rectangle down using the speed variable
 
                             // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-                            if (Canvas.GetTop(x) > myCanvas.Height)
+                            if (Canvas.GetTop(gameObject) > myCanvas.Height)
                             {
-                                ChangeTrucks(x);
+                                ChangeTrucks(gameObject);
                             }
 
                             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-                            Rect carHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                            Rect carHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
 
                             if (playerHitBox.IntersectsWith(carHitBox))
                             {
                                 // if the player hit box and the car hit box collide and the power mode is ON
                                 if (powerMode)
                                 {
-                                    ChangeTrucks(x); // run the change cars function with the cars rectangle X inside of it
+                                    ChangeTrucks(gameObject); // run the change cars function with the cars rectangle X inside of it
                                 }
                                 else
                                 {
@@ -279,16 +277,16 @@ namespace FuryRoad
                     case "star":
                         {
                             // move it down the screen 5 pixels at a time
-                            Canvas.SetTop(x, Canvas.GetTop(x) + 5);
+                            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + 5);
 
                             // create a new rect with for the star and pass in the star X values inside of it
-                            Rect starHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+                            Rect starHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
 
                             // if the player and the star collide then
                             if (playerHitBox.IntersectsWith(starHitBox))
                             {
                                 // add the star to the item remover list
-                                itemRemover.Add(x);
+                                itemRemover.Add(gameObject);
 
                                 // set power mode to true
                                 powerMode = true;
@@ -297,9 +295,9 @@ namespace FuryRoad
                                 powerModeCounter = 200;
                             }
                             // if the star goes beyon (int)myCanvas.Height pixels then add it to the item remover list
-                            if (Canvas.GetTop(x) > myCanvas.Height)
+                            if (Canvas.GetTop(gameObject) > myCanvas.Height)
                             {
-                                itemRemover.Add(x);
+                                itemRemover.Add(gameObject);
                             }
                         }
                         break;
@@ -331,7 +329,7 @@ namespace FuryRoad
             }
 
             // each item we find inside of the item remove we will remove it from the canvas
-            foreach (Rectangle y in itemRemover)
+            foreach (GameObject y in itemRemover)
             {
                 myCanvas.Children.Remove(y);
             }
@@ -360,6 +358,22 @@ namespace FuryRoad
             {
                 speed = 18;
             }
+            if (score >= 80 && score < 100)
+            {
+                speed = 20;
+            }
+            if (score >= 100 && score < 130)
+            {
+                speed = 22;
+            }
+            if (score >= 130 && score < 150)
+            {
+                speed = 24;
+            }
+            if (score >= 150 && score < 180)
+            {
+                speed = 26;
+            }
         }
 
         private void GameOver()
@@ -370,7 +384,7 @@ namespace FuryRoad
             gameOver = true; // set game over boolean to true
         }
 
-        private void ChangeCars(Rectangle car)
+        private void ChangeCars(GameObject car)
         {
             // we want the game to change the traffic car images as they leave the scene and come back to it again
 
@@ -403,11 +417,11 @@ namespace FuryRoad
             }
 
             car.Fill = carImage; // assign the chosen car image to the car rectangle
-
+            car.Speed = speed - rand.Next(0, 7);
             SetRandomPostion(car);
         }
 
-        private void ChangeTrucks(Rectangle truck)
+        private void ChangeTrucks(GameObject truck)
         {
             // we want the game to change the traffic car images as they leave the scene and come back to it again
 
@@ -434,11 +448,11 @@ namespace FuryRoad
             }
 
             truck.Fill = truckImage; // assign the chosen car image to the car rectangle
-
+            truck.Speed = speed - rand.Next(0, 5);
             SetRandomPostion(truck);
         }
 
-        private void SetRandomPostion(Rectangle car)
+        private void SetRandomPostion(GameObject car)
         {
             var top = (rand.Next(100, (int)myCanvas.Height) * -1);
             Canvas.SetTop(car, top);
@@ -449,7 +463,7 @@ namespace FuryRoad
 
             Rect carHitBox = car.GetHitBox();
 
-            if (myCanvas.Children.OfType<Rectangle>().Where(x => (string)x.Tag == "car" || (string)x.Tag == "truck").Any(c => c.GetHitBox().IntersectsWith(carHitBox)))
+            if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == "car" || (string)x.Tag == "truck").Any(c => c.GetHitBox().IntersectsWith(carHitBox)))
             {
                 //SetRandomPostion(car);
             }
@@ -495,7 +509,7 @@ namespace FuryRoad
             // this function will create a rectangle, assign the star image to and place it on the canvas
 
             // creating a new star rectangle with its own properties inside of it
-            Rectangle newStar = new Rectangle
+            GameObject newStar = new GameObject
             {
                 Height = 50,
                 Width = 50,
