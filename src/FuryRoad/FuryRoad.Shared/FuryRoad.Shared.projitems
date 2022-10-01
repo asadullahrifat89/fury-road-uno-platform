@@ -42,18 +42,18 @@
 		 without manipulating the projitem file.
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\car1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\carriertruck.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\truck1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\orangebus.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\truck2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\player.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\redtruck.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\star.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\whitebus.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\truck3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\whitemicro.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car5.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\yellowschoolbus.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\truck4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car6.png" />
     <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">
       <SubType>Designer</SubType>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Shapes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Windows.Foundation;
@@ -36,6 +38,11 @@ namespace FuryRoad
             }
 
             return false;
+        }
+
+        public static Rect GetHitBox(this Rectangle rectangle)
+        {
+            return new Rect(Canvas.GetLeft(rectangle), Canvas.GetTop(rectangle), rectangle.Width, rectangle.Height);
         }
 
         #endregion

@@ -14,12 +14,8 @@
     <_Globbed_Compile Remove="GameObjectExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <_Globbed_Content Remove="Assets\carriertruck.png" />
-    <_Globbed_Content Remove="Assets\orangebus.png" />
     <_Globbed_Content Remove="Assets\redtruck.png" />
     <_Globbed_Content Remove="Assets\star.png" />
-    <_Globbed_Content Remove="Assets\whitebus.png" />
     <_Globbed_Content Remove="Assets\whitemicro.png" />
-    <_Globbed_Content Remove="Assets\yellowschoolbus.png" />
   </ItemGroup>
 </Project>

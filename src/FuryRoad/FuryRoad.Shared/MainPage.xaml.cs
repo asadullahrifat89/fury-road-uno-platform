@@ -18,6 +18,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Printing.PrintTicket;
 using Windows.System;
 using Windows.UI.Core;
 using Rectangle = Microsoft.UI.Xaml.Shapes.Rectangle;
@@ -45,7 +46,7 @@ namespace FuryRoad
 
         // set the game integers including, speed for the traffic and road markings, player speed, car numbers, star counter and power mode counter
         int speed = 15;
-        int playerSpeed = 10;
+        int playerSpeed = 8;
         int carNum;
         int starCounter = 30;
         int powerModeCounter = 200;
@@ -65,14 +66,102 @@ namespace FuryRoad
         {
             this.InitializeComponent();
 
-            myCanvas.Width = Window.Current.Bounds.Width / 1.5;
+            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             myCanvas.Height = Window.Current.Bounds.Height;
+
+            this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
+        {
+            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
+            myCanvas.Height = Window.Current.Bounds.Height;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
 
         #endregion
 
         #region Methods
+
+        private void StartGame()
+        {
+            Console.WriteLine("GAME STARTED");
+
+            // thi sis the start game function, this function to reset all of the values back to their default state and start the game
+
+            speed = 8; // set speed to 8
+            RunGame();
+
+            // set all of the boolean to false
+            moveLeft = false;
+            moveRight = false;
+            gameOver = false;
+            powerMode = false;
+
+            // set score to 0
+            score = 0;
+
+            // set the score text to its default content
+            scoreText.Text = "Survived: 0 Seconds";
+
+            // set up the player image and the star image from the images folder
+            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
+            starImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
+
+            // assign the player image to the player rectangle from the canvas
+            player.Fill = playerImage;
+
+            // set the default background colour to gray
+            myCanvas.Background = new SolidColorBrush(Colors.Gray);
+
+            // run a initial foreach loop to set up the cars and remove any star in the game
+
+            foreach (var x in myCanvas.Children.OfType<Rectangle>())
+            {
+                var tag = (string)x.Tag;
+
+                switch (tag)
+                {
+                    // if we find any rectangle with the car tag on it then we will
+                    case "car":
+                        {
+                            // set a random location to their top and left position
+                            Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
+                            Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
+
+                            // run the change cars function
+                            ChangeCars(x);
+                        }
+                        break;
+                    case "truck":
+                        {
+                            // set a random location to their top and left position
+                            Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
+                            Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
+
+                            // run the change cars function
+                            ChangeTrucks(x);
+                        }
+                        break;
+                    // if we find a star in the beginning of the game then we will add it to the item remove list
+                    case "star":
+                        {
+                            itemRemover.Add(x);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // clear any items inside of the item remover list at the start
+            itemRemover.Clear();
+        }
 
         public async void RunGame()
         {
@@ -115,7 +204,6 @@ namespace FuryRoad
             foreach (var x in myCanvas.Children.OfType<Rectangle>())
             {
                 // first we search through all of the rectangles in this game
-
                 var tag = (string)x.Tag;
 
                 switch (tag)
@@ -133,7 +221,7 @@ namespace FuryRoad
                             }
                         }
                         break;
-                    case "Car":
+                    case "car":
                         {
                             Canvas.SetTop(x, Canvas.GetTop(x) + speed); // move the rectangle down using the speed variable
 
@@ -145,20 +233,45 @@ namespace FuryRoad
 
                             // create a new rect called car hit box and assign it to the x which is the cars rectangle
                             Rect carHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
-                          
+
                             if (playerHitBox.IntersectsWith(carHitBox))
-                            {  
+                            {
                                 // if the player hit box and the car hit box collide and the power mode is ON
                                 if (powerMode)
                                 {
-                                    ChangeCars(x); // run the change cars function with the cars rectangle X inside of it
-                                }                                    
+                                    // run the change cars function with the cars rectangle X inside of it
+                                    ChangeCars(x);
+                                }
                                 else
                                 {
-                                    // if the power is OFF and car and the player collide then
-                                    gameTimer.Dispose(); // stop the game timer
-                                    scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
-                                    gameOver = true; // set game over boolean to true
+                                    GameOver();
+                                }
+                            }
+                        }
+                        break;
+                    case "truck":
+                        {
+                            Canvas.SetTop(x, Canvas.GetTop(x) + speed); // move the rectangle down using the speed variable
+
+                            // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
+                            if (Canvas.GetTop(x) > myCanvas.Height)
+                            {
+                                ChangeTrucks(x);
+                            }
+
+                            // create a new rect called car hit box and assign it to the x which is the cars rectangle
+                            Rect carHitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height);
+
+                            if (playerHitBox.IntersectsWith(carHitBox))
+                            {
+                                // if the player hit box and the car hit box collide and the power mode is ON
+                                if (powerMode)
+                                {
+                                    ChangeTrucks(x); // run the change cars function with the cars rectangle X inside of it
+                                }
+                                else
+                                {
+                                    GameOver();
                                 }
                             }
                         }
@@ -228,133 +341,33 @@ namespace FuryRoad
 
             if (score >= 10 && score < 20)
             {
-                speed = 12;
+                speed = 10;
             }
 
             if (score >= 20 && score < 30)
             {
-                speed = 14;
+                speed = 12;
             }
             if (score >= 30 && score < 40)
             {
-                speed = 16;
+                speed = 14;
             }
             if (score >= 40 && score < 50)
             {
-                speed = 18;
+                speed = 16;
             }
             if (score >= 50 && score < 80)
             {
-                speed = 22;
+                speed = 18;
             }
         }
 
-        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        private void GameOver()
         {
-            // key down function will listen for you the user to press the left or right key and it will change the designated boolean to true
-
-            if (e.Key == VirtualKey.Left)
-            {
-                moveLeft = true;
-                moveRight = false;
-            }
-            if (e.Key == VirtualKey.Right)
-            {
-                moveRight = true;
-                moveLeft = false;
-            }
-        }
-
-        private void OnKeyUP(object sender, KeyRoutedEventArgs e)
-        {
-            // when the player releases the left or right key it will set the designated boolean to false
-
-            if (e.Key == VirtualKey.Left)
-            {
-                moveLeft = false;
-            }
-            if (e.Key == VirtualKey.Right)
-            {
-                moveRight = false;
-            }
-
-            // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
-            if (e.Key == VirtualKey.Enter && gameOver == true)
-            {
-                // if both of these conditions are true then we will run the start game function
-                StartGame();
-            }
-        }
-
-        private void StartGame()
-        {
-            Console.WriteLine("GAME STARTED");
-
-            // thi sis the start game function, this function to reset all of the values back to their default state and start the game
-
-            speed = 8; // set speed to 8
-            RunGame();
-
-            // set all of the boolean to false
-            moveLeft = false;
-            moveRight = false;
-            gameOver = false;
-            powerMode = false;
-
-            // set score to 0
-            score = 0;
-
-            // set the score text to its default content
-            scoreText.Text = "Survived: 0 Seconds";
-
-            // set up the player image and the star image from the images folder
-            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-            starImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
-
-            // assign the player image to the player rectangle from the canvas
-            player.Fill = playerImage;
-            // set the default background colour to gray
-            myCanvas.Background = new SolidColorBrush(Colors.Gray);
-
-            // run a initial foreach loop to set up the cars and remove any star in the game
-
-            foreach (var x in myCanvas.Children.OfType<Rectangle>())
-            {
-                var tag = (string)x.Tag;
-
-                switch (tag)
-                {
-                    // if we find any rectangle with the car tag on it then we will
-                    case "Car":
-                        {
-                            // set a random location to their top and left position
-                            Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
-                            Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
-
-                            // run the change cars function
-                            ChangeCars(x);
-                        }
-                        break;
-                    // if we find a star in the beginning of the game then we will add it to the item remove list
-                    case "star":
-                        {
-                            itemRemover.Add(x);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            // clear any items inside of the item remover list at the start
-            itemRemover.Clear();
-        }
-
-        private void myCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            myCanvas.Focus(FocusState.Programmatic);
-
-            StartGame();
+            // if the power is OFF and car and the player collide then
+            gameTimer.Dispose(); // stop the game timer
+            scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
+            gameOver = true; // set game over boolean to true
         }
 
         private void ChangeCars(Rectangle car)
@@ -391,9 +404,55 @@ namespace FuryRoad
 
             car.Fill = carImage; // assign the chosen car image to the car rectangle
 
+            SetRandomPostion(car);
+        }
+
+        private void ChangeTrucks(Rectangle truck)
+        {
+            // we want the game to change the traffic car images as they leave the scene and come back to it again
+
+            carNum = rand.Next(1, 5); // to start lets generate a random number between 1 and 6
+
+            ImageBrush truckImage = new ImageBrush(); // create a new image brush for the car image 
+
+            // the switch statement below will see what number have generated for the car num integer and 
+            // based on that number it will assign a different image to the car rectangle
+            switch (carNum)
+            {
+                case 1:
+                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
+                    break;
+                case 2:
+                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
+                    break;
+                case 3:
+                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
+                    break;
+                case 4:
+                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
+                    break;
+            }
+
+            truck.Fill = truckImage; // assign the chosen car image to the car rectangle
+
+            SetRandomPostion(truck);
+        }
+
+        private void SetRandomPostion(Rectangle car)
+        {
+            var top = (rand.Next(100, (int)myCanvas.Height) * -1);
+            Canvas.SetTop(car, top);
+
             // set a random top and left position for the traffic car
-            Canvas.SetTop(car, (rand.Next(100, (int)myCanvas.Height) * -1));
-            Canvas.SetLeft(car, rand.Next(0, (int)(myCanvas.Width - 55)));
+            var left = rand.Next(0, (int)(myCanvas.Width - 55));
+            Canvas.SetLeft(car, left);
+
+            Rect carHitBox = car.GetHitBox();
+
+            if (myCanvas.Children.OfType<Rectangle>().Where(x => (string)x.Tag == "car" || (string)x.Tag == "truck").Any(c => c.GetHitBox().IntersectsWith(carHitBox)))
+            {
+                //SetRandomPostion(car);
+            }
         }
 
         private void PowerUp()
@@ -451,6 +510,54 @@ namespace FuryRoad
             // finally add the new star to the canvas to be animated and to interact with the player
             myCanvas.Children.Add(newStar);
 
+        }
+
+        #endregion
+
+        #region Events
+
+        private void myCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            myCanvas.Focus(FocusState.Programmatic);
+
+            StartGame();
+        }
+
+        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            // key down function will listen for you the user to press the left or right key and it will change the designated boolean to true
+
+            if (e.Key == VirtualKey.Left)
+            {
+                moveLeft = true;
+                moveRight = false;
+            }
+            if (e.Key == VirtualKey.Right)
+            {
+                moveRight = true;
+                moveLeft = false;
+            }
+        }
+
+        private void OnKeyUP(object sender, KeyRoutedEventArgs e)
+        {
+            // when the player releases the left or right key it will set the designated boolean to false
+
+            if (e.Key == VirtualKey.Left)
+            {
+                moveLeft = false;
+            }
+            if (e.Key == VirtualKey.Right)
+            {
+                moveRight = false;
+            }
+
+            // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
+            if (e.Key == VirtualKey.Enter && gameOver == true)
+            {
+                // if both of these conditions are true then we will run the start game function
+                StartGame();
+            }
         }
 
         #endregion

@@ -15,110 +15,138 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Stretch">
 
+            <!--  Road marks  -->
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="-152"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="10"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="176"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="348"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="520"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="692"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
             <Rectangle
-                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="864"
                 Width="20"
                 Height="106"
                 Fill="White"
                 Tag="roadMarks" />
 
+            <!--  Cars  -->
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/1.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Blue"
-                Tag="Car" />
+                Tag="car" />
 
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Purple"
-                Tag="Car" />
+                Tag="car" />
 
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/3.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-10}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Purple"
-                Tag="Car" />
+                Tag="car" />
 
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/4.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-50}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Purple"
-                Tag="Car" />
+                Tag="car" />
 
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/5.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-100}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Purple"
-                Tag="Car" />
+                Tag="car" />
 
             <Rectangle
                 Canvas.Left="{x:Bind Path=myCanvas.Width/6.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Purple"
-                Tag="Car" />
+                Tag="car" />
 
+            <!--  Trucks  -->
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
+                Width="65"
+                Height="200"
+                Fill="Purple"
+                Tag="truck" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
+                Width="65"
+                Height="200"
+                Fill="Purple"
+                Tag="truck" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
+                Width="65"
+                Height="200"
+                Fill="Purple"
+                Tag="truck" />
+
+            <!--  Player  -->
             <Rectangle
                 x:Name="player"
                 Canvas.Left="222"
-                Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-250, Mode=OneWay}"
                 Width="55"
-                Height="80"
+                Height="95"
                 Fill="Yellow" />
         </Canvas>
 
