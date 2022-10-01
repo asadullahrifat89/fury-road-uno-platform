@@ -567,14 +567,14 @@ namespace FuryRoad
             else
                 lanePoints.Clear();
 
-            for (int i = 1; i <= (int)lanes; i++)
+            for (int i = 0; i < (int)lanes; i++)
             {
                 var start = i * 200;
                 var end = (i + 1) * 200;
 
-                if (end <= myCanvas.Width - 55)
+                if (end <= myCanvas.Width)
                     lanePoints.Add((Start: start, End: end));
-            }           
+            }
 
             Console.WriteLine($"{lanes} LANES");
             Console.WriteLine($"LANES POINTS: {(string.Join(',', lanePoints))}");
