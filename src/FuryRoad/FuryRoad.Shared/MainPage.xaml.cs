@@ -37,6 +37,7 @@ namespace FuryRoad
         int carNum;
         int powerUpCounter = 30;
         int powerModeCounter = 1000;
+        double lanes = 0;
 
         double score;
         //double i;
@@ -51,18 +52,16 @@ namespace FuryRoad
         {
             this.InitializeComponent();
 
-            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
-            myCanvas.Height = Window.Current.Bounds.Height;
+            AdjustView();
 
             isGameOver = true;
 
             this.SizeChanged += MainPage_SizeChanged;
-        }
+        }     
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
         {
-            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
-            myCanvas.Height = Window.Current.Bounds.Height;
+            AdjustView();
         }
 
         #endregion
@@ -301,10 +300,11 @@ namespace FuryRoad
                     GameOver();
                 }
             }
-            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(tructHitBox)) is GameObject collidingVehicle)
+            else if (myCanvas.Children.OfType<GameObject>()
+                                      .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
+                                      .FirstOrDefault(v => v.GetDistantHitBox()
+                                      .IntersectsWith(tructHitBox)) is GameObject collidingVehicle)
             {
-                Console.WriteLine("NPC TRUCK COLLISION");
-
                 if (collidingVehicle.Speed < vehicle.Speed)
                 {
                     collidingVehicle.Speed = vehicle.Speed;
@@ -526,6 +526,17 @@ namespace FuryRoad
 
         #endregion
 
+        #region View
+
+        private void AdjustView()
+        {
+            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
+            myCanvas.Height = Window.Current.Bounds.Height;
+            lanes = myCanvas.Width / 200;
+        } 
+
+        #endregion
+
         #endregion
 
         #region Events
@@ -542,8 +553,6 @@ namespace FuryRoad
 
         private void OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            // key down function will listen for you the user to press the left or right key and it will change the designated boolean to true
-
             if (e.Key == VirtualKey.Left)
             {
                 moveLeft = true;
