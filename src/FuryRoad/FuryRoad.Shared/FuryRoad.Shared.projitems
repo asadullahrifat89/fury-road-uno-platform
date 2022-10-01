@@ -43,6 +43,8 @@
 		 without manipulating the projitem file.
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\car1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\player-crashed.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\truck1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\car2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\truck2.png" />

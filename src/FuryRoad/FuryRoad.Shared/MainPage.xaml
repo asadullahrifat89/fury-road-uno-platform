@@ -19,52 +19,73 @@
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="-152"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="10"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="176"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="348"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="520"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="692"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="864"
-                Width="20"
-                Height="106"
-                Fill="White"
-                Tag="roadMarks" />
+                Width="50"
+                Height="100"
+                Tag="roadMarks">
+                <GameObject.Fill>
+                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash.png" />
+                </GameObject.Fill>
+            </GameObject>
 
             <!--  Cars  -->
             <GameObject

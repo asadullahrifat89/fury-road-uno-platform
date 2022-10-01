@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <_Globbed_Content Remove="Assets\redtruck.png" />
+    <_Globbed_Content Remove="Assets\road-dash.png" />
     <_Globbed_Content Remove="Assets\star.png" />
     <_Globbed_Content Remove="Assets\whitemicro.png" />
   </ItemGroup>

@@ -66,7 +66,7 @@ namespace FuryRoad
 
             myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             myCanvas.Height = Window.Current.Bounds.Height;
-
+            gameOver  = true;
             this.SizeChanged += MainPage_SizeChanged;
         }
 
@@ -88,6 +88,7 @@ namespace FuryRoad
 
         private void StartGame()
         {
+            gameOver = false;
             Console.WriteLine("GAME STARTED");
 
             // thi sis the start game function, this function to reset all of the values back to their default state and start the game
@@ -115,7 +116,7 @@ namespace FuryRoad
             player.Fill = playerImage;
 
             // set the default background colour to gray
-            myCanvas.Background = new SolidColorBrush(Colors.Gray);
+            myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             // run a initial foreach loop to set up the cars and remove any star in the game
 
@@ -230,7 +231,7 @@ namespace FuryRoad
                             }
 
                             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-                            Rect carHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
+                            Rect carHitBox = gameObject.GetHitBox();
 
                             if (playerHitBox.IntersectsWith(carHitBox))
                             {
@@ -258,9 +259,9 @@ namespace FuryRoad
                             }
 
                             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-                            Rect carHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
+                            Rect tructHitBox = gameObject.GetHitBox();
 
-                            if (playerHitBox.IntersectsWith(carHitBox))
+                            if (playerHitBox.IntersectsWith(tructHitBox))
                             {
                                 // if the player hit box and the car hit box collide and the power mode is ON
                                 if (powerMode)
@@ -280,7 +281,7 @@ namespace FuryRoad
                             Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + 5);
 
                             // create a new rect with for the star and pass in the star X values inside of it
-                            Rect starHitBox = new Rect(Canvas.GetLeft(gameObject), Canvas.GetTop(gameObject), gameObject.Width, gameObject.Height);
+                            Rect starHitBox = gameObject.GetHitBox();
 
                             // if the player and the star collide then
                             if (playerHitBox.IntersectsWith(starHitBox))
@@ -325,7 +326,7 @@ namespace FuryRoad
             {
                 // if the mode is false then change the player car back to default and also set the background to gray
                 playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-                myCanvas.Background = new SolidColorBrush(Colors.Gray);
+                myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
             }
 
             // each item we find inside of the item remove we will remove it from the canvas
@@ -378,10 +379,13 @@ namespace FuryRoad
 
         private void GameOver()
         {
+            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
+            player.Fill = playerImage;
+
             // if the power is OFF and car and the player collide then
             gameTimer.Dispose(); // stop the game timer
             scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
-            gameOver = true; // set game over boolean to true
+            gameOver = true; // set game over boolean to true           
         }
 
         private void ChangeCars(GameObject car)
@@ -500,7 +504,7 @@ namespace FuryRoad
             //}
 
             // change the background to light coral colour
-            myCanvas.Background = new SolidColorBrush(Colors.LightCoral);
+            myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
         private void MakeStar()
@@ -532,9 +536,12 @@ namespace FuryRoad
 
         private void myCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            myCanvas.Focus(FocusState.Programmatic);
+            if (gameOver)
+            {
+                myCanvas.Focus(FocusState.Programmatic);
 
-            StartGame();
+                StartGame(); 
+            }
         }
 
         private void OnKeyDown(object sender, KeyRoutedEventArgs e)
