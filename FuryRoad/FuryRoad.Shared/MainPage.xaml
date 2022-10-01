@@ -1,0 +1,141 @@
+﻿<Page
+    x:Class="FuryRoad.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FuryRoad"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid>
+
+        <Canvas
+            x:Name="myCanvas"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch">
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="-152"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="10"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="176"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="348"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="520"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="692"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2}"
+                Canvas.Top="864"
+                Width="20"
+                Height="106"
+                Fill="White"
+                Tag="roadMarks" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/1.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
+                Width="55"
+                Height="80"
+                Fill="Blue"
+                Tag="Car" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
+                Width="55"
+                Height="80"
+                Fill="Purple"
+                Tag="Car" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/3.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-10}"
+                Width="55"
+                Height="80"
+                Fill="Purple"
+                Tag="Car" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/4.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-50}"
+                Width="55"
+                Height="80"
+                Fill="Purple"
+                Tag="Car" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/5.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-100}"
+                Width="55"
+                Height="80"
+                Fill="Purple"
+                Tag="Car" />
+
+            <Rectangle
+                Canvas.Left="{x:Bind Path=myCanvas.Width/6.5}"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
+                Width="55"
+                Height="80"
+                Fill="Purple"
+                Tag="Car" />
+
+            <Rectangle
+                x:Name="player"
+                Canvas.Left="222"
+                Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
+                Width="55"
+                Height="80"
+                Fill="Yellow" />
+        </Canvas>
+
+        <TextBlock
+            Name="scoreText"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontSize="18"
+            FontWeight="Bold"
+            Text="Survived: 00 Seconds" />
+
+        <Border
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="Transparent"
+            KeyDown="OnKeyDown"
+            KeyUp="OnKeyUP"
+            PointerPressed="myCanvas_PointerPressed" />
+    </Grid>
+</Page>
