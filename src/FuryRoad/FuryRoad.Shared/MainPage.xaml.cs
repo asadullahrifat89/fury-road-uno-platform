@@ -331,6 +331,7 @@ namespace FuryRoad
                 .LastOrDefault(v => v.GetDistantHitBox()
                 .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
             {
+                // slower vehicles will slow down faster vehicles
                 if (collidingVehicle.Speed > vehicle.Speed)
                 {
                     vehicle.Speed = collidingVehicle.Speed;
