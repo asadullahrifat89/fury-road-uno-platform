@@ -1,27 +1,16 @@
 ﻿using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Runtime.ConstrainedExecution;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Printing.PrintTicket;
 using Windows.System;
-using Windows.UI.Core;
 
 namespace FuryRoad
 {
@@ -302,25 +291,25 @@ namespace FuryRoad
             gameTimer.Dispose(); // stop the game timer
             scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
             isGameOver = true; // set game over boolean to true           
-        } 
+        }
 
         #endregion
 
         #region Update Game Objects
 
-        private void UpdatePowerUp(GameObject gameObject)
+        private void UpdatePowerUp(GameObject powerUp)
         {
             // move it down the screen 5 pixels at a time
-            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + 5);
+            Canvas.SetTop(powerUp, Canvas.GetTop(powerUp) + 5);
 
             // create a new rect with for the star and pass in the star X values inside of it
-            Rect starHitBox = gameObject.GetHitBox();
+            Rect starHitBox = powerUp.GetHitBox();
 
             // if the player and the star collide then
             if (playerHitBox.IntersectsWith(starHitBox))
             {
                 // add the star to the item remover list
-                removableObjects.Add(gameObject);
+                removableObjects.Add(powerUp);
 
                 // set power mode to true
                 isPowerMode = true;
@@ -329,51 +318,64 @@ namespace FuryRoad
                 powerModeCounter = 200;
             }
             // if the star goes beyon (int)myCanvas.Height pixels then add it to the item remover list
-            if (Canvas.GetTop(gameObject) > myCanvas.Height)
+            if (Canvas.GetTop(powerUp) > myCanvas.Height)
             {
-                removableObjects.Add(gameObject);
+                removableObjects.Add(powerUp);
             }
         }
 
-        private void UpdateTruck(GameObject gameObject)
+        private void UpdateTruck(GameObject truck)
         {
-            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameObject.Speed); // move the rectangle down using the speed variable
+            Canvas.SetTop(truck, Canvas.GetTop(truck) + truck.Speed); // move the rectangle down using the speed variable
 
             // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-            if (Canvas.GetTop(gameObject) > myCanvas.Height)
+            if (Canvas.GetTop(truck) > myCanvas.Height)
             {
-                ChangeTrucks(gameObject);
+                ChangeTrucks(truck);
             }
 
             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-            Rect tructHitBox = gameObject.GetHitBox();
+            Rect tructHitBox = truck.GetHitBox();
 
             if (playerHitBox.IntersectsWith(tructHitBox))
             {
                 // if the player hit box and the car hit box collide and the power mode is ON
                 if (isPowerMode)
                 {
-                    ChangeTrucks(gameObject); // run the change cars function with the cars rectangle X inside of it
+                    ChangeTrucks(truck); // run the change cars function with the cars rectangle X inside of it
                 }
                 else
                 {
                     GameOver();
                 }
             }
+            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(tructHitBox)) is GameObject collidedVehicle)
+            {
+                Console.WriteLine("NPC TRUCK COLLISION");
+
+                if (collidedVehicle.Speed < truck.Speed)
+                {
+                    collidedVehicle.Speed = truck.Speed;
+                }
+                else
+                {
+                    truck.Speed = collidedVehicle.Speed;
+                }
+            }
         }
 
-        private void UpdateCar(GameObject gameObject)
+        private void UpdateCar(GameObject car)
         {
-            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameObject.Speed); // move the rectangle down using the speed variable
+            Canvas.SetTop(car, Canvas.GetTop(car) + car.Speed); // move the rectangle down using the speed variable
 
             // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-            if (Canvas.GetTop(gameObject) > myCanvas.Height)
+            if (Canvas.GetTop(car) > myCanvas.Height)
             {
-                ChangeCars(gameObject);
+                ChangeCars(car);
             }
 
             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-            Rect carHitBox = gameObject.GetHitBox();
+            Rect carHitBox = car.GetHitBox();
 
             if (playerHitBox.IntersectsWith(carHitBox))
             {
@@ -381,24 +383,37 @@ namespace FuryRoad
                 if (isPowerMode)
                 {
                     // run the change cars function with the cars rectangle X inside of it
-                    ChangeCars(gameObject);
+                    ChangeCars(car);
                 }
                 else
                 {
                     GameOver();
                 }
             }
+            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(carHitBox)) is GameObject collidedVehicle)
+            {
+                Console.WriteLine("NPC CAR COLLISION");
+
+                if (collidedVehicle.Speed < car.Speed)
+                {
+                    collidedVehicle.Speed = car.Speed;
+                }
+                else
+                {
+                    car.Speed = collidedVehicle.Speed;
+                }
+            }
         }
 
-        private void UpdateRoadMark(GameObject gameObject)
+        private void UpdateRoadMark(GameObject roadMark)
         {
             // if we find any of the rectangles with the road marks tag on it then 
-            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameSpeed); // move it down using the speed variable
+            Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed); // move it down using the speed variable
 
             // if the road marks goes below the screen then move it back up top of the screen
-            if (Canvas.GetTop(gameObject) > myCanvas.Height)
+            if (Canvas.GetTop(roadMark) > myCanvas.Height)
             {
-                ChangeRoadMark(gameObject);
+                ChangeRoadMark(roadMark);
             }
         }
 
@@ -556,7 +571,7 @@ namespace FuryRoad
             PowerUp newStar = new PowerUp
             {
                 Height = 50,
-                Width = 50,                
+                Width = 50,
                 Fill = powerUpImage
             };
 
