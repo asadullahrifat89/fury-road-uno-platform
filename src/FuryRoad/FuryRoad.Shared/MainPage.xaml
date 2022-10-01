@@ -64,6 +64,16 @@
                 Canvas.Top="864"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
+                Canvas.Top="1036"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
+                Canvas.Top="1208"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
 
             <!--  Cars  -->
             <Car

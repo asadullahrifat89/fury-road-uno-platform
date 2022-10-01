@@ -285,6 +285,7 @@ namespace FuryRoad
                     RandomizeCar(vehicle);
             }
 
+            // if vehicle collides with player
             if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
             {
                 if (isPowerMode)
@@ -299,28 +300,27 @@ namespace FuryRoad
                     GameOver();
                 }
             }
-            else if (myCanvas.Children.OfType<GameObject>()
+
+            if (isGameOver)
+                return;
+
+            // if vechicle will collide with another vehicle
+            if (myCanvas.Children.OfType<GameObject>()
                                       .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
                                       .FirstOrDefault(v => v.GetDistantHitBox()
                                       .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
             {
-                if (collidingVehicle.Speed == vehicle.Speed)
-                {
-
-                }
-                else if (collidingVehicle.Speed < vehicle.Speed)
-                {
-                    collidingVehicle.Speed = vehicle.Speed;
-                    //if (vehicle.Speed >= gameSpeed + 5)
-                    //    vehicle.Speed--; Console.WriteLine("AVOIDING COLLISION NPC");
-
-
-                }
-                else
+                if (vehicle.Speed > collidingVehicle.Speed)
                 {
                     vehicle.Speed = collidingVehicle.Speed;
-                    //if (vehicle.Speed <= gameSpeed)
-                    //    vehicle.Speed++; Console.WriteLine("AVOIDING COLLISION NPC");
+                }
+                //else if(collidingVehicle.Speed == vehicle.Speed)
+                //{
+
+                //}
+                else
+                {
+                    collidingVehicle.Speed = vehicle.Speed;
                 }
             }
         }
