@@ -304,17 +304,23 @@ namespace FuryRoad
                                       .FirstOrDefault(v => v.GetDistantHitBox()
                                       .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
             {
-                if (collidingVehicle.Speed < vehicle.Speed)
+                if (collidingVehicle.Speed == vehicle.Speed)
                 {
-                    //collidingVehicle.Speed = vehicle.Speed;
-                    if (vehicle.Speed <= gameSpeed+5)
-                        vehicle.Speed++;
+
+                }
+                else if (collidingVehicle.Speed < vehicle.Speed)
+                {
+                    collidingVehicle.Speed = vehicle.Speed;
+                    //if (vehicle.Speed >= gameSpeed + 5)
+                    //    vehicle.Speed--; Console.WriteLine("AVOIDING COLLISION NPC");
+
+
                 }
                 else
                 {
-                    //vehicle.Speed = collidingVehicle.Speed;
-                    if (vehicle.Speed >= gameSpeed)
-                        vehicle.Speed--;
+                    vehicle.Speed = collidingVehicle.Speed;
+                    //if (vehicle.Speed <= gameSpeed)
+                    //    vehicle.Speed++; Console.WriteLine("AVOIDING COLLISION NPC");
                 }
             }
         }

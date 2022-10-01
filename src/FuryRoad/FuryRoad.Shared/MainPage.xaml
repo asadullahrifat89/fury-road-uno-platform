@@ -25,7 +25,8 @@
         <Canvas
             x:Name="myCanvas"
             HorizontalAlignment="Center"
-            VerticalAlignment="Stretch">
+            VerticalAlignment="Stretch"
+            Background="{StaticResource RoadBackgroundColor}">
 
             <!--  Road marks  -->
             <RoadMark
