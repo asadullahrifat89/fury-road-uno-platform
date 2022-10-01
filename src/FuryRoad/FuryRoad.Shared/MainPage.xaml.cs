@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
@@ -192,13 +193,9 @@ namespace FuryRoad
                         }
                         break;
                     case Constants.CAR_TAG:
-                        {
-                            UpdateCar(gameObject);
-                        }
-                        break;
                     case Constants.TRUCK_TAG:
                         {
-                            UpdateTruck(gameObject);
+                            UpdateVehicle(gameObject);
                         }
                         break;
                     case Constants.POWERUP_TAG:
@@ -324,83 +321,47 @@ namespace FuryRoad
             }
         }
 
-        private void UpdateTruck(GameObject truck)
+        private void UpdateVehicle(GameObject vehicle)
         {
-            Canvas.SetTop(truck, Canvas.GetTop(truck) + truck.Speed); // move the rectangle down using the speed variable
+            Canvas.SetTop(vehicle, Canvas.GetTop(vehicle) + vehicle.Speed); // move the rectangle down using the speed variable
 
-            // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-            if (Canvas.GetTop(truck) > myCanvas.Height)
+            if (Canvas.GetTop(vehicle) > myCanvas.Height)
             {
-                ChangeTrucks(truck);
+                if ((string)vehicle.Tag == Constants.TRUCK_TAG)
+                    ChangeTrucks(vehicle);
+                else
+                    ChangeCars(vehicle);
             }
 
             // create a new rect called car hit box and assign it to the x which is the cars rectangle
-            Rect tructHitBox = truck.GetHitBox();
+            Rect tructHitBox = vehicle.GetHitBox();
 
             if (playerHitBox.IntersectsWith(tructHitBox))
             {
                 // if the player hit box and the car hit box collide and the power mode is ON
                 if (isPowerMode)
                 {
-                    ChangeTrucks(truck); // run the change cars function with the cars rectangle X inside of it
+                    if ((string)vehicle.Tag == Constants.TRUCK_TAG)
+                        ChangeTrucks(vehicle); // run the change cars function with the cars rectangle X inside of it
+                    else
+                        ChangeCars(vehicle); // run the change cars function with the cars rectangle X inside of it
                 }
                 else
                 {
                     GameOver();
                 }
             }
-            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(tructHitBox)) is GameObject collidedVehicle)
+            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(tructHitBox)) is GameObject collidingVehicle)
             {
                 Console.WriteLine("NPC TRUCK COLLISION");
 
-                if (collidedVehicle.Speed < truck.Speed)
+                if (collidingVehicle.Speed < vehicle.Speed)
                 {
-                    collidedVehicle.Speed = truck.Speed;
+                    collidingVehicle.Speed = vehicle.Speed;
                 }
                 else
                 {
-                    truck.Speed = collidedVehicle.Speed;
-                }
-            }
-        }
-
-        private void UpdateCar(GameObject car)
-        {
-            Canvas.SetTop(car, Canvas.GetTop(car) + car.Speed); // move the rectangle down using the speed variable
-
-            // if the car has left the scene then run then run the change cars function with the current x rectangle inside of it
-            if (Canvas.GetTop(car) > myCanvas.Height)
-            {
-                ChangeCars(car);
-            }
-
-            // create a new rect called car hit box and assign it to the x which is the cars rectangle
-            Rect carHitBox = car.GetHitBox();
-
-            if (playerHitBox.IntersectsWith(carHitBox))
-            {
-                // if the player hit box and the car hit box collide and the power mode is ON
-                if (isPowerMode)
-                {
-                    // run the change cars function with the cars rectangle X inside of it
-                    ChangeCars(car);
-                }
-                else
-                {
-                    GameOver();
-                }
-            }
-            else if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == Constants.CAR_TAG || (string)x.Tag == Constants.TRUCK_TAG).FirstOrDefault(v => v.GetDistantHitBox().IntersectsWith(carHitBox)) is GameObject collidedVehicle)
-            {
-                Console.WriteLine("NPC CAR COLLISION");
-
-                if (collidedVehicle.Speed < car.Speed)
-                {
-                    collidedVehicle.Speed = car.Speed;
-                }
-                else
-                {
-                    car.Speed = collidedVehicle.Speed;
+                    vehicle.Speed = collidingVehicle.Speed;
                 }
             }
         }
