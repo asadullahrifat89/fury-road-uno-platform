@@ -33,11 +33,11 @@ namespace FuryRoad
         int playerSpeed = 6;
         int carNum;
         int powerUpCounter = 30;
-        int powerModeCounter = 1000;      
+        int powerModeCounter = 1000;
 
         double columns = 0;
         double rows = 0;
-      
+
         double score;
 
         bool moveLeft, moveRight, isGameOver, isPowerMode;
@@ -52,7 +52,7 @@ namespace FuryRoad
         {
             this.InitializeComponent();
 
-            isGameOver = true;            
+            isGameOver = true;
 
             AdjustView();
             this.SizeChanged += MainPage_SizeChanged;
@@ -306,11 +306,15 @@ namespace FuryRoad
             {
                 if (collidingVehicle.Speed < vehicle.Speed)
                 {
-                    collidingVehicle.Speed = vehicle.Speed;
+                    //collidingVehicle.Speed = vehicle.Speed;
+                    if (vehicle.Speed <= gameSpeed+5)
+                        vehicle.Speed++;
                 }
                 else
                 {
-                    vehicle.Speed = collidingVehicle.Speed;
+                    //vehicle.Speed = collidingVehicle.Speed;
+                    if (vehicle.Speed >= gameSpeed)
+                        vehicle.Speed--;
                 }
             }
         }
