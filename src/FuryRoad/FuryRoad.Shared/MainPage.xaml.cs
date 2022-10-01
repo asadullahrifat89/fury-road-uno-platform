@@ -330,7 +330,34 @@ namespace FuryRoad
 
         #endregion
 
-        #region Change Game Objects
+        #region Road Marks
+
+        private void RandomizeRoadMark(GameObject roadMark)
+        {
+            carNum = rand.Next(1, 4);
+
+            ImageBrush carImage = new ImageBrush();
+
+            switch (carNum)
+            {
+                case 1:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+                    break;
+                case 2:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+                    break;
+                case 3:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+                    break;
+            }
+
+            roadMark.Fill = carImage;
+            Canvas.SetTop(roadMark, -152);
+        }
+
+        #endregion
+
+        #region Vehicles
 
         private void RandomizeCar(GameObject car)
         {
@@ -362,30 +389,8 @@ namespace FuryRoad
 
             car.Fill = carImage;
             car.Speed = gameSpeed - rand.Next(0, 7);
+
             SetRandomVehiclePostion(car);
-        }
-
-        private void RandomizeRoadMark(GameObject roadMark)
-        {
-            carNum = rand.Next(1, 4);
-
-            ImageBrush carImage = new ImageBrush();
-
-            switch (carNum)
-            {
-                case 1:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
-                    break;
-                case 2:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
-                    break;
-                case 3:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
-                    break;
-            }
-
-            roadMark.Fill = carImage;
-            Canvas.SetTop(roadMark, -152);
         }
 
         private void RandomizeTruck(GameObject truck)
@@ -412,22 +417,39 @@ namespace FuryRoad
 
             truck.Fill = truckImage;
             truck.Speed = gameSpeed - rand.Next(0, 5);
+
             SetRandomVehiclePostion(truck);
         }
-
-        #endregion
-
-        #region Vehicle
 
         private void SetRandomVehiclePostion(GameObject vehicle)
         {
             var top = (rand.Next(100, (int)myCanvas.Height) * -1);
             Canvas.SetTop(vehicle, top);
 
-            var lane = lanePoints.ToArray()[rand.Next(0, lanePoints.Count)];
+            var laneSeq = rand.Next(0, lanePoints.Count);
 
-            var left = rand.Next((int)lane.Start, (int)lane.End);
-            Canvas.SetLeft(vehicle, left);
+            var lane = lanePoints.ToArray()[laneSeq];
+
+            var rem = laneSeq % 2;
+
+            bool isEven = false;
+
+            if (rem == 0)
+                isEven = true;
+
+            var left = rand.Next((int)lane.Start + (isEven ? 20 : 20 * -1), (int)lane.End - (isEven ? 20 : 20 * -1));
+
+            var hitBox = new Rect(left - 50, top - 50, vehicle.Width + 50, vehicle.Height + 50);
+
+            if (myCanvas.Children.OfType<GameObject>().Where(x => x is Car or Truck).Any(y => y.GetDistantHitBox().IntersectsWith(hitBox)))
+            {
+                Console.WriteLine("AVOIDING NPC COLLISION");
+                SetRandomVehiclePostion(vehicle);
+            }
+            else
+            {
+                Canvas.SetLeft(vehicle, left);
+            }
         }
 
         #endregion
@@ -545,14 +567,14 @@ namespace FuryRoad
             else
                 lanePoints.Clear();
 
-            for (int i = 1; i <= lanes; i++)
+            for (int i = 1; i <= (int)lanes; i++)
             {
                 var start = i * 200;
                 var end = (i + 1) * 200;
 
                 if (end <= myCanvas.Width - 55)
                     lanePoints.Add((Start: start, End: end));
-            }
+            }           
 
             Console.WriteLine($"{lanes} LANES");
             Console.WriteLine($"LANES POINTS: {(string.Join(',', lanePoints))}");
