@@ -28,150 +28,106 @@
             VerticalAlignment="Stretch">
 
             <!--  Road marks  -->
-            <GameObject
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="-152"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash1.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="10"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash2.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="176"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash3.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="348"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash3.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="520"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash2.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="692"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash1.png" />
-                </GameObject.Fill>
-            </GameObject>
-            <GameObject
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2, Mode=OneWay}"
                 Canvas.Top="864"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}"
-                Tag="roadMarks">
-                <GameObject.Fill>
-                    <ImageBrush ImageSource="ms-appx:///Assets/road-dash1.png" />
-                </GameObject.Fill>
-            </GameObject>
+                Height="{StaticResource RoadMarkHeight}" />
 
             <!--  Cars  -->
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/1.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Blue"
-                Tag="car" />
+                Fill="Blue" />
 
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Purple"
-                Tag="car" />
+                Fill="Purple" />
 
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/3.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-10}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Purple"
-                Tag="car" />
+                Fill="Purple" />
 
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/4.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-50}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Purple"
-                Tag="car" />
+                Fill="Purple" />
 
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/5.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-100}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Purple"
-                Tag="car" />
+                Fill="Purple" />
 
-            <GameObject
+            <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/6.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}"
-                Fill="Purple"
-                Tag="car" />
+                Fill="Purple" />
 
             <!--  Trucks  -->
-            <GameObject
+            <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}"
-                Fill="Purple"
-                Tag="truck" />
+                Fill="Purple" />
 
-            <GameObject
+            <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}"
-                Fill="Purple"
-                Tag="truck" />
+                Fill="Purple" />
 
-            <GameObject
+            <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}"
-                Fill="Purple"
-                Tag="truck" />
+                Fill="Purple" />
 
             <!--  Player  -->
             <GameObject

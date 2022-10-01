@@ -33,7 +33,7 @@ namespace FuryRoad
         #region Fields
 
         PeriodicTimer gameTimer;
-        List<GameObject> itemRemover = new List<GameObject>();
+        List<GameObject> removableObjects = new List<GameObject>();
 
         Random rand = new Random();
 
@@ -42,16 +42,16 @@ namespace FuryRoad
 
         Rect playerHitBox;
 
-        int speed = 15;
+        int gameSpeed = 15;
         int playerSpeed = 8;
         int carNum;
-        int starCounter = 30;
+        int powerUpCounter = 30;
         int powerModeCounter = 1000;
 
         double score;
         //double i;
 
-        bool moveLeft, moveRight, gameOver, powerMode;
+        bool moveLeft, moveRight, isGameOver, isPowerMode;
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace FuryRoad
             myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             myCanvas.Height = Window.Current.Bounds.Height;
 
-            gameOver = true;
+            isGameOver = true;
 
             this.SizeChanged += MainPage_SizeChanged;
         }
@@ -79,19 +79,21 @@ namespace FuryRoad
 
         #region Methods
 
+        #region Game Start, Run, Loop, Over
+
         private void StartGame()
         {
-            gameOver = false;
+            isGameOver = false;
             Console.WriteLine("GAME STARTED");
 
-            speed = 8; // set speed to 8
+            gameSpeed = 8; // set speed to 8
             RunGame();
 
             // set all of the boolean to false
             moveLeft = false;
             moveRight = false;
-            gameOver = false;
-            powerMode = false;
+            isGameOver = false;
+            isPowerMode = false;
 
             // set score to 0
             score = 0;
@@ -139,7 +141,7 @@ namespace FuryRoad
                         break;
                     case "star":
                         {
-                            itemRemover.Add(x);
+                            removableObjects.Add(x);
                         }
                         break;
                     default:
@@ -147,7 +149,7 @@ namespace FuryRoad
                 }
             }
 
-            itemRemover.Clear();
+            removableObjects.Clear();
         }
 
         public async void RunGame()
@@ -164,7 +166,7 @@ namespace FuryRoad
         {
             score += .05; // increase the score by .5 each tick of the timer
 
-            starCounter -= 1; // reduce 1 from the star counter each tick
+            powerUpCounter -= 1; // reduce 1 from the star counter each tick
 
             scoreText.Text = "Survived " + score.ToString("#.#") + " Seconds"; // this line will show the seconds passed in decimal numbers in the score text label
 
@@ -181,10 +183,10 @@ namespace FuryRoad
             }
 
             // if the star counter integer goes below 1 then we run the make star function and also generate a random number inside of the star counter integer
-            if (starCounter < 1)
+            if (powerUpCounter < 1)
             {
-                MakeStar();
-                starCounter = rand.Next(600, 900);
+                SpawnStar();
+                powerUpCounter = rand.Next(600, 900);
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
@@ -220,11 +222,11 @@ namespace FuryRoad
                 }
             }
 
-            if (gameOver)
+            if (isGameOver)
                 return;
 
             // if the power mode is true
-            if (powerMode == true)
+            if (isPowerMode == true)
             {
                 powerModeCounter -= 1; // reduce 1 from the power mode counter 
 
@@ -235,7 +237,7 @@ namespace FuryRoad
                 if (powerModeCounter < 1)
                 {
                     // set power mode to false
-                    powerMode = false;
+                    isPowerMode = false;
                 }
             }
             else
@@ -244,7 +246,7 @@ namespace FuryRoad
                 myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
             }
 
-            foreach (GameObject y in itemRemover)
+            foreach (GameObject y in removableObjects)
             {
                 myCanvas.Children.Remove(y);
             }
@@ -254,42 +256,57 @@ namespace FuryRoad
 
             if (score >= 10 && score < 20)
             {
-                speed = 10;
+                gameSpeed = 10;
             }
 
             if (score >= 20 && score < 30)
             {
-                speed = 12;
+                gameSpeed = 12;
             }
             if (score >= 30 && score < 40)
             {
-                speed = 14;
+                gameSpeed = 14;
             }
             if (score >= 40 && score < 50)
             {
-                speed = 16;
+                gameSpeed = 16;
             }
             if (score >= 50 && score < 80)
             {
-                speed = 18;
+                gameSpeed = 18;
             }
             if (score >= 80 && score < 100)
             {
-                speed = 20;
+                gameSpeed = 20;
             }
             if (score >= 100 && score < 130)
             {
-                speed = 22;
+                gameSpeed = 22;
             }
             if (score >= 130 && score < 150)
             {
-                speed = 24;
+                gameSpeed = 24;
             }
             if (score >= 150 && score < 180)
             {
-                speed = 26;
+                gameSpeed = 26;
             }
         }
+
+        private void GameOver()
+        {
+            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
+            player.Fill = playerImage;
+
+            // if the power is OFF and car and the player collide then
+            gameTimer.Dispose(); // stop the game timer
+            scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
+            isGameOver = true; // set game over boolean to true           
+        } 
+
+        #endregion
+
+        #region Update Game Objects
 
         private void UpdateStar(GameObject gameObject)
         {
@@ -303,10 +320,10 @@ namespace FuryRoad
             if (playerHitBox.IntersectsWith(starHitBox))
             {
                 // add the star to the item remover list
-                itemRemover.Add(gameObject);
+                removableObjects.Add(gameObject);
 
                 // set power mode to true
-                powerMode = true;
+                isPowerMode = true;
 
                 // set power mode counter to 200
                 powerModeCounter = 200;
@@ -314,7 +331,7 @@ namespace FuryRoad
             // if the star goes beyon (int)myCanvas.Height pixels then add it to the item remover list
             if (Canvas.GetTop(gameObject) > myCanvas.Height)
             {
-                itemRemover.Add(gameObject);
+                removableObjects.Add(gameObject);
             }
         }
 
@@ -334,7 +351,7 @@ namespace FuryRoad
             if (playerHitBox.IntersectsWith(tructHitBox))
             {
                 // if the player hit box and the car hit box collide and the power mode is ON
-                if (powerMode)
+                if (isPowerMode)
                 {
                     ChangeTrucks(gameObject); // run the change cars function with the cars rectangle X inside of it
                 }
@@ -361,7 +378,7 @@ namespace FuryRoad
             if (playerHitBox.IntersectsWith(carHitBox))
             {
                 // if the player hit box and the car hit box collide and the power mode is ON
-                if (powerMode)
+                if (isPowerMode)
                 {
                     // run the change cars function with the cars rectangle X inside of it
                     ChangeCars(gameObject);
@@ -376,7 +393,7 @@ namespace FuryRoad
         private void UpdateRoadMark(GameObject gameObject)
         {
             // if we find any of the rectangles with the road marks tag on it then 
-            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + speed); // move it down using the speed variable
+            Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + gameSpeed); // move it down using the speed variable
 
             // if the road marks goes below the screen then move it back up top of the screen
             if (Canvas.GetTop(gameObject) > myCanvas.Height)
@@ -385,16 +402,9 @@ namespace FuryRoad
             }
         }
 
-        private void GameOver()
-        {
-            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
-            player.Fill = playerImage;
+        #endregion
 
-            // if the power is OFF and car and the player collide then
-            gameTimer.Dispose(); // stop the game timer
-            scoreText.Text += " Press Enter to replay"; // add this text to the existing text on the label
-            gameOver = true; // set game over boolean to true           
-        }
+        #region Change Game Objects
 
         private void ChangeCars(GameObject car)
         {
@@ -429,8 +439,8 @@ namespace FuryRoad
             }
 
             car.Fill = carImage; // assign the chosen car image to the car rectangle
-            car.Speed = speed - rand.Next(0, 7);
-            SetRandomPostion(car);
+            car.Speed = gameSpeed - rand.Next(0, 7);
+            SetRandomVehiclePostion(car);
         }
 
         private void ChangeRoadMark(GameObject roadMark)
@@ -487,11 +497,13 @@ namespace FuryRoad
             }
 
             truck.Fill = truckImage; // assign the chosen car image to the car rectangle
-            truck.Speed = speed - rand.Next(0, 5);
-            SetRandomPostion(truck);
+            truck.Speed = gameSpeed - rand.Next(0, 5);
+            SetRandomVehiclePostion(truck);
         }
 
-        private void SetRandomPostion(GameObject car)
+        #endregion
+
+        private void SetRandomVehiclePostion(GameObject car)
         {
             var top = (rand.Next(100, (int)myCanvas.Height) * -1);
             Canvas.SetTop(car, top);
@@ -499,13 +511,6 @@ namespace FuryRoad
             // set a random top and left position for the traffic car
             var left = rand.Next(0, (int)(myCanvas.Width - 55));
             Canvas.SetLeft(car, left);
-
-            Rect carHitBox = car.GetHitBox();
-
-            if (myCanvas.Children.OfType<GameObject>().Where(x => (string)x.Tag == "car" || (string)x.Tag == "truck").Any(c => c.GetHitBox().IntersectsWith(carHitBox)))
-            {
-                //SetRandomPostion(car);
-            }
         }
 
         private void PowerUp()
@@ -542,7 +547,7 @@ namespace FuryRoad
             myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
-        private void MakeStar()
+        private void SpawnStar()
         {
             // this is the make star function
             // this function will create a rectangle, assign the star image to and place it on the canvas
@@ -571,7 +576,7 @@ namespace FuryRoad
 
         private void myCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if (gameOver)
+            if (isGameOver)
             {
                 myCanvas.Focus(FocusState.Programmatic);
 
@@ -609,7 +614,7 @@ namespace FuryRoad
             }
 
             // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
-            if (e.Key == VirtualKey.Enter && gameOver == true)
+            if (e.Key == VirtualKey.Enter && isGameOver == true)
             {
                 // if both of these conditions are true then we will run the start game function
                 StartGame();
