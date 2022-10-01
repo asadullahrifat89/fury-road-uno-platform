@@ -42,7 +42,7 @@ namespace FuryRoad
 
         public static Rect GetHitBox(this GameObject rectangle)
         {
-            return new Rect(Canvas.GetLeft(rectangle), Canvas.GetTop(rectangle), rectangle.Width, rectangle.Height);
+            return new Rect(Canvas.GetLeft(rectangle) + 5, Canvas.GetTop(rectangle) + 5, rectangle.Width - 5, rectangle.Height - 5);
         }
 
         public static Rect GetDistantHitBox(this GameObject rectangle)
