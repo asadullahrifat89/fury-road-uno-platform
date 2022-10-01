@@ -445,36 +445,7 @@ namespace FuryRoad
         #region Powerups
 
         private void PowerUp()
-        {
-            // this is the power up function, this function will run when the player collects the star in the game
-
-            //i += .5; // increase i by .5 
-
-            // if i is greater than 4 then reset i back to 1
-            //if (i > 4)
-            //{
-            //    i = 1;
-            //}
-
-            // with each increment of the i we will change the player image to one of the 4 images below
-
-            //switch (i)
-            //{
-            //    case 1:
-            //        playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/powermode1.png"));
-            //        break;
-            //    case 2:
-            //        playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/powermode2.png"));
-            //        break;
-            //    case 3:
-            //        playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/powermode3.png"));
-            //        break;
-            //    case 4:
-            //        playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/powermode4.png"));
-            //        break;
-            //}
-
-            // change the background to light coral colour
+        {           
             myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
