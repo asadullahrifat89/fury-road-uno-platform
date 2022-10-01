@@ -38,7 +38,7 @@ namespace FuryRoad
         Random rand = new Random();
 
         ImageBrush playerImage = new ImageBrush();
-        ImageBrush starImage = new ImageBrush();
+        ImageBrush powerUpImage = new ImageBrush();
 
         Rect playerHitBox;
 
@@ -103,7 +103,7 @@ namespace FuryRoad
 
             // set up the player image and the star image from the images folder
             playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-            starImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
+            powerUpImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
 
             // assign the player image to the player rectangle from the canvas
             player.Fill = playerImage;
@@ -119,7 +119,7 @@ namespace FuryRoad
                 switch (tag)
                 {
                     // if we find any rectangle with the car tag on it then we will
-                    case "car":
+                    case Constants.CAR_TAG:
                         {
                             // set a random location to their top and left position
                             Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
@@ -129,7 +129,7 @@ namespace FuryRoad
                             ChangeCars(x);
                         }
                         break;
-                    case "truck":
+                    case Constants.TRUCK_TAG:
                         {
                             // set a random location to their top and left position
                             Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
@@ -139,7 +139,7 @@ namespace FuryRoad
                             ChangeTrucks(x);
                         }
                         break;
-                    case "star":
+                    case Constants.POWERUP_TAG:
                         {
                             removableObjects.Add(x);
                         }
@@ -185,7 +185,7 @@ namespace FuryRoad
             // if the star counter integer goes below 1 then we run the make star function and also generate a random number inside of the star counter integer
             if (powerUpCounter < 1)
             {
-                SpawnStar();
+                SpawnPowerUp();
                 powerUpCounter = rand.Next(600, 900);
             }
 
@@ -197,24 +197,24 @@ namespace FuryRoad
 
                 switch (tag)
                 {
-                    case "roadMarks":
+                    case Constants.ROADMARK_TAG:
                         {
                             UpdateRoadMark(gameObject);
                         }
                         break;
-                    case "car":
+                    case Constants.CAR_TAG:
                         {
                             UpdateCar(gameObject);
                         }
                         break;
-                    case "truck":
+                    case Constants.TRUCK_TAG:
                         {
                             UpdateTruck(gameObject);
                         }
                         break;
-                    case "star":
+                    case Constants.POWERUP_TAG:
                         {
-                            UpdateStar(gameObject);
+                            UpdatePowerUp(gameObject);
                         }
                         break;
                     default:
@@ -308,7 +308,7 @@ namespace FuryRoad
 
         #region Update Game Objects
 
-        private void UpdateStar(GameObject gameObject)
+        private void UpdatePowerUp(GameObject gameObject)
         {
             // move it down the screen 5 pixels at a time
             Canvas.SetTop(gameObject, Canvas.GetTop(gameObject) + 5);
@@ -547,18 +547,17 @@ namespace FuryRoad
             myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
-        private void SpawnStar()
+        private void SpawnPowerUp()
         {
             // this is the make star function
             // this function will create a rectangle, assign the star image to and place it on the canvas
 
             // creating a new star rectangle with its own properties inside of it
-            GameObject newStar = new GameObject
+            PowerUp newStar = new PowerUp
             {
                 Height = 50,
-                Width = 50,
-                Tag = "star",
-                Fill = starImage
+                Width = 50,                
+                Fill = powerUpImage
             };
 
             // set a random left and top position for the star
@@ -567,7 +566,6 @@ namespace FuryRoad
 
             // finally add the new star to the canvas to be animated and to interact with the player
             myCanvas.Children.Add(newStar);
-
         }
 
         #endregion
