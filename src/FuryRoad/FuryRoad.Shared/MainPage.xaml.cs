@@ -237,7 +237,7 @@ namespace FuryRoad
 
         #endregion
 
-        #region Update Game Objects
+        #region Player
 
         private void UpdatePlayer()
         {
@@ -251,25 +251,46 @@ namespace FuryRoad
             }
         }
 
-        private void UpdatePowerUp(GameObject powerUp)
+        #endregion
+
+        #region Road Marks
+
+        private void UpdateRoadMark(GameObject roadMark)
         {
-            // move it down the screen 5 pixels at a time
-            Canvas.SetTop(powerUp, Canvas.GetTop(powerUp) + 5);
+            Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
 
-            Rect starHitBox = powerUp.GetHitBox();
-
-            if (playerHitBox.IntersectsWith(starHitBox))
+            if (Canvas.GetTop(roadMark) > myCanvas.Height)
             {
-                removableObjects.Add(powerUp);
-                isPowerMode = true;
-                powerModeCounter = 200;
-            }
-
-            if (Canvas.GetTop(powerUp) > myCanvas.Height)
-            {
-                removableObjects.Add(powerUp);
+                RandomizeRoadMark(roadMark);
             }
         }
+
+        private void RandomizeRoadMark(GameObject roadMark)
+        {
+            carNum = rand.Next(1, 4);
+
+            ImageBrush carImage = new ImageBrush();
+
+            switch (carNum)
+            {
+                case 1:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+                    break;
+                case 2:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+                    break;
+                case 3:
+                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+                    break;
+            }
+
+            roadMark.Fill = carImage;
+            Canvas.SetTop(roadMark, -152);
+        }
+
+        #endregion
+
+        #region Vehicles
 
         private void UpdateVehicle(GameObject vehicle)
         {
@@ -306,65 +327,20 @@ namespace FuryRoad
 
             // if vechicle will collide with another vehicle
             if (myCanvas.Children.OfType<GameObject>()
-                                      .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
-                                      .FirstOrDefault(v => v.GetDistantHitBox()
-                                      .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
+                .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
+                .LastOrDefault(v => v.GetDistantHitBox()
+                .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
             {
                 if (vehicle.Speed > collidingVehicle.Speed)
                 {
                     vehicle.Speed = collidingVehicle.Speed;
                 }
-                //else if(collidingVehicle.Speed == vehicle.Speed)
-                //{
-
-                //}
                 else
                 {
                     collidingVehicle.Speed = vehicle.Speed;
                 }
             }
         }
-
-        private void UpdateRoadMark(GameObject roadMark)
-        {
-            Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
-
-            if (Canvas.GetTop(roadMark) > myCanvas.Height)
-            {
-                RandomizeRoadMark(roadMark);
-            }
-        }
-
-        #endregion
-
-        #region Road Marks
-
-        private void RandomizeRoadMark(GameObject roadMark)
-        {
-            carNum = rand.Next(1, 4);
-
-            ImageBrush carImage = new ImageBrush();
-
-            switch (carNum)
-            {
-                case 1:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
-                    break;
-                case 2:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
-                    break;
-                case 3:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
-                    break;
-            }
-
-            roadMark.Fill = carImage;
-            Canvas.SetTop(roadMark, -152);
-        }
-
-        #endregion
-
-        #region Vehicles
 
         private void RandomizeCar(GameObject car)
         {
@@ -444,8 +420,28 @@ namespace FuryRoad
 
         #region Powerups
 
+        private void UpdatePowerUp(GameObject powerUp)
+        {
+            // move it down the screen 5 pixels at a time
+            Canvas.SetTop(powerUp, Canvas.GetTop(powerUp) + 5);
+
+            Rect starHitBox = powerUp.GetHitBox();
+
+            if (playerHitBox.IntersectsWith(starHitBox))
+            {
+                removableObjects.Add(powerUp);
+                isPowerMode = true;
+                powerModeCounter = 200;
+            }
+
+            if (Canvas.GetTop(powerUp) > myCanvas.Height)
+            {
+                removableObjects.Add(powerUp);
+            }
+        }
+
         private void PowerUp()
-        {           
+        {
             myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
