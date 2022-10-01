@@ -15,9 +15,6 @@ using Windows.System;
 
 namespace FuryRoad
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         #region Fields
@@ -38,11 +35,14 @@ namespace FuryRoad
         int powerUpCounter = 30;
         int powerModeCounter = 1000;
         double lanes = 0;
+        List<(double, double)> lanePoints;
 
         double score;
         //double i;
 
         bool moveLeft, moveRight, isGameOver, isPowerMode;
+
+        TimeSpan frameTime;
 
         #endregion
 
@@ -52,12 +52,12 @@ namespace FuryRoad
         {
             this.InitializeComponent();
 
-            AdjustView();
-
             isGameOver = true;
+            frameTime = TimeSpan.FromMilliseconds(20);
 
+            AdjustView();
             this.SizeChanged += MainPage_SizeChanged;
-        }     
+        }
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
         {
@@ -143,7 +143,7 @@ namespace FuryRoad
 
         public async void RunGame()
         {
-            gameTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(18));
+            gameTimer = new PeriodicTimer(frameTime);
 
             while (await gameTimer.WaitForNextTickAsync())
             {
@@ -533,7 +533,22 @@ namespace FuryRoad
             myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             myCanvas.Height = Window.Current.Bounds.Height;
             lanes = myCanvas.Width / 200;
-        } 
+
+            Console.WriteLine($"ROAD SIZE {myCanvas.Width}x{myCanvas.Height}");
+
+            if (lanePoints is null)
+                lanePoints = new List<(double, double)>();
+            else
+                lanePoints.Clear();
+
+            for (int i = 1; i <= lanes; i++)
+            {
+                lanePoints.Add((i * 200, (i + 1) * 200));
+            }
+
+            Console.WriteLine($"{lanes} LANES");
+            Console.WriteLine($"LANES POINTS: {(string.Join(',', lanePoints))}");
+        }
 
         #endregion
 
