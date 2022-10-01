@@ -116,7 +116,7 @@ namespace FuryRoad
                             Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
 
                             // run the change cars function
-                            ChangeCars(x);
+                            RandomizeCar(x);
                         }
                         break;
                     case Constants.TRUCK_TAG:
@@ -126,7 +126,7 @@ namespace FuryRoad
                             Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
 
                             // run the change cars function
-                            ChangeTrucks(x);
+                            RandomizeTruck(x);
                         }
                         break;
                     case Constants.POWERUP_TAG:
@@ -240,43 +240,7 @@ namespace FuryRoad
             // below are the score and speed configurations for the game
             // as you progress in the game you will score higher and traffic speed will go up
 
-            if (score >= 10 && score < 20)
-            {
-                gameSpeed = 10;
-            }
-
-            if (score >= 20 && score < 30)
-            {
-                gameSpeed = 12;
-            }
-            if (score >= 30 && score < 40)
-            {
-                gameSpeed = 14;
-            }
-            if (score >= 40 && score < 50)
-            {
-                gameSpeed = 16;
-            }
-            if (score >= 50 && score < 80)
-            {
-                gameSpeed = 18;
-            }
-            if (score >= 80 && score < 100)
-            {
-                gameSpeed = 20;
-            }
-            if (score >= 100 && score < 130)
-            {
-                gameSpeed = 22;
-            }
-            if (score >= 130 && score < 150)
-            {
-                gameSpeed = 24;
-            }
-            if (score >= 150 && score < 180)
-            {
-                gameSpeed = 26;
-            }
+            ScaleDifficulty();
         }
 
         private void GameOver()
@@ -328,9 +292,9 @@ namespace FuryRoad
             if (Canvas.GetTop(vehicle) > myCanvas.Height)
             {
                 if ((string)vehicle.Tag == Constants.TRUCK_TAG)
-                    ChangeTrucks(vehicle);
+                    RandomizeTruck(vehicle);
                 else
-                    ChangeCars(vehicle);
+                    RandomizeCar(vehicle);
             }
 
             // create a new rect called car hit box and assign it to the x which is the cars rectangle
@@ -342,9 +306,9 @@ namespace FuryRoad
                 if (isPowerMode)
                 {
                     if ((string)vehicle.Tag == Constants.TRUCK_TAG)
-                        ChangeTrucks(vehicle); // run the change cars function with the cars rectangle X inside of it
+                        RandomizeTruck(vehicle); // run the change cars function with the cars rectangle X inside of it
                     else
-                        ChangeCars(vehicle); // run the change cars function with the cars rectangle X inside of it
+                        RandomizeCar(vehicle); // run the change cars function with the cars rectangle X inside of it
                 }
                 else
                 {
@@ -374,7 +338,7 @@ namespace FuryRoad
             // if the road marks goes below the screen then move it back up top of the screen
             if (Canvas.GetTop(roadMark) > myCanvas.Height)
             {
-                ChangeRoadMark(roadMark);
+                RandomizeRoadMark(roadMark);
             }
         }
 
@@ -382,7 +346,7 @@ namespace FuryRoad
 
         #region Change Game Objects
 
-        private void ChangeCars(GameObject car)
+        private void RandomizeCar(GameObject car)
         {
             // we want the game to change the traffic car images as they leave the scene and come back to it again
 
@@ -419,7 +383,7 @@ namespace FuryRoad
             SetRandomVehiclePostion(car);
         }
 
-        private void ChangeRoadMark(GameObject roadMark)
+        private void RandomizeRoadMark(GameObject roadMark)
         {
             // we want the game to change the traffic car images as they leave the scene and come back to it again
 
@@ -446,7 +410,7 @@ namespace FuryRoad
             Canvas.SetTop(roadMark, -152);
         }
 
-        private void ChangeTrucks(GameObject truck)
+        private void RandomizeTruck(GameObject truck)
         {
             // we want the game to change the traffic car images as they leave the scene and come back to it again
 
@@ -479,15 +443,21 @@ namespace FuryRoad
 
         #endregion
 
-        private void SetRandomVehiclePostion(GameObject car)
+        #region Vehicle
+
+        private void SetRandomVehiclePostion(GameObject vehicle)
         {
             var top = (rand.Next(100, (int)myCanvas.Height) * -1);
-            Canvas.SetTop(car, top);
+            Canvas.SetTop(vehicle, top);
 
             // set a random top and left position for the traffic car
             var left = rand.Next(0, (int)(myCanvas.Width - 55));
-            Canvas.SetLeft(car, left);
-        }
+            Canvas.SetLeft(vehicle, left);
+        } 
+
+        #endregion
+
+        #region Powerups
 
         private void PowerUp()
         {
@@ -543,6 +513,53 @@ namespace FuryRoad
             // finally add the new star to the canvas to be animated and to interact with the player
             myCanvas.Children.Add(newStar);
         }
+
+        #endregion
+
+        #region Game Difficulty
+
+        private void ScaleDifficulty()
+        {
+            if (score >= 10 && score < 20)
+            {
+                gameSpeed = 10;
+            }
+
+            if (score >= 20 && score < 30)
+            {
+                gameSpeed = 12;
+            }
+            if (score >= 30 && score < 40)
+            {
+                gameSpeed = 14;
+            }
+            if (score >= 40 && score < 50)
+            {
+                gameSpeed = 16;
+            }
+            if (score >= 50 && score < 80)
+            {
+                gameSpeed = 18;
+            }
+            if (score >= 80 && score < 100)
+            {
+                gameSpeed = 20;
+            }
+            if (score >= 100 && score < 130)
+            {
+                gameSpeed = 22;
+            }
+            if (score >= 130 && score < 150)
+            {
+                gameSpeed = 24;
+            }
+            if (score >= 150 && score < 180)
+            {
+                gameSpeed = 26;
+            }
+        } 
+
+        #endregion
 
         #endregion
 

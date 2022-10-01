@@ -69,65 +69,56 @@
                 Canvas.Left="{x:Bind Path=myCanvas.Width/1.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Blue" />
+                Height="{StaticResource CarHeight}" />
 
             <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/2.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-250}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Purple" />
+                Height="{StaticResource CarHeight}" />
 
             <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/3.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-10}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Purple" />
+                Height="{StaticResource CarHeight}" />
 
             <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/4.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-50}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Purple" />
+                Height="{StaticResource CarHeight}" />
 
             <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/5.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-100}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Purple" />
+                Height="{StaticResource CarHeight}" />
 
             <Car
                 Canvas.Left="{x:Bind Path=myCanvas.Width/6.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Purple" />
+                Height="{StaticResource CarHeight}" />
 
             <!--  Trucks  -->
             <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
-                Height="{StaticResource TruckHeight}"
-                Fill="Purple" />
+                Height="{StaticResource TruckHeight}" />
 
             <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
-                Height="{StaticResource TruckHeight}"
-                Fill="Purple" />
+                Height="{StaticResource TruckHeight}" />
 
             <Truck
                 Canvas.Left="{x:Bind Path=myCanvas.Width/7.5}"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-150}"
                 Width="{StaticResource TruckWidth}"
-                Height="{StaticResource TruckHeight}"
-                Fill="Purple" />
+                Height="{StaticResource TruckHeight}" />
 
             <!--  Player  -->
             <GameObject
@@ -135,8 +126,7 @@
                 Canvas.Left="222"
                 Canvas.Top="{x:Bind Path=myCanvas.Height-250, Mode=OneWay}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}"
-                Fill="Yellow" />
+                Height="{StaticResource CarHeight}" />
         </Canvas>
 
         <TextBlock
