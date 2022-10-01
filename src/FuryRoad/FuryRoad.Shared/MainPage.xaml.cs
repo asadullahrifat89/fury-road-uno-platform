@@ -33,22 +33,16 @@ namespace FuryRoad
         int playerSpeed = 6;
         int carNum;
         int powerUpCounter = 30;
-        int powerModeCounter = 1000;
-        int lastColumn;
-        int lastRow;
+        int powerModeCounter = 1000;      
 
         double columns = 0;
-        double rows = 0;       
-
-        List<(double Start, double End)> columnPoints;
-        List<(double Start, double End)> rowPoints;
-
+        double rows = 0;
+      
         double score;
-        //double i;
 
         bool moveLeft, moveRight, isGameOver, isPowerMode;
 
-        TimeSpan frameTime;
+        TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
         #endregion
 
@@ -58,8 +52,7 @@ namespace FuryRoad
         {
             this.InitializeComponent();
 
-            isGameOver = true;
-            frameTime = TimeSpan.FromMilliseconds(20);
+            isGameOver = true;            
 
             AdjustView();
             this.SizeChanged += MainPage_SizeChanged;
@@ -292,9 +285,7 @@ namespace FuryRoad
                     RandomizeCar(vehicle);
             }
 
-            Rect tructHitBox = vehicle.GetHitBox();
-
-            if (playerHitBox.IntersectsWith(tructHitBox))
+            if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
             {
                 if (isPowerMode)
                 {
@@ -311,7 +302,7 @@ namespace FuryRoad
             else if (myCanvas.Children.OfType<GameObject>()
                                       .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
                                       .FirstOrDefault(v => v.GetDistantHitBox()
-                                      .IntersectsWith(tructHitBox)) is GameObject collidingVehicle)
+                                      .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
             {
                 if (collidingVehicle.Speed < vehicle.Speed)
                 {
@@ -429,50 +420,14 @@ namespace FuryRoad
 
         private void SetRandomVehiclePostion(GameObject vehicle)
         {
-            var top = (rand.Next(100, (int)myCanvas.Height) * -1);
-
-            Canvas.SetTop(vehicle, top);
-
-            int colNum = GetColumnNumber();
-
-            var column = columnPoints.ToArray()[colNum];
-
-            var rem = colNum % 2;
-
-            bool isEven = false;
-
-            if (rem == 0)
-                isEven = true;
-
-            if (column.End > myCanvas.Width - 55)
-                column.End = myCanvas.Width - 55;
-
-            var left = rand.Next((int)column.Start + (isEven ? 20 : 20 * -1), (int)column.End - (isEven ? 20 : 20 * -1));
-
-            var hitBox = new Rect(left - 50, top - 50, vehicle.Width + 50, vehicle.Height + 50);
+            // set a random top and left position for the traffic car
+            Canvas.SetTop(vehicle, (rand.Next(100, (int)myCanvas.Height) * -1));
+            Canvas.SetLeft(vehicle, rand.Next(0, (int)myCanvas.Width - 50));
 
             //if (myCanvas.Children.OfType<GameObject>().Where(x => x is Car or Truck).Any(y => y.GetDistantHitBox().IntersectsWith(hitBox)))
             //{
 
             //}
-            //else
-            //{
-            Canvas.SetLeft(vehicle, left);
-            //}
-        }
-
-        private int GetColumnNumber()
-        {
-            int laneSeq = rand.Next(0, columnPoints.Count);
-
-            if (laneSeq == lastColumn)
-            {
-                GetColumnNumber();
-            }
-
-            lastColumn = laneSeq;
-
-            return laneSeq;
         }
 
         #endregion
@@ -579,46 +534,13 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            myCanvas.Width = Window.Current.Bounds.Width > 500 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
+            myCanvas.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             myCanvas.Height = Window.Current.Bounds.Height;
 
             columns = myCanvas.Width / 200;
             rows = myCanvas.Height / 240;
 
             Console.WriteLine($"ROAD SIZE {myCanvas.Width}x{myCanvas.Height}");
-
-            if (columnPoints is null)
-                columnPoints = new List<(double Start, double End)>();
-            else
-                columnPoints.Clear();
-
-            if (rowPoints is null)
-                rowPoints = new List<(double Start, double End)>();
-            else
-                rowPoints.Clear();
-
-            for (int i = 0; i < (int)columns; i++)
-            {
-                var start = i * 200;
-                var end = (i + 1) * 200;
-
-                if (end <= myCanvas.Width)
-                    columnPoints.Add((Start: start, End: end));
-            }
-
-            for (int i = 0; i < (int)rows; i++)
-            {
-                var start = i * 240;
-                var end = (i + 1) * 240;
-
-                if (end <= myCanvas.Height)
-                    rowPoints.Add((Start: start, End: end));
-            }
-
-            Console.WriteLine($"{columns} COLUMNS");
-            Console.WriteLine($"{rows} ROWS");
-            Console.WriteLine($"COLUMN POINTS: {(string.Join(',', columnPoints))}");
-            Console.WriteLine($"ROW POINTS: {(string.Join(',', rowPoints))}");
         }
 
         #endregion
