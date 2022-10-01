@@ -35,7 +35,7 @@ namespace FuryRoad
         int powerUpCounter = 30;
         int powerModeCounter = 1000;
         double lanes = 0;
-        List<(double, double)> lanePoints;
+        List<(double Start, double End)> lanePoints;
 
         double score;
         //double i;
@@ -274,8 +274,10 @@ namespace FuryRoad
 
         private void UpdateVehicle(GameObject vehicle)
         {
+            // move down vehicle
             Canvas.SetTop(vehicle, Canvas.GetTop(vehicle) + vehicle.Speed);
 
+            // if vechicle goes out of bounds
             if (Canvas.GetTop(vehicle) > myCanvas.Height)
             {
                 if ((string)vehicle.Tag == Constants.TRUCK_TAG)
@@ -422,7 +424,9 @@ namespace FuryRoad
             var top = (rand.Next(100, (int)myCanvas.Height) * -1);
             Canvas.SetTop(vehicle, top);
 
-            var left = rand.Next(0, (int)(myCanvas.Width - 55));
+            var lane = lanePoints.ToArray()[rand.Next(0, lanePoints.Count)];
+
+            var left = rand.Next((int)lane.Start, (int)lane.End);
             Canvas.SetLeft(vehicle, left);
         }
 
@@ -537,13 +541,17 @@ namespace FuryRoad
             Console.WriteLine($"ROAD SIZE {myCanvas.Width}x{myCanvas.Height}");
 
             if (lanePoints is null)
-                lanePoints = new List<(double, double)>();
+                lanePoints = new List<(double Start, double End)>();
             else
                 lanePoints.Clear();
 
             for (int i = 1; i <= lanes; i++)
             {
-                lanePoints.Add((i * 200, (i + 1) * 200));
+                var start = i * 200;
+                var end = (i + 1) * 200;
+
+                if (end <= myCanvas.Width - 55)
+                    lanePoints.Add((Start: start, End: end));
             }
 
             Console.WriteLine($"{lanes} LANES");
