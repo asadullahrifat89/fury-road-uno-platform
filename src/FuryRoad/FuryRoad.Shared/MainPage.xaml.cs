@@ -361,12 +361,19 @@ namespace FuryRoad
         {
             RandomizeRoadMark(roadMark);
 
+            roadMark.Width = RoadMarkWidth;
+            roadMark.Height = RoadMarkHeight;
+
             Canvas.SetTop(roadMark, ((roadMark.Height * 2) * -1));
         }
 
         private void RecyleRoadSide(GameObject roadSide)
         {
             RandomizeRoadSide(roadSide);
+
+            //roadSide.Width = RoadSideWidth;
+            //roadSide.Height = RoadSideHeight;
+
             Canvas.SetTop(roadSide, (roadSide.Height * -1));
         }
 
@@ -660,6 +667,21 @@ namespace FuryRoad
 
             RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
             RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
+
+            RoadMarkWidth = RoadMarkWidth * scale; RoadMarkHeight = RoadMarkHeight * scale;
+            RoadSideWidth = RoadSideWidth * scale; RoadSideHeight = RoadSideHeight * scale;
+
+            this.Resources["RoadMarkWidth"] = RoadMarkWidth;
+            this.Resources["RoadMarkHeight"] = RoadMarkHeight;
+
+            this.Resources["RoadSideWidth"] = RoadSideWidth;
+            this.Resources["RoadSideHeight"] = RoadSideHeight;
+
+            Console.WriteLine($"ROAD MARK WIDTH {this.Resources["RoadMarkWidth"]}");
+            Console.WriteLine($"ROAD MARK HEIGHT {this.Resources["RoadMarkHeight"]}");
+
+            Console.WriteLine($"ROAD SIDE WIDTH {this.Resources["RoadSideWidth"]}");
+            Console.WriteLine($"ROAD SIDE HEIGHT {this.Resources["RoadSideHeight"]}");
         }
 
         public double GetGameObjectScale()
