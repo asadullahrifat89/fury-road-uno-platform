@@ -49,6 +49,8 @@ namespace FuryRoad
         double RoadSideWidth;
         double RoadSideHeight;
 
+        double HighWayDividerWidth;
+
         bool moveLeft, moveRight, isGameOver, isPowerMode, isGamePaused;
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
@@ -707,6 +709,13 @@ namespace FuryRoad
 
             player.Width = CarWidth;
             player.Height = CarHeight;
+
+            HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
+            HighWayDividerWidth = HighWayDividerWidth * scale;
+            Console.WriteLine($"HIGHWAY DIVIDER WIDTH {HighWayDividerWidth}");
+
+            highWayDivider.Width = HighWayDividerWidth;
+            Canvas.SetLeft(highWayDivider, (RoadView.Width / 2) - (highWayDivider.Width / 2));
         }
 
         public double GetGameObjectScale()
