@@ -33,7 +33,7 @@ namespace FuryRoad
         int playerSpeed = 6;
         int carNum;
         int powerUpCounter = 30;
-        int powerModeCounter = 2000;
+        int powerModeCounter = 10000;
 
         double score;
 
@@ -102,7 +102,7 @@ namespace FuryRoad
             player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
 
             // set the default background colour to gray
-            RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+            RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             player.Width = CarWidth;
             player.Height = CarHeight;
@@ -217,15 +217,15 @@ namespace FuryRoad
 
                 if (powerModeCounter < 1)
                 {
-                    isPowerMode = false;
+                    PowerDown();
                 }
             }
-            else
-            {
-                //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
-                RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
-            }
-        }
+            //else
+            //{
+            //    //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
+            //    RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
+            //}
+        }      
 
         private void GameViewLoop()
         {
@@ -410,10 +410,10 @@ namespace FuryRoad
             {
                 if (isPowerMode)
                 {
-                    if ((string)vehicle.Tag == Constants.TRUCK_TAG)
-                        RecyleTruck(vehicle);
-                    else
-                        RecyleCar(vehicle);
+                    //if ((string)vehicle.Tag == Constants.TRUCK_TAG)
+                    //    RecyleTruck(vehicle);
+                    //else
+                    //    RecyleCar(vehicle);
                 }
                 else
                 {
@@ -519,7 +519,7 @@ namespace FuryRoad
 
         #endregion
 
-        #region Powerups
+        #region Power Ups
 
         private void UpdatePowerUp(GameObject powerUp)
         {
@@ -542,6 +542,15 @@ namespace FuryRoad
         private void PowerUp()
         {
             RoadView.Background = new SolidColorBrush(Colors.Goldenrod);
+            player.Opacity = 0.7d;
+        }
+
+        private void PowerDown()
+        {
+            isPowerMode = false;
+            player.Opacity = 1;
+
+            RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
         }
 
         private void SpawnPowerUp()
@@ -688,6 +697,11 @@ namespace FuryRoad
                         break;
                 }
             }
+
+            highWayLeftSide.Width = RoadSideWidth;
+            highWayRightSide.Width = RoadSideWidth;
+
+            Canvas.SetLeft(highWayRightSide, RoadView.Width - RoadSideWidth);
 
             foreach (var x in RoadView.Children.OfType<GameObject>())
             {

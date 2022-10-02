@@ -11,7 +11,6 @@
                 <!--  Add resource dictionaries here  -->
             </ResourceDictionary.MergedDictionaries>
             <!--  Add resources here  -->
-            <SolidColorBrush x:Key="RoadBackgroundColor" Color="#365985" />
         </ResourceDictionary>
     </Application.Resources>
 

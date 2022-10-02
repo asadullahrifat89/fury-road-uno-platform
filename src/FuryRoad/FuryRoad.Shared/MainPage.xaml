@@ -24,6 +24,8 @@
             <system:Double x:Key="TruckHeight">220</system:Double>
 
             <system:Double x:Key="HighWayDividerWidth">25</system:Double>
+
+            <SolidColorBrush x:Key="RoadBackgroundColor" Color="#365985" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -42,9 +44,13 @@
                 Canvas.Left="{x:Bind Path=((RoadView.Width/2)-(25/2)), Mode=OneWay}"
                 Width="{StaticResource HighWayDividerWidth}"
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
-                Background="#d9a93a" />
+                Background="#d9a93a"
+                BorderBrush="DarkGoldenrod"
+                BorderThickness="4,0" />
 
+            <!--  High way left side border  -->
             <Border
+                x:Name="highWayLeftSide"
                 Canvas.Left="0"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
@@ -52,16 +58,18 @@
                 BorderBrush="#0e123f"
                 BorderThickness="0,0,4,0" />
 
+            <!--  High way right side border  -->
             <Border
+                x:Name="highWayRightSide"
                 Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
                 Background="#acb8c4"
                 BorderBrush="#0e123f"
-                BorderThickness="0,0,4,0" />
+                BorderThickness="4,0,0,0" />
 
             <!--  Road sides: Left  -->
-            <RoadSide
+            <!--<RoadSide
                 Canvas.Left="0"
                 Canvas.Top="{x:Bind Path=228*-1}"
                 Width="{StaticResource RoadSideWidth}"
@@ -90,11 +98,11 @@
                 Canvas.Left="0"
                 Canvas.Top="{x:Bind Path=228*4}"
                 Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
+                Height="{StaticResource RoadSideHeight}" />-->
 
 
             <!--  Road sides: Right  -->
-            <RoadSide
+            <!--<RoadSide
                 Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=228*-1}"
                 Width="{StaticResource RoadSideWidth}"
@@ -123,7 +131,7 @@
                 Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=228*4}"
                 Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
+                Height="{StaticResource RoadSideHeight}" />-->
 
             <!--  Road marks: Left  -->
             <RoadMark
