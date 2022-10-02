@@ -39,7 +39,7 @@ namespace FuryRoad
 
         double score;
 
-        bool moveLeft, moveRight, isGameOver, isPowerMode;
+        bool moveLeft, moveRight, isGameOver, isPowerMode, isGamePaused;
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
@@ -101,7 +101,7 @@ namespace FuryRoad
             scoreText.Text = "Survived: 0 Seconds";
 
             // assign the player image to the player rectangle from the canvas
-            player.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
+            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
 
             // set the default background colour to gray
             RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
@@ -152,13 +152,13 @@ namespace FuryRoad
             gameViewRemovableObjects.Clear();
         }
 
-        public void RunGame()
+        private void RunGame()
         {
             RunGameView();
             RunRoadView();
         }
 
-        public async void RunGameView()
+        private async void RunGameView()
         {
             gameViewTimer = new PeriodicTimer(frameTime);
 
@@ -168,7 +168,7 @@ namespace FuryRoad
             }
         }
 
-        public async void RunRoadView()
+        private async void RunRoadView()
         {
             roadViewTimer = new PeriodicTimer(frameTime);
 
@@ -218,7 +218,7 @@ namespace FuryRoad
             }
             else
             {
-                //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
+                //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
                 RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
             }
         }
@@ -278,7 +278,7 @@ namespace FuryRoad
 
         private void GameOver()
         {
-            player.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
+            player.SetContent(new Uri("ms-appx:///Assets/Images/player-crashed.png"));
 
             gameViewTimer.Dispose();
             roadViewTimer.Dispose();
@@ -334,13 +334,13 @@ namespace FuryRoad
             switch (carNum)
             {
                 case 1:
-                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash1.png"));
                     break;
                 case 2:
-                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash2.png"));
                     break;
                 case 3:
-                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash3.png"));
                     break;
             }
 
@@ -349,6 +349,7 @@ namespace FuryRoad
 
         private void RecyleRoadSide(GameObject roadSide)
         {
+            roadSide.SetContent(new Uri("ms-appx:///Assets/Images/road-side.png"));
             Canvas.SetTop(roadSide, roadSide.Height * -1);
         }
 
@@ -415,22 +416,22 @@ namespace FuryRoad
             switch (carNum)
             {
                 case 1:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car1.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car1.png"));
                     break;
                 case 2:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car2.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car2.png"));
                     break;
                 case 3:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car3.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car3.png"));
                     break;
                 case 4:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car4.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car4.png"));
                     break;
                 case 5:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car5.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car5.png"));
                     break;
                 case 6:
-                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car6.png"));
+                    car.SetContent(new Uri("ms-appx:///Assets/Images/car6.png"));
                     break;
             }
 
@@ -446,16 +447,16 @@ namespace FuryRoad
             switch (carNum)
             {
                 case 1:
-                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
+                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck1.png"));
                     break;
                 case 2:
-                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
+                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck2.png"));
                     break;
                 case 3:
-                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
+                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck3.png"));
                     break;
                 case 4:
-                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
+                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck4.png"));
                     break;
             }
 
@@ -513,7 +514,7 @@ namespace FuryRoad
                 Width = 50,
             };
 
-            newStar.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
+            newStar.SetContent(new Uri("ms-appx:///Assets/Images/star.png"));
 
             Canvas.SetLeft(newStar, rand.Next(0, (int)(GameView.Width - 55)));
             Canvas.SetTop(newStar, (rand.Next(100, (int)GameView.Height) * -1));
@@ -601,6 +602,20 @@ namespace FuryRoad
                 GameView.Focus(FocusState.Programmatic);
 
                 StartGame();
+            }
+            else
+            {
+                if (isGamePaused)
+                {
+                    RunGame();
+                    isGamePaused = false;
+                }
+                else
+                {
+                    gameViewTimer.Dispose();
+                    roadViewTimer.Dispose();
+                    isGamePaused = true;
+                }                
             }
         }
 

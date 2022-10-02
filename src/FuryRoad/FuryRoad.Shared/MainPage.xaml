@@ -27,12 +27,14 @@
 
     <Grid>
 
+        <!--  Road view  -->
         <Canvas
             x:Name="RoadView"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="{StaticResource RoadBackgroundColor}">
 
+            <!--  High way border  -->
             <Border
                 Canvas.Left="{x:Bind Path=RoadView.Width/2, Mode=OneWay}"
                 Width="25"
@@ -70,7 +72,7 @@
                 Canvas.Top="{x:Bind Path=228*4}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
+            <!--<RoadSide
                 Canvas.Left="0"
                 Canvas.Top="{x:Bind Path=228*5}"
                 Width="{StaticResource RoadSideWidth}"
@@ -84,7 +86,7 @@
                 Canvas.Left="0"
                 Canvas.Top="{x:Bind Path=228*7}"
                 Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
+                Height="{StaticResource RoadSideHeight}" />-->
 
             <!--  Road marks: Left  -->
             <RoadMark
@@ -182,6 +184,7 @@
 
         </Canvas>
 
+        <!--  Game view  -->
         <Canvas
             x:Name="GameView"
             HorizontalAlignment="Stretch"

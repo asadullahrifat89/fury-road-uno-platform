@@ -11,7 +11,6 @@ namespace FuryRoad
         public RoadMark()
         {
             Tag = Constants.ROADMARK_TAG;
-            Child = new Image() { Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png")), Stretch = Stretch.Fill };
         }
     }
 
@@ -20,7 +19,6 @@ namespace FuryRoad
         public RoadSide()
         {
             Tag = Constants.ROADSIDE_TAG;
-            Child = new Image() { Source = new BitmapImage(new Uri("ms-appx:///Assets/road-side.png")), Stretch = Stretch.Fill };
         }
     }
 }

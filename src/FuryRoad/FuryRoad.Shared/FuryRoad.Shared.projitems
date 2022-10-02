@@ -47,26 +47,26 @@
 		 explicitly included in the projitem, so files can be added from vscode
 		 without manipulating the projitem file.
 	-->
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\player-crashed.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\road-side.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\truck1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\truck2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car4.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\player.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\redtruck.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\star.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\truck3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\whitemicro.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car5.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\truck4.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\car6.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player-crashed.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-side.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-dash.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-dash1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-dash2.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-dash3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car2.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck2.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car4.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\redtruck.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\whitemicro.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car5.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck4.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car6.png" />
     <_Globbled_Page Include="$(MSBuildThisFileDirectory)**/*.xaml" Exclude="@(Page);@(ApplicationDefinition)">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -86,5 +86,8 @@
     <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
     <!-- Make sure XAML files force reevaluation of up-to-date checks -->
     <UpToDateCheckInput Include="$(MSBuildThisFileDirectory)**/*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Assets\Images\" />
   </ItemGroup>
 </Project>
