@@ -245,7 +245,7 @@ namespace FuryRoad
             if (powerUpCounter < 1)
             {
                 SpawnPowerUp();
-                powerUpCounter = rand.Next(600, 900);
+                powerUpCounter = rand.Next(500, 800);
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
