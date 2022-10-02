@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using Windows.Foundation;
@@ -43,7 +44,7 @@ namespace FuryRoad
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
-        double roadSideSpawnGap;
+        int _accelerationCounter;
 
         #endregion
 
@@ -83,7 +84,7 @@ namespace FuryRoad
         #region Game Start, Run, Loop, Over
 
         private void StartGame()
-        {            
+        {
             Console.WriteLine("GAME STARTED");
 
             gameSpeed = 8; // set speed to 8
@@ -237,7 +238,10 @@ namespace FuryRoad
 
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
 
-            UpdatePlayer();
+            if (moveLeft || moveRight)
+            {
+                UpdatePlayer();
+            }
 
             if (powerUpCounter < 1)
             {
@@ -297,13 +301,23 @@ namespace FuryRoad
 
         private void UpdatePlayer()
         {
-            if (moveLeft == true && Canvas.GetLeft(player) > 0)
+            var effectiveSpeed = _accelerationCounter >= playerSpeed ? playerSpeed : _accelerationCounter / 1.3;
+
+            // increase acceleration and stop when player speed is reached
+            if (_accelerationCounter <= playerSpeed)
+                _accelerationCounter++;
+
+            //Console.WriteLine("ACC:" + _accelerationCounter);
+
+            var left = Canvas.GetLeft(player);
+
+            if (moveLeft == true && left > 0)
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
+                Canvas.SetLeft(player, left - effectiveSpeed);
             }
-            if (moveRight == true && Canvas.GetLeft(player) + 55 < GameView.Width)
+            if (moveRight == true && left + 55 < GameView.Width)
             {
-                Canvas.SetLeft(player, Canvas.GetLeft(player) + playerSpeed);
+                Canvas.SetLeft(player, left + effectiveSpeed);
             }
         }
 
@@ -652,6 +666,8 @@ namespace FuryRoad
 
         private void OnKeyUP(object sender, KeyRoutedEventArgs e)
         {
+            _accelerationCounter = 0;
+
             // when the player releases the left or right key it will set the designated boolean to false
             if (e.Key == VirtualKey.Left)
             {
