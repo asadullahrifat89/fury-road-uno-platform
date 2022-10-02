@@ -17,8 +17,8 @@ namespace FuryRoad
         public GameObject()
         {
             //TODO: remove these
-            BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
-            BorderBrush = new SolidColorBrush(Colors.Black);
+            //BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
+            //BorderBrush = new SolidColorBrush(Colors.Black);
 
             //BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
             //BorderBrush = new SolidColorBrush(Colors.Transparent);
