@@ -71,14 +71,14 @@ namespace FuryRoad
             this.Unloaded += MainPage_Unloaded;
         }
 
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.SizeChanged -= MainPage_SizeChanged;
-        }
-
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.SizeChanged -= MainPage_SizeChanged;
         }
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
@@ -539,9 +539,7 @@ namespace FuryRoad
             // move it down the screen 5 pixels at a time
             Canvas.SetTop(powerUp, Canvas.GetTop(powerUp) + 5);
 
-            Rect starHitBox = powerUp.GetHitBox();
-
-            if (playerHitBox.IntersectsWith(starHitBox))
+            if (playerHitBox.IntersectsWith(powerUp.GetHitBox()))
             {
                 gameViewRemovableObjects.Add(powerUp);
                 isPowerMode = true;
@@ -561,10 +559,12 @@ namespace FuryRoad
 
         private void SpawnPowerUp()
         {
+            var scale = GetGameObjectScale();
+
             PowerUp newStar = new PowerUp
             {
-                Height = 50,
-                Width = 50,
+                Height = 50 * scale,
+                Width = 50 * scale,
             };
 
             newStar.SetContent(new Uri("ms-appx:///Assets/Images/star.png"));
@@ -650,17 +650,11 @@ namespace FuryRoad
             CarWidth = CarWidth * scale; CarHeight = CarHeight * scale;
             TruckWidth = TruckWidth * scale; TruckHeight = TruckHeight * scale;
 
-            this.Resources["CarWidth"] = CarWidth;
-            this.Resources["CarHeight"] = CarHeight;
+            Console.WriteLine($"CAR WIDTH {CarWidth}");
+            Console.WriteLine($"CAR HEIGHT {CarHeight}");
 
-            this.Resources["TruckWidth"] = TruckWidth;
-            this.Resources["TruckHeight"] = TruckHeight;
-
-            Console.WriteLine($"CAR WIDTH {this.Resources["CarWidth"]}");
-            Console.WriteLine($"CAR HEIGHT {this.Resources["CarHeight"]}");
-
-            Console.WriteLine($"TRUCK WIDTH {this.Resources["TruckWidth"]}");
-            Console.WriteLine($"TRUCK HEIGHT {this.Resources["TruckHeight"]}");
+            Console.WriteLine($"TRUCK WIDTH {TruckWidth}");
+            Console.WriteLine($"TRUCK HEIGHT {TruckHeight}");
 
             RoadMarkWidth = Convert.ToDouble(this.Resources["RoadMarkWidth"]);
             RoadMarkHeight = Convert.ToDouble(this.Resources["RoadMarkHeight"]);
@@ -671,17 +665,63 @@ namespace FuryRoad
             RoadMarkWidth = RoadMarkWidth * scale; RoadMarkHeight = RoadMarkHeight * scale;
             RoadSideWidth = RoadSideWidth * scale; RoadSideHeight = RoadSideHeight * scale;
 
-            this.Resources["RoadMarkWidth"] = RoadMarkWidth;
-            this.Resources["RoadMarkHeight"] = RoadMarkHeight;
+            Console.WriteLine($"ROAD MARK WIDTH {RoadMarkWidth}");
+            Console.WriteLine($"ROAD MARK HEIGHT {RoadMarkHeight}");
 
-            this.Resources["RoadSideWidth"] = RoadSideWidth;
-            this.Resources["RoadSideHeight"] = RoadSideHeight;
+            Console.WriteLine($"ROAD SIDE WIDTH {RoadSideWidth}");
+            Console.WriteLine($"ROAD SIDE HEIGHT {RoadSideHeight}");
 
-            Console.WriteLine($"ROAD MARK WIDTH {this.Resources["RoadMarkWidth"]}");
-            Console.WriteLine($"ROAD MARK HEIGHT {this.Resources["RoadMarkHeight"]}");
+            // run a initial foreach loop to set up the cars and remove any star in the game
+            foreach (var x in GameView.Children.OfType<GameObject>())
+            {
+                var tag = (string)x.Tag;
 
-            Console.WriteLine($"ROAD SIDE WIDTH {this.Resources["RoadSideWidth"]}");
-            Console.WriteLine($"ROAD SIDE HEIGHT {this.Resources["RoadSideHeight"]}");
+                switch (tag)
+                {
+                    // if we find any rectangle with the car tag on it then we will
+                    case Constants.CAR_TAG:
+                        {
+                            x.Height = CarHeight;
+                            x.Width = CarWidth;
+                        }
+                        break;
+                    case Constants.TRUCK_TAG:
+                        {
+                            x.Height = TruckHeight;
+                            x.Width = TruckWidth;
+                        }
+                        break;
+                    case Constants.POWERUP_TAG:
+                        {
+                            x.Width = 50 * scale;
+                            x.Height = 50 * scale;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (var x in RoadView.Children.OfType<GameObject>())
+            {
+                var tag = (string)x.Tag;
+
+                switch (tag)
+                {
+                    case Constants.ROADMARK_TAG:
+                        {
+                            x.Width = RoadMarkWidth;
+                            x.Height = RoadMarkHeight;
+                        }
+                        break;
+                    //case Constants.ROADSIDE_TAG: { RandomizeRoadSide(x); } break;
+                    default:
+                        break;
+                }
+            }
+
+            player.Width = CarWidth;
+            player.Height = CarHeight;
         }
 
         public double GetGameObjectScale()
@@ -697,11 +737,11 @@ namespace FuryRoad
                 case <= 900:
                     return 0.90;
                 case <= 1000:
-                    return 1;
+                    return 0.95;
                 case <= 1400:
-                    return 1.1;
+                    return 0.95;
                 case <= 2000:
-                    return 1.2;
+                    return 1;
                 default:
                     return 1;
             }
