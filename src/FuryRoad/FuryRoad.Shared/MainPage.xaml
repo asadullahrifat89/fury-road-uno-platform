@@ -250,17 +250,6 @@
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
 
-            <!--<Car
-                Canvas.Left="{x:Bind Path=GameView.Width/5.5}"
-                Canvas.Top="{x:Bind Path=GameView.Height-100}"
-                Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}" />
-
-            <Car
-                Canvas.Left="{x:Bind Path=GameView.Width/6.5}"
-                Canvas.Top="{x:Bind Path=GameView.Height-150}"
-                Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}" />-->
 
             <!--  Trucks  -->
             <Truck

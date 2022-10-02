@@ -35,10 +35,19 @@ namespace FuryRoad
         int powerUpCounter = 30;
         int powerModeCounter = 2000;
 
-        double columns = 0;
-        double rows = 0;
-
         double score;
+
+        double CarWidth;
+        double CarHeight;
+
+        double TruckWidth;
+        double TruckHeight;
+
+        double RoadMarkWidth;
+        double RoadMarkHeight;
+
+        double RoadSideWidth;
+        double RoadSideHeight;
 
         bool moveLeft, moveRight, isGameOver, isPowerMode, isGamePaused;
 
@@ -107,6 +116,9 @@ namespace FuryRoad
 
             // set the default background colour to gray
             RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+
+            player.Width = CarWidth;
+            player.Height = CarHeight;
 
             // run a initial foreach loop to set up the cars and remove any star in the game
             foreach (var x in GameView.Children.OfType<GameObject>())
@@ -463,6 +475,9 @@ namespace FuryRoad
                     break;
             }
 
+            car.Width = CarWidth;
+            car.Height = CarHeight;
+
             car.Speed = gameSpeed - rand.Next(0, 7);
 
             RandomizeVehiclePostion(car);
@@ -487,6 +502,9 @@ namespace FuryRoad
                     truck.SetContent(new Uri("ms-appx:///Assets/Images/truck4.png"));
                     break;
             }
+
+            truck.Width = TruckWidth;
+            truck.Height = TruckHeight;
 
             truck.Speed = gameSpeed - rand.Next(0, 5);
 
@@ -614,10 +632,57 @@ namespace FuryRoad
             GameView.Width = RoadView.Width - 40;
             GameView.Height = RoadView.Height;
 
-            columns = RoadView.Width / 200;
-            rows = RoadView.Height / 240;
+            var scale = GetGameObjectScale();
 
-            Console.WriteLine($"ROAD SIZE {RoadView.Width}x{RoadView.Height}");
+            CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
+            CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
+
+            TruckWidth = Convert.ToDouble(this.Resources["TruckWidth"]);
+            TruckHeight = Convert.ToDouble(this.Resources["TruckHeight"]);
+
+            CarWidth = CarWidth * scale; CarHeight = CarHeight * scale;
+            TruckWidth = TruckWidth * scale; TruckHeight = TruckHeight * scale;
+
+            this.Resources["CarWidth"] = CarWidth;
+            this.Resources["CarHeight"] = CarHeight;
+
+            this.Resources["TruckWidth"] = TruckWidth;
+            this.Resources["TruckHeight"] = TruckHeight;
+
+            Console.WriteLine($"CAR WIDTH {this.Resources["CarWidth"]}");
+            Console.WriteLine($"CAR HEIGHT {this.Resources["CarHeight"]}");
+
+            Console.WriteLine($"TRUCK WIDTH {this.Resources["TruckWidth"]}");
+            Console.WriteLine($"TRUCK HEIGHT {this.Resources["TruckHeight"]}");
+
+            RoadMarkWidth = Convert.ToDouble(this.Resources["RoadMarkWidth"]);
+            RoadMarkHeight = Convert.ToDouble(this.Resources["RoadMarkHeight"]);
+
+            RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
+            RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
+        }
+
+        public double GetGameObjectScale()
+        {
+            switch (GameView.Width)
+            {
+                case <= 300:
+                    return 0.70;
+                case <= 500:
+                    return 0.75;
+                case <= 700:
+                    return 0.85;
+                case <= 900:
+                    return 0.90;
+                case <= 1000:
+                    return 1;
+                case <= 1400:
+                    return 1.1;
+                case <= 2000:
+                    return 1.2;
+                default:
+                    return 1;
+            }
         }
 
         #endregion
