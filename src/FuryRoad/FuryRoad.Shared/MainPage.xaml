@@ -29,16 +29,14 @@
 
         <Canvas
             x:Name="RoadView"
-            Width="{x:Bind Path=GameView.Width}"
-            Height="{x:Bind Path=GameView.Height}"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="{StaticResource RoadBackgroundColor}">
 
             <Border
-                Canvas.Left="{x:Bind Path=GameView.Width/2, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2, Mode=OneWay}"
                 Width="25"
-                Height="{x:Bind Path=GameView.Height, Mode=OneWay}"
+                Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
                 Background="#d9a93a" />
 
             <!--  Road sides: Left  -->
@@ -90,95 +88,95 @@
 
             <!--  Road marks: Left  -->
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*-1}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*-1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*0}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*1}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*2}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*2}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*3}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*3}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*4}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*4}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*5}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*5}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*6}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*6}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*7}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
 
             <!--  Road marks: Right  -->
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*-1}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*-1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*0}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*1}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*2}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*2}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*3}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*3}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*4}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*4}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*5}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*5}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*6}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*6}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
-                Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=162*7}"
+                Canvas.Left="{x:Bind Path=RoadView.Width/2+RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
 
@@ -186,7 +184,7 @@
 
         <Canvas
             x:Name="GameView"
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent">
 
