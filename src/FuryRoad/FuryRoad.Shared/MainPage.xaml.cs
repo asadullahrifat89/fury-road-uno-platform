@@ -19,13 +19,12 @@ namespace FuryRoad
     {
         #region Fields
 
-        PeriodicTimer gameTimer;
-        List<GameObject> removableObjects = new List<GameObject>();
+        PeriodicTimer gameViewTimer;
+        PeriodicTimer roadViewTimer;
+
+        List<GameObject> gameViewRemovableObjects = new List<GameObject>();
 
         Random rand = new Random();
-
-        Image playerImage = new Image() { Stretch = Stretch.Fill };
-        Image powerUpImage = new Image() { Stretch = Stretch.Fill };
 
         Rect playerHitBox;
 
@@ -44,8 +43,6 @@ namespace FuryRoad
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
-        double roadSideHeight;
-
         #endregion
 
         #region Ctor
@@ -55,8 +52,6 @@ namespace FuryRoad
             this.InitializeComponent();
 
             isGameOver = true;
-
-            roadSideHeight = Convert.ToDouble(Application.Current.Resources["RoadSideHeight"]);
 
             AdjustView();
             this.SizeChanged += MainPage_SizeChanged;
@@ -93,15 +88,11 @@ namespace FuryRoad
             // set the score text to its default content
             scoreText.Text = "Survived: 0 Seconds";
 
-            // set up the player image and the star image from the images folder
-            playerImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-            powerUpImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
-
             // assign the player image to the player rectangle from the canvas
-            player.Child = playerImage;
+            player.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
 
             // set the default background colour to gray
-            GameView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+            RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             // run a initial foreach loop to set up the cars and remove any star in the game
             foreach (var x in GameView.Children.OfType<GameObject>())
@@ -133,7 +124,7 @@ namespace FuryRoad
                         break;
                     case Constants.POWERUP_TAG:
                         {
-                            removableObjects.Add(x);
+                            gameViewRemovableObjects.Add(x);
                         }
                         break;
                     default:
@@ -141,20 +132,81 @@ namespace FuryRoad
                 }
             }
 
-            removableObjects.Clear();
+            gameViewRemovableObjects.Clear();
         }
 
-        public async void RunGame()
+        public void RunGame()
         {
-            gameTimer = new PeriodicTimer(frameTime);
+            RunGameView();
+            RunRoadView();
+        }
 
-            while (await gameTimer.WaitForNextTickAsync())
+        public async void RunGameView()
+        {
+            gameViewTimer = new PeriodicTimer(frameTime);
+
+            while (await gameViewTimer.WaitForNextTickAsync())
             {
-                GameLoop();
+                GameViewLoop();
             }
         }
 
-        private void GameLoop()
+        public async void RunRoadView()
+        {
+            roadViewTimer = new PeriodicTimer(frameTime);
+
+            while (await roadViewTimer.WaitForNextTickAsync())
+            {
+                RoadViewLoop();
+            }
+        }
+
+        private void RoadViewLoop()
+        {
+            // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
+            foreach (var gameObject in RoadView.Children.OfType<GameObject>())
+            {
+                var tag = (string)gameObject.Tag;
+
+                switch (tag)
+                {
+                    case Constants.ROADMARK_TAG:
+                        {
+                            UpdateRoadMark(gameObject);
+                        }
+                        break;
+                    case Constants.ROADSIDE_TAG:
+                        {
+                            UpdateRoadSide(gameObject);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (isGameOver)
+                return;
+
+            if (isPowerMode == true)
+            {
+                powerModeCounter -= 1;
+
+                PowerUp();
+
+                if (powerModeCounter < 1)
+                {
+                    isPowerMode = false;
+                }
+            }
+            else
+            {
+                //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
+                RoadView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+            }
+        }
+
+        private void GameViewLoop()
         {
             score += .05; // increase the score by .5 each tick of the timer
 
@@ -208,24 +260,7 @@ namespace FuryRoad
             if (isGameOver)
                 return;
 
-            if (isPowerMode == true)
-            {
-                powerModeCounter -= 1;
-
-                PowerUp();
-
-                if (powerModeCounter < 1)
-                {
-                    isPowerMode = false;
-                }
-            }
-            else
-            {
-                //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-                GameView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
-            }
-
-            foreach (GameObject y in removableObjects)
+            foreach (GameObject y in gameViewRemovableObjects)
             {
                 GameView.Children.Remove(y);
             }
@@ -236,10 +271,11 @@ namespace FuryRoad
 
         private void GameOver()
         {
-            playerImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
-            player.Child = playerImage;
+            player.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
 
-            gameTimer.Dispose();
+            gameViewTimer.Dispose();
+            roadViewTimer.Dispose();
+
             scoreText.Text += " Press Enter to replay";
             isGameOver = true;
         }
@@ -268,7 +304,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
 
-            if (Canvas.GetTop(roadMark) > GameView.Height)
+            if (Canvas.GetTop(roadMark) > RoadView.Height)
             {
                 RandomizeRoadMark(roadMark);
             }
@@ -278,7 +314,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > GameView.Height)
+            if (Canvas.GetTop(roadSide) > RoadView.Height)
             {
                 RandomizeRoadSide(roadSide);
             }
@@ -288,47 +324,27 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 4);
 
-            Image carImage = new Image() { Stretch = Stretch.Fill };
-
             switch (carNum)
             {
                 case 1:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
                     break;
                 case 2:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
                     break;
                 case 3:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+                    roadMark.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
                     break;
             }
 
-            roadMark.Child = carImage;
             Canvas.SetTop(roadMark, -152);
         }
 
         private void RandomizeRoadSide(GameObject roadSide)
         {
-            //carNum = rand.Next(1, 4);
-
-            //Image carImage = new Image();
-
-            //switch (carNum)
-            //{
-            //    case 1:
-            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
-            //        break;
-            //    case 2:
-            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
-            //        break;
-            //    case 3:
-            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
-            //        break;
-            //}
-
-            //roadSide.Child = carImage;
             Canvas.SetTop(roadSide, -228);
         }
+
         #endregion
 
         #region Vehicles
@@ -366,53 +382,51 @@ namespace FuryRoad
             if (isGameOver)
                 return;
 
+            //TODO: this is expensive
             // if vechicle will collide with another vehicle
-            if (GameView.Children.OfType<GameObject>()
-                .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
-                .LastOrDefault(v => v.GetDistantHitBox()
-                .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
-            {
-                // slower vehicles will slow down faster vehicles
-                if (collidingVehicle.Speed > vehicle.Speed)
-                {
-                    vehicle.Speed = collidingVehicle.Speed;
-                }
-                else
-                {
-                    collidingVehicle.Speed = vehicle.Speed;
-                }
-            }
+            //if (GameView.Children.OfType<GameObject>()
+            //    .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
+            //    .LastOrDefault(v => v.GetDistantHitBox()
+            //    .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
+            //{
+            //    // slower vehicles will slow down faster vehicles
+            //    if (collidingVehicle.Speed > vehicle.Speed)
+            //    {
+            //        vehicle.Speed = collidingVehicle.Speed;
+            //    }
+            //    else
+            //    {
+            //        collidingVehicle.Speed = vehicle.Speed;
+            //    }
+            //}
         }
 
         private void RandomizeCar(GameObject car)
         {
             carNum = rand.Next(1, 6);
 
-            Image carImage = new Image() { Stretch = Stretch.Fill };
-
             switch (carNum)
             {
                 case 1:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car1.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car1.png"));
                     break;
                 case 2:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car2.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car2.png"));
                     break;
                 case 3:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car3.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car3.png"));
                     break;
                 case 4:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car4.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car4.png"));
                     break;
                 case 5:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car5.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car5.png"));
                     break;
                 case 6:
-                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car6.png"));
+                    car.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/car6.png"));
                     break;
             }
 
-            car.Child = carImage;
             car.Speed = gameSpeed - rand.Next(0, 7);
 
             SetRandomVehiclePostion(car);
@@ -422,25 +436,22 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 5);
 
-            Image truckImage = new Image() { Stretch = Stretch.Fill };
-
             switch (carNum)
             {
                 case 1:
-                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
+                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
                     break;
                 case 2:
-                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
+                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
                     break;
                 case 3:
-                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
+                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
                     break;
                 case 4:
-                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
+                    truck.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
                     break;
             }
 
-            truck.Child = truckImage;
             truck.Speed = gameSpeed - rand.Next(0, 5);
 
             SetRandomVehiclePostion(truck);
@@ -471,20 +482,20 @@ namespace FuryRoad
 
             if (playerHitBox.IntersectsWith(starHitBox))
             {
-                removableObjects.Add(powerUp);
+                gameViewRemovableObjects.Add(powerUp);
                 isPowerMode = true;
                 powerModeCounter = 200;
             }
 
             if (Canvas.GetTop(powerUp) > GameView.Height)
             {
-                removableObjects.Add(powerUp);
+                gameViewRemovableObjects.Add(powerUp);
             }
         }
 
         private void PowerUp()
         {
-            GameView.Background = new SolidColorBrush(Colors.Goldenrod);
+            RoadView.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
         private void SpawnPowerUp()
@@ -493,8 +504,9 @@ namespace FuryRoad
             {
                 Height = 50,
                 Width = 50,
-                Child = powerUpImage
             };
+
+            newStar.Content.Source = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
 
             Canvas.SetLeft(newStar, rand.Next(0, (int)(GameView.Width - 55)));
             Canvas.SetTop(newStar, (rand.Next(100, (int)GameView.Height) * -1));

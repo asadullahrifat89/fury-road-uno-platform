@@ -1,4 +1,6 @@
-﻿namespace FuryRoad
+﻿using Microsoft.UI.Xaml.Controls;
+
+namespace FuryRoad
 {
     public class Car : GameObject
     {

@@ -13,8 +13,11 @@ namespace FuryRoad
         public GameObject()
         {
             //TODO: remove these
-            BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
-            BorderBrush = new SolidColorBrush(Colors.Black);
+            //BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
+            //BorderBrush = new SolidColorBrush(Colors.Black);
+
+            Content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Fill };
+            Child = Content;
         }
 
         public double Speed { get; set; }
@@ -22,6 +25,8 @@ namespace FuryRoad
         public bool IsVehicle { get; set; }
 
         public bool IsRoadMark { get; set; }
+
+        public Image Content { get; set; }
     }
 }
 
