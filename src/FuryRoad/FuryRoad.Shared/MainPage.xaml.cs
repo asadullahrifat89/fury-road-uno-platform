@@ -71,21 +71,6 @@ namespace FuryRoad
             this.Unloaded += MainPage_Unloaded;
         }
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.SizeChanged += MainPage_SizeChanged;
-        }
-
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.SizeChanged -= MainPage_SizeChanged;
-        }
-
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
-        {
-            AdjustView();
-        }
-
         #endregion
 
         #region Methods
@@ -327,7 +312,7 @@ namespace FuryRoad
             {
                 Canvas.SetLeft(player, left - effectiveSpeed);
             }
-            if (moveRight == true && left + 55 < GameView.Width)
+            if (moveRight == true && left + player.Width < GameView.Width)
             {
                 Canvas.SetLeft(player, left + effectiveSpeed);
             }
@@ -633,13 +618,13 @@ namespace FuryRoad
             RoadView.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             RoadView.Height = Window.Current.Bounds.Height;
 
+            var scale = GetGameObjectScale();
+
             RoadView.Width = RoadView.Width - 50;
             RoadView.Height = RoadView.Height - 50;
 
-            GameView.Width = RoadView.Width - 40;
+            GameView.Width = RoadView.Width - 40 * scale;
             GameView.Height = RoadView.Height;
-
-            var scale = GetGameObjectScale();
 
             CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
             CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
@@ -726,7 +711,7 @@ namespace FuryRoad
 
         public double GetGameObjectScale()
         {
-            switch (GameView.Width)
+            switch (RoadView.Width)
             {
                 case <= 300:
                     return 0.70;
@@ -752,6 +737,21 @@ namespace FuryRoad
         #endregion
 
         #region Events
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.SizeChanged -= MainPage_SizeChanged;
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
+        {
+            AdjustView();
+        }
 
         private void GameView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
