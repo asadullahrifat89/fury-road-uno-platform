@@ -30,7 +30,7 @@
         <!--  Road view  -->
         <Canvas
             x:Name="RoadView"
-            HorizontalAlignment="Stretch"
+            HorizontalAlignment="Center"
             VerticalAlignment="Stretch"
             Background="{StaticResource RoadBackgroundColor}">
 
@@ -72,21 +72,38 @@
                 Canvas.Top="{x:Bind Path=228*4}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{StaticResource RoadSideHeight}" />
-            <!--<RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*5}"
+
+            <!--  Road sides: Right  -->
+            <RoadSide
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*-1}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{StaticResource RoadSideHeight}" />
             <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*6}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*0}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{StaticResource RoadSideHeight}" />
             <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*7}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*1}"
                 Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />-->
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*2}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*3}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=228*4}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
 
             <!--  Road marks: Left  -->
             <RoadMark
@@ -187,7 +204,7 @@
         <!--  Game view  -->
         <Canvas
             x:Name="GameView"
-            HorizontalAlignment="Stretch"
+            HorizontalAlignment="Center"
             VerticalAlignment="Stretch"
             Background="Transparent">
 
@@ -216,7 +233,7 @@
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
 
-            <Car
+            <!--<Car
                 Canvas.Left="{x:Bind Path=GameView.Width/5.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-100}"
                 Width="{StaticResource CarWidth}"
@@ -226,7 +243,7 @@
                 Canvas.Left="{x:Bind Path=GameView.Width/6.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-150}"
                 Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}" />
+                Height="{StaticResource CarHeight}" />-->
 
             <!--  Trucks  -->
             <Truck
@@ -263,7 +280,7 @@
             VerticalAlignment="Top"
             FontSize="18"
             FontWeight="Bold"
-            Text="Survived: 00 Seconds" />
+            Text="Score: 0" />
 
         <Border
             HorizontalAlignment="Stretch"

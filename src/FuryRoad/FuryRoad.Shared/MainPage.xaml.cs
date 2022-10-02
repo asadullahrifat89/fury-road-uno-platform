@@ -98,7 +98,7 @@ namespace FuryRoad
             score = 0;
 
             // set the score text to its default content
-            scoreText.Text = "Survived: 0 Seconds";
+            scoreText.Text = "Score: 0";
 
             // assign the player image to the player rectangle from the canvas
             player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
@@ -232,7 +232,7 @@ namespace FuryRoad
 
             powerUpCounter -= 1;
 
-            scoreText.Text = "Survived " + score.ToString("#.#") + " Seconds";
+            scoreText.Text = "Score: " + score.ToString("#");
 
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
 
@@ -314,7 +314,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
 
-            if (Canvas.GetTop(roadMark) > RoadView.Height)
+            if (Canvas.GetTop(roadMark) > RoadView.Height - gameSpeed)
             {
                 RecyleRoadMark(roadMark);
             }
@@ -324,7 +324,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > RoadView.Height)
+            if (Canvas.GetTop(roadSide) > RoadView.Height - gameSpeed)
             {
                 RecyleRoadSide(roadSide);
             }
@@ -334,7 +334,13 @@ namespace FuryRoad
         {
             RandomizeRoadMark(roadMark);
 
-            Canvas.SetTop(roadMark, (roadMark.Height * 2) * -1);
+            Canvas.SetTop(roadMark, ((roadMark.Height * 2) * -1));
+        }
+
+        private void RecyleRoadSide(GameObject roadSide)
+        {
+            RandomizeRoadSide(roadSide);
+            Canvas.SetTop(roadSide, (roadSide.Height * -1));
         }
 
         private void RandomizeRoadMark(GameObject roadMark)
@@ -353,12 +359,6 @@ namespace FuryRoad
                     roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash3.png"));
                     break;
             }
-        }
-
-        private void RecyleRoadSide(GameObject roadSide)
-        {
-            RandomizeRoadSide(roadSide);
-            Canvas.SetTop(roadSide, roadSide.Height * -1);
         }
 
         private void RandomizeRoadSide(GameObject roadSide)
@@ -593,7 +593,7 @@ namespace FuryRoad
             RoadView.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             RoadView.Height = Window.Current.Bounds.Height;
 
-            GameView.Width = RoadView.Width;
+            GameView.Width = RoadView.Width - 40;
             GameView.Height = RoadView.Height;
 
             columns = RoadView.Width / 200;
@@ -628,7 +628,7 @@ namespace FuryRoad
                     gameViewTimer.Dispose();
                     roadViewTimer.Dispose();
                     isGamePaused = true;
-                }                
+                }
             }
         }
 
