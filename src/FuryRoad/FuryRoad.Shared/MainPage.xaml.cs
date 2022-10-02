@@ -24,8 +24,8 @@ namespace FuryRoad
 
         Random rand = new Random();
 
-        ImageBrush playerImage = new ImageBrush();
-        ImageBrush powerUpImage = new ImageBrush();
+        Image playerImage = new Image();
+        Image powerUpImage = new Image();
 
         Rect playerHitBox;
 
@@ -90,11 +90,11 @@ namespace FuryRoad
             scoreText.Text = "Survived: 0 Seconds";
 
             // set up the player image and the star image from the images folder
-            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-            powerUpImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
+            playerImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
+            powerUpImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/star.png"));
 
             // assign the player image to the player rectangle from the canvas
-            player.Fill = playerImage;
+            player.Child = playerImage;
 
             // set the default background colour to gray
             myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
@@ -227,8 +227,8 @@ namespace FuryRoad
 
         private void GameOver()
         {
-            playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
-            player.Fill = playerImage;
+            playerImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/player-crashed.png"));
+            player.Child = playerImage;
 
             gameTimer.Dispose();
             scoreText.Text += " Press Enter to replay";
@@ -269,22 +269,22 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 4);
 
-            ImageBrush carImage = new ImageBrush();
+            Image carImage = new Image();
 
             switch (carNum)
             {
                 case 1:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
                     break;
                 case 2:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
                     break;
                 case 3:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
                     break;
             }
 
-            roadMark.Fill = carImage;
+            roadMark.Child = carImage;
             Canvas.SetTop(roadMark, -152);
         }
 
@@ -347,31 +347,31 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 6);
 
-            ImageBrush carImage = new ImageBrush();
+            Image carImage = new Image();
 
             switch (carNum)
             {
                 case 1:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car1.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car1.png"));
                     break;
                 case 2:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car2.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car2.png"));
                     break;
                 case 3:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car3.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car3.png"));
                     break;
                 case 4:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car4.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car4.png"));
                     break;
                 case 5:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car5.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car5.png"));
                     break;
                 case 6:
-                    carImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/car6.png"));
+                    carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/car6.png"));
                     break;
             }
 
-            car.Fill = carImage;
+            car.Child = carImage;
             car.Speed = gameSpeed - rand.Next(0, 7);
 
             SetRandomVehiclePostion(car);
@@ -381,25 +381,25 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 5);
 
-            ImageBrush truckImage = new ImageBrush();
+            Image truckImage = new Image();
 
             switch (carNum)
             {
                 case 1:
-                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
+                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck1.png"));
                     break;
                 case 2:
-                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
+                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck2.png"));
                     break;
                 case 3:
-                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
+                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck3.png"));
                     break;
                 case 4:
-                    truckImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
+                    truckImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/truck4.png"));
                     break;
             }
 
-            truck.Fill = truckImage;
+            truck.Child = truckImage;
             truck.Speed = gameSpeed - rand.Next(0, 5);
 
             SetRandomVehiclePostion(truck);
@@ -452,7 +452,7 @@ namespace FuryRoad
             {
                 Height = 50,
                 Width = 50,
-                Fill = powerUpImage
+                Child = powerUpImage
             };
 
             Canvas.SetLeft(newStar, rand.Next(0, (int)(myCanvas.Width - 55)));
