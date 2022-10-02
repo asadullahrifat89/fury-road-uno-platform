@@ -337,12 +337,12 @@ namespace FuryRoad
                     break;
             }
 
-            Canvas.SetTop(roadMark, -152);
+            Canvas.SetTop(roadMark, 0 - (roadMark.Height * 2));
         }
 
         private void RandomizeRoadSide(GameObject roadSide)
         {
-            Canvas.SetTop(roadSide, -228);
+            Canvas.SetTop(roadSide, 0 - roadSide.Height);
         }
 
         #endregion

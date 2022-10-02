@@ -91,94 +91,94 @@
             <!--  Road marks: Left  -->
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*-1}"
+                Canvas.Top="{x:Bind Path=162*-1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*0+10}"
+                Canvas.Top="{x:Bind Path=0}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*1+10}"
+                Canvas.Top="{x:Bind Path=162*1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*2+10}"
+                Canvas.Top="{x:Bind Path=162*2}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*3+10}"
+                Canvas.Top="{x:Bind Path=162*3}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*4+10}"
+                Canvas.Top="{x:Bind Path=162*4}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*5+10}"
+                Canvas.Top="{x:Bind Path=162*5}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*6+10}"
+                Canvas.Top="{x:Bind Path=162*6}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*7+10}"
+                Canvas.Top="{x:Bind Path=162*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
 
             <!--  Road marks: Right  -->
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*-1}"
+                Canvas.Top="{x:Bind Path=162*-1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*0+10}"
+                Canvas.Top="{x:Bind Path=0}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*1+10}"
+                Canvas.Top="{x:Bind Path=162*1}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*2+10}"
+                Canvas.Top="{x:Bind Path=162*2}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*3+10}"
+                Canvas.Top="{x:Bind Path=162*3}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*4+10}"
+                Canvas.Top="{x:Bind Path=162*4}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*5+10}"
+                Canvas.Top="{x:Bind Path=162*5}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*6+10}"
+                Canvas.Top="{x:Bind Path=162*6}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
             <RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2+GameView.Width/4, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=152*7+10}"
+                Canvas.Top="{x:Bind Path=162*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
 
