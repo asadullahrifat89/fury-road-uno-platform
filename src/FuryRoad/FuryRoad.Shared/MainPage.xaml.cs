@@ -116,21 +116,11 @@ namespace FuryRoad
                     // if we find any rectangle with the car tag on it then we will
                     case Constants.CAR_TAG:
                         {
-                            //// set a random location to their top and left position
-                            //Canvas.SetTop(x, (rand.Next(100, (int)GameView.Height) * -1));
-                            //Canvas.SetLeft(x, rand.Next(0, (int)(GameView.Width - 55)));
-
-                            // run the change cars function
                             RecyleCar(x);
                         }
                         break;
                     case Constants.TRUCK_TAG:
                         {
-                            //// set a random location to their top and left position
-                            //Canvas.SetTop(x, (rand.Next(100, (int)GameView.Height) * -1));
-                            //Canvas.SetLeft(x, rand.Next(0, (int)(GameView.Width - 55)));
-
-                            // run the change cars function
                             RecyleTruck(x);
                         }
                         break;
@@ -139,6 +129,19 @@ namespace FuryRoad
                             gameViewRemovableObjects.Add(x);
                         }
                         break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (var x in RoadView.Children.OfType<GameObject>())
+            {
+                var tag = (string)x.Tag;
+
+                switch (tag)
+                {
+                    case Constants.ROADMARK_TAG: { RandomizeRoadMark(x); } break;
+                    case Constants.ROADSIDE_TAG: { RandomizeRoadSide(x); } break;
                     default:
                         break;
                 }
@@ -329,6 +332,13 @@ namespace FuryRoad
 
         private void RecyleRoadMark(GameObject roadMark)
         {
+            RandomizeRoadMark(roadMark);
+
+            Canvas.SetTop(roadMark, (roadMark.Height * 2) * -1);
+        }
+
+        private void RandomizeRoadMark(GameObject roadMark)
+        {
             carNum = rand.Next(1, 4);
 
             switch (carNum)
@@ -343,14 +353,17 @@ namespace FuryRoad
                     roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash3.png"));
                     break;
             }
-
-            Canvas.SetTop(roadMark, (roadMark.Height * 2) * -1);
         }
 
         private void RecyleRoadSide(GameObject roadSide)
         {
-            roadSide.SetContent(new Uri("ms-appx:///Assets/Images/road-side.png"));
+            RandomizeRoadSide(roadSide);
             Canvas.SetTop(roadSide, roadSide.Height * -1);
+        }
+
+        private void RandomizeRoadSide(GameObject roadSide)
+        {
+            roadSide.SetContent(new Uri("ms-appx:///Assets/Images/road-side.png"));
         }
 
         #endregion
