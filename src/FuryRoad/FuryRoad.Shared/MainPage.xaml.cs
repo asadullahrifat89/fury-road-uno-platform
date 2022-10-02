@@ -180,6 +180,11 @@ namespace FuryRoad
                             UpdateRoadMark(gameObject);
                         }
                         break;
+                    case Constants.ROADSIDE_TAG:
+                        {
+                            UpdateRoadSide(gameObject);
+                        }
+                        break;
                     case Constants.CAR_TAG:
                     case Constants.TRUCK_TAG:
                         {
@@ -265,6 +270,16 @@ namespace FuryRoad
             }
         }
 
+        private void UpdateRoadSide(GameObject roadSide)
+        {
+            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
+
+            if (Canvas.GetTop(roadSide) > myCanvas.Height)
+            {
+                RandomizeRoadSide(roadSide);
+            }
+        }
+
         private void RandomizeRoadMark(GameObject roadMark)
         {
             carNum = rand.Next(1, 4);
@@ -288,6 +303,28 @@ namespace FuryRoad
             Canvas.SetTop(roadMark, -152);
         }
 
+        private void RandomizeRoadSide(GameObject roadSide)
+        {
+            //carNum = rand.Next(1, 4);
+
+            //Image carImage = new Image();
+
+            //switch (carNum)
+            //{
+            //    case 1:
+            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash1.png"));
+            //        break;
+            //    case 2:
+            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash2.png"));
+            //        break;
+            //    case 3:
+            //        carImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/road-dash3.png"));
+            //        break;
+            //}
+
+            //roadSide.Child = carImage;
+            Canvas.SetTop(roadSide, -300);
+        }
         #endregion
 
         #region Vehicles

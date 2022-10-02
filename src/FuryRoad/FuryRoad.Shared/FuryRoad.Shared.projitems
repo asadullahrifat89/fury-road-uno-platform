@@ -49,6 +49,7 @@
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\car1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\player-crashed.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\road-side.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\road-dash2.png" />

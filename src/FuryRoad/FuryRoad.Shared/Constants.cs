@@ -10,5 +10,6 @@ namespace FuryRoad
         public const string TRUCK_TAG = "truck";
         public const string POWERUP_TAG = "star";
         public const string ROADMARK_TAG = "roadmark";
+        public const string ROADSIDE_TAG = "roadside";
     }
 }

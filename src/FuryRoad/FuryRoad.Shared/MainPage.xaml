@@ -13,8 +13,13 @@
         <ResourceDictionary>
             <system:Double x:Key="RoadMarkWidth">20</system:Double>
             <system:Double x:Key="RoadMarkHeight">60</system:Double>
+
+            <system:Double x:Key="RoadSideWidth">30</system:Double>
+            <system:Double x:Key="RoadSideHeight">230</system:Double>
+
             <system:Double x:Key="CarWidth">50</system:Double>
             <system:Double x:Key="CarHeight">95</system:Double>
+
             <system:Double x:Key="TruckWidth">65</system:Double>
             <system:Double x:Key="TruckHeight">220</system:Double>
         </ResourceDictionary>
@@ -33,6 +38,53 @@
                 Width="25"
                 Height="{x:Bind Path=myCanvas.Height, Mode=OneWay}"
                 Background="#d9a93a" />
+
+            <!--  Road sides: Left  -->
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="-230"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="0"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="230"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*2}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*3}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*4}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*5}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*6}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
+            <RoadSide
+                Canvas.Left="0"
+                Canvas.Top="{x:Bind Path=230*7}"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{StaticResource RoadSideHeight}" />
 
             <!--  Road marks: Left  -->
             <RoadMark
