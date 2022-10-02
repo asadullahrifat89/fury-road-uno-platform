@@ -43,6 +43,8 @@ namespace FuryRoad
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
+        double roadSideSpawnGap;
+
         #endregion
 
         #region Ctor
@@ -81,8 +83,7 @@ namespace FuryRoad
         #region Game Start, Run, Loop, Over
 
         private void StartGame()
-        {
-            isGameOver = false;
+        {            
             Console.WriteLine("GAME STARTED");
 
             gameSpeed = 8; // set speed to 8
@@ -314,7 +315,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
 
-            if (Canvas.GetTop(roadMark) > RoadView.Height - gameSpeed)
+            if (Canvas.GetTop(roadMark) > RoadView.Height)
             {
                 RecyleRoadMark(roadMark);
             }
@@ -324,7 +325,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > RoadView.Height - gameSpeed)
+            if (Canvas.GetTop(roadSide) > RoadView.Height)
             {
                 RecyleRoadSide(roadSide);
             }
@@ -592,6 +593,9 @@ namespace FuryRoad
         {
             RoadView.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
             RoadView.Height = Window.Current.Bounds.Height;
+
+            RoadView.Width = RoadView.Width - 50;
+            RoadView.Height = RoadView.Height - 50;
 
             GameView.Width = RoadView.Width - 40;
             GameView.Height = RoadView.Height;
