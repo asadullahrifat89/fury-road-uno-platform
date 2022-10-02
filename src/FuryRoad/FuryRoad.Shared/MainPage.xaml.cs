@@ -24,8 +24,8 @@ namespace FuryRoad
 
         Random rand = new Random();
 
-        Image playerImage = new Image();
-        Image powerUpImage = new Image();
+        Image playerImage = new Image() { Stretch = Stretch.Fill };
+        Image powerUpImage = new Image() { Stretch = Stretch.Fill };
 
         Rect playerHitBox;
 
@@ -44,6 +44,8 @@ namespace FuryRoad
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
+        double roadSideHeight;
+
         #endregion
 
         #region Ctor
@@ -53,6 +55,8 @@ namespace FuryRoad
             this.InitializeComponent();
 
             isGameOver = true;
+
+            roadSideHeight = Convert.ToDouble(Application.Current.Resources["RoadSideHeight"]);
 
             AdjustView();
             this.SizeChanged += MainPage_SizeChanged;
@@ -97,10 +101,10 @@ namespace FuryRoad
             player.Child = playerImage;
 
             // set the default background colour to gray
-            myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+            GameView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             // run a initial foreach loop to set up the cars and remove any star in the game
-            foreach (var x in myCanvas.Children.OfType<GameObject>())
+            foreach (var x in GameView.Children.OfType<GameObject>())
             {
                 var tag = (string)x.Tag;
 
@@ -110,8 +114,8 @@ namespace FuryRoad
                     case Constants.CAR_TAG:
                         {
                             // set a random location to their top and left position
-                            Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
-                            Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
+                            Canvas.SetTop(x, (rand.Next(100, (int)GameView.Height) * -1));
+                            Canvas.SetLeft(x, rand.Next(0, (int)(GameView.Width - 55)));
 
                             // run the change cars function
                             RandomizeCar(x);
@@ -120,8 +124,8 @@ namespace FuryRoad
                     case Constants.TRUCK_TAG:
                         {
                             // set a random location to their top and left position
-                            Canvas.SetTop(x, (rand.Next(100, (int)myCanvas.Height) * -1));
-                            Canvas.SetLeft(x, rand.Next(0, (int)(myCanvas.Width - 55)));
+                            Canvas.SetTop(x, (rand.Next(100, (int)GameView.Height) * -1));
+                            Canvas.SetLeft(x, rand.Next(0, (int)(GameView.Width - 55)));
 
                             // run the change cars function
                             RandomizeTruck(x);
@@ -169,7 +173,7 @@ namespace FuryRoad
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var gameObject in myCanvas.Children.OfType<GameObject>())
+            foreach (var gameObject in GameView.Children.OfType<GameObject>())
             {
                 var tag = (string)gameObject.Tag;
 
@@ -218,12 +222,12 @@ namespace FuryRoad
             else
             {
                 //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/player.png"));
-                myCanvas.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
+                GameView.Background = App.Current.Resources["RoadBackgroundColor"] as SolidColorBrush;
             }
 
             foreach (GameObject y in removableObjects)
             {
-                myCanvas.Children.Remove(y);
+                GameView.Children.Remove(y);
             }
 
             // as you progress in the game you will score higher and game speed will go up
@@ -250,7 +254,7 @@ namespace FuryRoad
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) - playerSpeed);
             }
-            if (moveRight == true && Canvas.GetLeft(player) + 55 < myCanvas.Width)
+            if (moveRight == true && Canvas.GetLeft(player) + 55 < GameView.Width)
             {
                 Canvas.SetLeft(player, Canvas.GetLeft(player) + playerSpeed);
             }
@@ -264,7 +268,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
 
-            if (Canvas.GetTop(roadMark) > myCanvas.Height)
+            if (Canvas.GetTop(roadMark) > GameView.Height)
             {
                 RandomizeRoadMark(roadMark);
             }
@@ -274,7 +278,7 @@ namespace FuryRoad
         {
             Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > myCanvas.Height)
+            if (Canvas.GetTop(roadSide) > GameView.Height)
             {
                 RandomizeRoadSide(roadSide);
             }
@@ -284,7 +288,7 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 4);
 
-            Image carImage = new Image();
+            Image carImage = new Image() { Stretch = Stretch.Fill };
 
             switch (carNum)
             {
@@ -323,7 +327,7 @@ namespace FuryRoad
             //}
 
             //roadSide.Child = carImage;
-            Canvas.SetTop(roadSide, -300);
+            Canvas.SetTop(roadSide, -228);
         }
         #endregion
 
@@ -335,7 +339,7 @@ namespace FuryRoad
             Canvas.SetTop(vehicle, Canvas.GetTop(vehicle) + vehicle.Speed);
 
             // if vechicle goes out of bounds
-            if (Canvas.GetTop(vehicle) > myCanvas.Height)
+            if (Canvas.GetTop(vehicle) > GameView.Height)
             {
                 if ((string)vehicle.Tag == Constants.TRUCK_TAG)
                     RandomizeTruck(vehicle);
@@ -363,7 +367,7 @@ namespace FuryRoad
                 return;
 
             // if vechicle will collide with another vehicle
-            if (myCanvas.Children.OfType<GameObject>()
+            if (GameView.Children.OfType<GameObject>()
                 .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
                 .LastOrDefault(v => v.GetDistantHitBox()
                 .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
@@ -384,7 +388,7 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 6);
 
-            Image carImage = new Image();
+            Image carImage = new Image() { Stretch = Stretch.Fill };
 
             switch (carNum)
             {
@@ -418,7 +422,7 @@ namespace FuryRoad
         {
             carNum = rand.Next(1, 5);
 
-            Image truckImage = new Image();
+            Image truckImage = new Image() { Stretch = Stretch.Fill };
 
             switch (carNum)
             {
@@ -445,10 +449,10 @@ namespace FuryRoad
         private void SetRandomVehiclePostion(GameObject vehicle)
         {
             // set a random top and left position for the traffic car
-            Canvas.SetTop(vehicle, (rand.Next(100, (int)myCanvas.Height) * -1));
-            Canvas.SetLeft(vehicle, rand.Next(0, (int)myCanvas.Width - 50));
+            Canvas.SetTop(vehicle, (rand.Next(100, (int)GameView.Height) * -1));
+            Canvas.SetLeft(vehicle, rand.Next(0, (int)GameView.Width - 50));
 
-            //if (myCanvas.Children.OfType<GameObject>().Where(x => x is Car or Truck).Any(y => y.GetDistantHitBox().IntersectsWith(hitBox)))
+            //if (GameView.Children.OfType<GameObject>().Where(x => x is Car or Truck).Any(y => y.GetDistantHitBox().IntersectsWith(hitBox)))
             //{
 
             //}
@@ -472,7 +476,7 @@ namespace FuryRoad
                 powerModeCounter = 200;
             }
 
-            if (Canvas.GetTop(powerUp) > myCanvas.Height)
+            if (Canvas.GetTop(powerUp) > GameView.Height)
             {
                 removableObjects.Add(powerUp);
             }
@@ -480,7 +484,7 @@ namespace FuryRoad
 
         private void PowerUp()
         {
-            myCanvas.Background = new SolidColorBrush(Colors.Goldenrod);
+            GameView.Background = new SolidColorBrush(Colors.Goldenrod);
         }
 
         private void SpawnPowerUp()
@@ -492,10 +496,10 @@ namespace FuryRoad
                 Child = powerUpImage
             };
 
-            Canvas.SetLeft(newStar, rand.Next(0, (int)(myCanvas.Width - 55)));
-            Canvas.SetTop(newStar, (rand.Next(100, (int)myCanvas.Height) * -1));
+            Canvas.SetLeft(newStar, rand.Next(0, (int)(GameView.Width - 55)));
+            Canvas.SetTop(newStar, (rand.Next(100, (int)GameView.Height) * -1));
 
-            myCanvas.Children.Add(newStar);
+            GameView.Children.Add(newStar);
         }
 
         #endregion
@@ -553,13 +557,13 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            myCanvas.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
-            myCanvas.Height = Window.Current.Bounds.Height;
+            GameView.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
+            GameView.Height = Window.Current.Bounds.Height;
 
-            columns = myCanvas.Width / 200;
-            rows = myCanvas.Height / 240;
+            columns = GameView.Width / 200;
+            rows = GameView.Height / 240;
 
-            Console.WriteLine($"ROAD SIZE {myCanvas.Width}x{myCanvas.Height}");
+            Console.WriteLine($"ROAD SIZE {GameView.Width}x{GameView.Height}");
         }
 
         #endregion
@@ -568,11 +572,11 @@ namespace FuryRoad
 
         #region Events
 
-        private void myCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void GameView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (isGameOver)
             {
-                myCanvas.Focus(FocusState.Programmatic);
+                GameView.Focus(FocusState.Programmatic);
 
                 StartGame();
             }
