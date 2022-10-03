@@ -406,7 +406,17 @@
             <!--#region Trees: Left-->
             <Tree
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="1000"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -426,7 +436,7 @@
             </Tree>
             <Tree
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="2000"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -436,7 +446,7 @@
             </Tree>
             <Tree
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="2500"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -448,7 +458,7 @@
 
             <!--#region Lamp Posts: Right-->
             <GameObject
-                Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=580*-1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
@@ -462,7 +472,7 @@
                 </GameObject.Child>
             </GameObject>
             <GameObject
-                Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=580*0}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
@@ -476,7 +486,7 @@
                 </GameObject.Child>
             </GameObject>
             <GameObject
-                Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=580*1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
@@ -490,7 +500,7 @@
                 </GameObject.Child>
             </GameObject>
             <GameObject
-                Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=580*2}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
@@ -508,7 +518,17 @@
             <!--#region Trees: Right-->
             <Tree
                 Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="1000"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -528,7 +548,7 @@
             </Tree>
             <Tree
                 Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="2000"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -538,7 +558,7 @@
             </Tree>
             <Tree
                 Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
-                Canvas.Top="1500"
+                Canvas.Top="2500"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
