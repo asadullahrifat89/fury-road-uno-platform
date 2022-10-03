@@ -1,10 +1,18 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
+using Frame = Microsoft.UI.Xaml.Controls.Frame;
+using Microsoft.UI.Xaml.Media;
+using Windows.UI.ViewManagement;
+#if DEBUG
+using Microsoft.Extensions.Logging;
+#endif
 
 namespace FuryRoad
 {
@@ -13,7 +21,17 @@ namespace FuryRoad
     /// </summary>
     public sealed partial class App : Application
     {
-        private Window _window;
+        #region Fields
+
+        private static Window _window;
+        private readonly SystemNavigationManager _systemNavigationManager;
+        private readonly List<Type> _goBackNotAllowedToPages;
+        private readonly List<(Type IfGoingBackTo, Type RouteTo)> _goBackPageRoutes;
+        private static string _baseUrl;
+
+        #endregion
+
+        #region Ctor
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -23,15 +41,64 @@ namespace FuryRoad
         {
             InitializeLogging();
 
-            this.InitializeComponent();
+            InitializeComponent();
+            Container = ConfigureDependencyInjection();
+
+            Uno.UI.ApplicationHelper.RequestedCustomTheme = "Dark";
 
 #if HAS_UNO || NETFX_CORE
-            this.Suspending += OnSuspending;
+            Suspending += OnSuspending;
 #endif
+            UnhandledException += App_UnhandledException;
+
+            Uno.UI.FeatureConfiguration.Page.IsPoolingEnabled = true;
+
+            _systemNavigationManager = SystemNavigationManager.GetForCurrentView();
+
+            //_goBackNotAllowedToPages = new List<Type>() { typeof(GamePlayPage) };
+            //_goBackPageRoutes = new List<(Type IfGoingBackTo, Type RouteTo)>() { (IfGoingBackTo: typeof(GameOverPage), RouteTo: typeof(GameStartPage)) };
+
+            //CurrentCulture = "en";
+        }
+
+        #endregion
+
+        #region Properties
+
+        public static IServiceProvider Container { get; set; }
+
+        //public static PlayerCredentials AuthCredentials { get; set; }
+
+        //public static GameProfile GameProfile { get; set; }
+
+        //public static AuthToken AuthToken { get; set; }
+
+        //public static PlayerScore PlayerScore { get; set; }
+
+        //public static bool GameScoreSubmissionPending { get; set; }
+
+        //public static PlayerShip Ship { get; set; }
+
+        //public static Session Session { get; set; }
+
+        //public static string CurrentCulture { get; set; }
+
+        //public static bool HasUserLoggedIn => GameProfile is not null && GameProfile.User is not null && !GameProfile.User.UserId.IsNullOrBlank() && !GameProfile.User.UserName.IsNullOrBlank();
+
+        #endregion
+
+        #region Events
+
+        private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+#if DEBUG
+            Console.WriteLine(e.Message);
+#endif
+            e.Handled = true;
         }
 
         /// <summary>
-        /// Invoked when the application is launched normally by the end user. Other entry points
+        /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
@@ -48,9 +115,8 @@ namespace FuryRoad
             _window = new Window();
             _window.Activate();
 #else
-            _window = Microsoft.UI.Xaml.Window.Current;
+            _window = Window.Current;
 #endif
-
             var rootFrame = _window.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -60,11 +126,14 @@ namespace FuryRoad
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
+                rootFrame.Background = App.Current.Resources["FrameBackgroundColor"] as SolidColorBrush; // App.Current.Resources["ApplicationPageBackgroundThemeBrush"] as SolidColorBrush;
+
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.IsNavigationStackEnabled = true;
 
                 if (args.UWPLaunchActivatedEventArgs.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-
+                    // TODO: App: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
@@ -80,10 +149,42 @@ namespace FuryRoad
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
+                    rootFrame.Navigate(typeof(GameStartPage), args.Arguments);
                 }
+
                 // Ensure the current window is active
                 _window.Activate();
+            }
+
+            _systemNavigationManager.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            _systemNavigationManager.BackRequested += OnBackRequested;
+        }
+
+        /// <summary>
+        /// Invoked when a going back navigation is requested.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            var rootFrame = _window.Content as Frame;
+
+            if (rootFrame.CanGoBack)
+            {
+                var backPage = rootFrame.BackStack.LastOrDefault();
+
+                if (_goBackNotAllowedToPages.Contains(backPage.SourcePageType))
+                    return;
+
+                if (_goBackPageRoutes.Any(x => x.IfGoingBackTo == backPage.SourcePageType))
+                {
+                    var reroute = _goBackPageRoutes.FirstOrDefault(x => x.IfGoingBackTo == backPage.SourcePageType).RouteTo;
+
+                    rootFrame.Navigate(reroute);
+                    return;
+                }
+
+                rootFrame.GoBack();
             }
         }
 
@@ -107,9 +208,71 @@ namespace FuryRoad
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            
+            //TODO: App: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        #endregion
+
+        #region Methods
+
+        #region Public
+
+        /// <summary>
+        /// Toggle fullscreen mode.
+        /// </summary>
+        /// <param name="value"></param>
+        public static void EnterFullScreen(bool value)
+        {
+#if !DEBUG
+            var view = ApplicationView.GetForCurrentView();
+
+            if (view is not null)
+            {
+                if (value)
+                {
+                    view.TryEnterFullScreenMode();
+                }
+                else
+                {
+                    view.ExitFullScreenMode();
+                }
+            } 
+#endif
+        }
+
+        /// <summary>
+        /// Navigate to provided page.
+        /// </summary>
+        /// <param name="pageType"></param>
+        /// <param name="parameter"></param>
+        public static void NavigateToPage(Type pageType, object parameter = null)
+        {
+            var rootFrame = _window.Content as Frame;
+            rootFrame.Navigate(pageType, parameter);
+        }
+
+        /// <summary>
+        /// Get base url for the app.
+        /// </summary>
+        public static string GetBaseUrl()
+        {
+            if (_baseUrl.IsNullOrBlank())
+            {
+                var indexUrl = Uno.Foundation.WebAssemblyRuntime.InvokeJS("window.location.href;");
+                var appPackageId = Environment.GetEnvironmentVariable("UNO_BOOTSTRAP_APP_BASE");
+                _baseUrl = $"{indexUrl}{appPackageId}";
+
+#if DEBUG
+                Console.WriteLine(_baseUrl);
+#endif 
+            }
+            return _baseUrl;
+        }
+
+        #endregion
+
+        #region Private
 
         /// <summary>
         /// Configures global Uno Platform logging
@@ -127,7 +290,7 @@ namespace FuryRoad
             var factory = LoggerFactory.Create(builder =>
             {
 #if __WASM__
-                builder.AddProvider(new global::Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
+                builder.AddProvider(new Uno.Extensions.Logging.WebAssembly.WebAssemblyConsoleLoggerProvider());
 #elif __IOS__
                 builder.AddProvider(new global::Uno.Extensions.Logging.OSLogLoggerProvider());
 #elif NETFX_CORE
@@ -135,7 +298,6 @@ namespace FuryRoad
 #else
                 builder.AddConsole();
 #endif
-
                 // Exclude logs below this level
                 builder.SetMinimumLevel(LogLevel.Information);
 
@@ -144,40 +306,63 @@ namespace FuryRoad
                 builder.AddFilter("Windows", LogLevel.Warning);
                 builder.AddFilter("Microsoft", LogLevel.Warning);
 
+
                 // Generic Xaml events
-                // builder.AddFilter("Windows.UI.Xaml", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.VisualStateGroup", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.StateTriggerBase", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.UIElement", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.FrameworkElement", LogLevel.Trace );
+                //builder.AddFilter("Microsoft.UI.Xaml", LogLevel.Debug);
+                //builder.AddFilter("Microsoft.UI.Xaml.VisualStateGroup", LogLevel.Debug);
+                //builder.AddFilter("Microsoft.UI.Xaml.StateTriggerBase", LogLevel.Debug);
+                //builder.AddFilter("Microsoft.UI.Xaml.UIElement", LogLevel.Debug);
+                //builder.AddFilter("Microsoft.UI.Xaml.FrameworkElement", LogLevel.Trace);
 
                 // Layouter specific messages
-                // builder.AddFilter("Windows.UI.Xaml.Controls", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Layouter", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Controls.Panel", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Layouter", LogLevel.Debug );
+                // builder.AddFilter("Microsoft.UI.Xaml.Controls.Panel", LogLevel.Debug );
 
-                // builder.AddFilter("Windows.Storage", LogLevel.Debug );
+                builder.AddFilter("Windows.Storage", LogLevel.Debug);
 
                 // Binding related messages
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
-                // builder.AddFilter("Windows.UI.Xaml.Data", LogLevel.Debug );
+                //builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug);
+                //builder.AddFilter("Microsoft.UI.Xaml.Data", LogLevel.Debug);
 
                 // Binder memory references tracking
-                // builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug );
+                builder.AddFilter("Uno.UI.DataBinding.BinderReferenceHolder", LogLevel.Debug);
 
                 // RemoteControl and HotReload related
-                // builder.AddFilter("Uno.UI.RemoteControl", LogLevel.Information);
+                builder.AddFilter("Uno.UI.RemoteControl", LogLevel.Information);
 
                 // Debug JS interop
-                // builder.AddFilter("Uno.Foundation.WebAssemblyRuntime", LogLevel.Debug );
+                builder.AddFilter("Uno.Foundation.WebAssemblyRuntime", LogLevel.Debug);
             });
 
-            global::Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
+            Uno.Extensions.LogExtensionPoint.AmbientLoggerFactory = factory;
 
 #if HAS_UNO
-            global::Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
+            Uno.UI.Adapter.Microsoft.Extensions.Logging.LoggingAdapter.Initialize();
 #endif
 #endif
         }
+
+        /// <summary>
+        /// Configures service container and registration of services.
+        /// </summary>
+        /// <returns></returns>
+        private IServiceProvider ConfigureDependencyInjection()
+        {
+            // Create new service collection which generates the IServiceProvider
+            var serviceCollection = new ServiceCollection();
+
+            // Register the MessageService with the container
+            //serviceCollection.AddHttpService(lifeTime: 300, retryCount: 3, retryWait: 1);
+            //serviceCollection.AddFactories();
+            //serviceCollection.AddHelpers();
+
+            // Build the IServiceProvider and return it
+            return serviceCollection.BuildServiceProvider();
+        }
+
+        #endregion
+
+        #endregion
     }
 }

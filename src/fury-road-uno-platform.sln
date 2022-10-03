@@ -7,7 +7,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FuryRoad.Shared", "FuryRoad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{1301B1BF-9DE5-4BEB-9D1B-2B6379E2C31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuryRoad.Wasm", "FuryRoad\FuryRoad.Wasm\FuryRoad.Wasm.csproj", "{6007CCC4-858E-4DE9-AE28-B0B6006951BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FuryRoad.Wasm", "FuryRoad\FuryRoad.Wasm\FuryRoad.Wasm.csproj", "{6007CCC4-858E-4DE9-AE28-B0B6006951BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

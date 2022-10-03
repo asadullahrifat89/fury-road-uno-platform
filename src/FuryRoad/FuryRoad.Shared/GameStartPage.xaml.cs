@@ -16,7 +16,7 @@ using Windows.System;
 
 namespace FuryRoad
 {
-    public sealed partial class MainPage : Page
+    public sealed partial class GameStartPage : Page
     {
         #region Fields
 
@@ -70,7 +70,7 @@ namespace FuryRoad
 
         #region Ctor
 
-        public MainPage()
+        public GameStartPage()
         {
             this.InitializeComponent();
 
@@ -81,25 +81,25 @@ namespace FuryRoad
 
             AdjustView();
 
-            this.Loaded += MainPage_Loaded;
-            this.Unloaded += MainPage_Unloaded;
+            this.Loaded += GameStartPage_Loaded;
+            this.Unloaded += GameStartPage_Unloaded;
         }
 
         #endregion
 
         #region Events
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void GameStartPage_Loaded(object sender, RoutedEventArgs e)
         {
-            this.SizeChanged += MainPage_SizeChanged;
+            this.SizeChanged += GameStartPage_SizeChanged;
         }
 
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        private void GameStartPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            this.SizeChanged -= MainPage_SizeChanged;
+            this.SizeChanged -= GameStartPage_SizeChanged;
         }
 
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
+        private void GameStartPage_SizeChanged(object sender, SizeChangedEventArgs args)
         {
             windowWidth = args.NewSize.Width;
             windowHeight = args.NewSize.Height;
