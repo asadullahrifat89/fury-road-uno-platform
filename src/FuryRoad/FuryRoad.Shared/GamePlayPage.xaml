@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FuryRoad.GameStartPage"
+    x:Class="FuryRoad.GamePlayPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -645,12 +645,15 @@
 
         <!--  Input border  -->
         <Border
+            x:Name="InputView"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent"
             KeyDown="OnKeyDown"
             KeyUp="OnKeyUP"
-            PointerPressed="GameView_PointerPressed" />
+            PointerMoved="InputView_PointerMoved"
+            PointerPressed="InputView_PointerPressed"
+            PointerReleased="InputView_PointerReleased" />
 
     </Grid>
 

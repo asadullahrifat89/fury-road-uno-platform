@@ -12,7 +12,13 @@ namespace FuryRoad
 {
     public class GameObject : Border
     {
-        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Fill };
+        #region Fields
+
+        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Fill }; 
+
+        #endregion
+
+        #region Ctor
 
         public GameObject()
         {
@@ -23,7 +29,11 @@ namespace FuryRoad
             //BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
             //BorderBrush = new SolidColorBrush(Colors.Transparent);
             Child = _content;
-        }
+        } 
+
+        #endregion
+
+        #region Properties
 
         public double Speed { get; set; }
 
@@ -31,10 +41,48 @@ namespace FuryRoad
 
         public bool IsRoadMark { get; set; }
 
-        public void SetContent(Uri uri) 
+        #endregion
+
+        #region Methods
+
+        public void SetSize(double width, double height)
+        {
+            Width = width;
+            Height = height;            
+        }
+
+        public double GetTop()
+        {
+            return Canvas.GetTop(this);
+        }
+
+        public double GetLeft()
+        {
+            return Canvas.GetLeft(this);
+        }
+
+        public void SetTop(double top)
+        {
+            Canvas.SetTop(this, top);
+        }
+
+        public void SetLeft(double left)
+        {
+            Canvas.SetLeft(this, left);
+        }
+
+        public void SetPosition(double top, double left)
+        {
+            Canvas.SetTop(this, top);
+            Canvas.SetLeft(this, left);
+        }
+
+        public void SetContent(Uri uri)
         {
             _content.Source = new BitmapImage(uri);
-        }
+        } 
+
+        #endregion
     }
 }
 
