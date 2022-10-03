@@ -10,29 +10,4 @@
   <PropertyGroup />
   <Import Project="FuryRoad.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
-  <ItemGroup>
-    <_Globbed_Compile Remove="AssetTemplates.cs" />
-    <_Globbed_Compile Remove="Constants.cs" />
-    <_Globbed_Compile Remove="GameObjectExtensions.cs" />
-    <_Globbed_Compile Remove="Models\Car.cs" />
-    <_Globbed_Compile Remove="Models\GameObject.cs" />
-    <_Globbed_Compile Remove="Models\Player.cs" />
-    <_Globbed_Compile Remove="Models\PowerUp.cs" />
-    <_Globbed_Compile Remove="Models\RoadMark.cs" />
-    <_Globbed_Compile Remove="Models\Tree.cs" />
-    <_Globbed_Compile Remove="Models\Truck.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <_Globbed_Content Remove="Assets\Images\tree4.png" />
-    <_Globbed_Content Remove="Assets\Images\tree5.png" />
-    <_Globbed_Content Remove="Assets\Images\tree6.png" />
-    <_Globbed_Content Remove="Assets\Images\tree7.png" />
-    <_Globbed_Content Remove="Assets\redtruck.png" />
-    <_Globbed_Content Remove="Assets\road-dash.png" />
-    <_Globbed_Content Remove="Assets\road-dash1.png" />
-    <_Globbed_Content Remove="Assets\road-dash2.png" />
-    <_Globbed_Content Remove="Assets\road-dash3.png" />
-    <_Globbed_Content Remove="Assets\star.png" />
-    <_Globbed_Content Remove="Assets\whitemicro.png" />
-  </ItemGroup>
 </Project>
