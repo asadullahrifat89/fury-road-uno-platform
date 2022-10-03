@@ -180,10 +180,12 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            RoadView.Width = windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Width = windowWidth < 500 ? 500 : windowWidth / 1.5; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
             RoadView.Height = windowHeight * 2;
 
             var scale = GetGameObjectScale();
+
+            RoadView.Width = RoadView.Width * scale;
 
             RootGrid.Width = windowWidth;
             RootGrid.Height = windowHeight;
@@ -198,7 +200,6 @@ namespace FuryRoad
             FoliageView.Height = SoilView.Height;
 
             SoilView.Children.Clear();
-
 
             for (int i = -5; i < 60; i++)
             {
@@ -318,17 +319,17 @@ namespace FuryRoad
             switch (RoadView.Width)
             {
                 case <= 300:
-                    return 0.65;
+                    return 0.60;
                 case <= 400:
-                    return 0.70;
+                    return 0.65;
                 case <= 500:
-                    return 0.75;
+                    return 0.70;
                 case <= 700:
-                    return 0.80;
+                    return 0.75;
                 case <= 900:
-                    return 0.85;
+                    return 0.80;
                 case <= 1000:
-                    return 0.90;
+                    return 0.85;
                 case <= 1400:
                     return 0.95;
                 case <= 2000:

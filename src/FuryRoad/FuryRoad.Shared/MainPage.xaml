@@ -412,8 +412,8 @@
 
             <!--  Left side  -->
             <Tree
-                Canvas.Left="{x:Bind Path=FoliageView.Width/2, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=FoliageView.Height-250, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=((FoliageView.Width/2)-(FoliageView.Width/4.5)), Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=FoliageView.Height-1250, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 RenderTransformOrigin="0.5,0.5">
@@ -422,7 +422,7 @@
                 </Tree.RenderTransform>
             </Tree>
 
-            <Tree
+            <!--<Tree
                 Canvas.Left="{x:Bind Path=0+30, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=FoliageView.Height-450, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
@@ -453,10 +453,10 @@
                 <Tree.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </Tree.RenderTransform>
-            </Tree>
+            </Tree>-->
 
             <!--  Right side  -->
-            <Tree
+            <!--<Tree
                 Canvas.Left="{x:Bind Path=GameView.Width+250, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=FoliageView.Height-250, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
@@ -498,7 +498,7 @@
                 <Tree.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </Tree.RenderTransform>
-            </Tree>
+            </Tree>-->
 
         </Canvas>
 
