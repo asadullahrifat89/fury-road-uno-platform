@@ -40,14 +40,14 @@ namespace FuryRoad
             return false;
         }
 
-        public static Rect GetHitBox(this GameObject rectangle)
+        public static Rect GetHitBox(this GameObject gameObject)
         {
-            return new Rect(Canvas.GetLeft(rectangle) + 5, Canvas.GetTop(rectangle) + 5, rectangle.Width - 5, rectangle.Height - 5);
+            return new Rect(gameObject.GetLeft() + 5, gameObject.GetTop() + 5, gameObject.Width - 5, gameObject.Height - 5);
         }
 
-        public static Rect GetDistantHitBox(this GameObject rectangle)
+        public static Rect GetDistantHitBox(this GameObject gameObject)
         {
-            return new Rect(Canvas.GetLeft(rectangle) - 5, Canvas.GetTop(rectangle) - 50, rectangle.Width + 5, rectangle.Height + 50);
+            return new Rect(gameObject.GetLeft() - 5, gameObject.GetTop() - 50, gameObject.Width + 5, gameObject.Height + 50);
         }
 
         #endregion

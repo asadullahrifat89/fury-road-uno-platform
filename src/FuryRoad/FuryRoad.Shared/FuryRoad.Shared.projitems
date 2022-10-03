@@ -22,19 +22,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameObjectExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GameStartPage.xaml.cs">
-      <DependentUpon>GameStartPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)GamePlayPage.xaml.cs">
+      <DependentUpon>GamePlayPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Car.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\GameObject.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\PowerUp.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\RoadMark.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Tree.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Truck.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Car.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\GameObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Health.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\PowerUp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\RoadMark.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Tree.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Truck.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)GameStartPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)GamePlayPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -53,6 +54,8 @@
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\Icon192x192.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\powerup.gif" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\health.gif" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppost-left.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppost-right.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player-crashed.png" />
@@ -62,6 +65,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
@@ -72,7 +76,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\star.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\powerup.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\whitemicro.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car5.png" />
