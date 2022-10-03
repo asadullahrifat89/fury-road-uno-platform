@@ -61,7 +61,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
@@ -91,7 +90,6 @@
     <_Globbed_PRIResource Include="$(MSBuildThisFileDirectory)**/*.resw" Exclude="@(PRIResource)" />
     <PRIResource Include="@(_Globbed_PRIResource)" />
     <_Globbed_Content Include="$(MSBuildThisFileDirectory)Assets/**/*.*" Exclude="@(Content)" />
-    <Content Include="@(_Globbed_Content)" />
     <!-- Mark the files from this folder as being part of WinUI -->
     <Page Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />
     <ApplicationDefinition Update="$(MSBuildThisFileDirectory)**/*.xaml" XamlRuntime="WinUI" />

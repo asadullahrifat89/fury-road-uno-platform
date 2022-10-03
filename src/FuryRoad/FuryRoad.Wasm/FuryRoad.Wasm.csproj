@@ -34,10 +34,13 @@
 		<WasmShellExtraEmccFlags Include="-s MAXIMUM_MEMORY=4GB" />
 	</ItemGroup>-->
 	<ItemGroup>
-		<Content Include="Assets\SplashScreen.png" />
+		<Content Include="Assets\Icon192x192.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<UpToDateCheckInput Include="..\FuryRoad.Shared\**\*.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Assets\Icon192x192.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="WasmCSS\Fonts.css" />
@@ -70,4 +73,7 @@
 		<PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.3.1" />
 	</ItemGroup>
 	<Import Project="..\FuryRoad.Shared\FuryRoad.Shared.projitems" Label="Shared" Condition="Exists('..\FuryRoad.Shared\FuryRoad.Shared.projitems')" />
+	<ItemGroup>
+	  <_Globbed_Content Remove="Assets\Icon192x192.png" />
+	</ItemGroup>
 </Project>
