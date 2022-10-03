@@ -26,17 +26,232 @@
             <system:Double x:Key="HighWayDividerWidth">25</system:Double>
 
             <SolidColorBrush x:Key="RoadBackgroundColor" Color="#365985" />
+            <SolidColorBrush x:Key="GrassColor" Color="#369f1d" />
+            <SolidColorBrush x:Key="GrassStripeColor" Color="#1b951b" />
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="RootGrid" Background="{StaticResource GrassColor}">
+
+        <Canvas x:Name="BackgroundView" RenderTransformOrigin="0.5,0.5">
+
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="-45" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
+
+            <!--  Left side  -->
+
+            <Border
+                Canvas.Left="{x:Bind Path=-5*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height*2, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+
+            <Border
+                Canvas.Left="{x:Bind Path=-4*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=-3*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=-2*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=-1*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=0*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=1*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=2*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=3*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=4*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=5*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=6*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=7*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=8*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=9*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=10*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=11*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=12*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=13*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=14*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=15*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=16*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=17*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=18*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=19*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=20*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=21*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+            <Border
+                Canvas.Left="{x:Bind Path=22*60, Mode=OneWay}"
+                Canvas.Top="0"
+                Width="30"
+                Height="{x:Bind Path=BackgroundView.Height, Mode=OneWay}"
+                Background="{StaticResource GrassStripeColor}" />
+
+
+        </Canvas>
 
         <!--  Road view  -->
         <Canvas
             x:Name="RoadView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="{StaticResource RoadBackgroundColor}">
+            Background="{StaticResource RoadBackgroundColor}"
+            RenderTransformOrigin="0.5,0.5">
+
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="-45" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
 
             <!--  High way border  -->
             <Border
@@ -56,7 +271,7 @@
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
                 Background="#acb8c4"
                 BorderBrush="#0e123f"
-                BorderThickness="0,0,4,0" />
+                BorderThickness="4,0" />
 
             <!--  High way right side border  -->
             <Border
@@ -66,72 +281,7 @@
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
                 Background="#acb8c4"
                 BorderBrush="#0e123f"
-                BorderThickness="4,0,0,0" />
-
-            <!--  Road sides: Left  -->
-            <!--<RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*-1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*0}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*2}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*3}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*4}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />-->
-
-
-            <!--  Road sides: Right  -->
-            <!--<RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*-1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*0}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*2}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*3}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*4}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />-->
+                BorderThickness="4,0" />
 
             <!--  Road marks: Left  -->
             <RoadMark
@@ -177,6 +327,76 @@
             <RoadMark
                 Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*7}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*8}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*9}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*10}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*11}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*12}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*13}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*14}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*15}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*16}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*17}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*18}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*19}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*20}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*21}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
 
@@ -226,6 +446,76 @@
                 Canvas.Top="{x:Bind Path=120*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*8}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*9}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*10}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*11}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*12}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*13}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*14}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*15}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*16}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*17}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*18}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*19}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*20}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*21}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
 
         </Canvas>
 
@@ -234,7 +524,12 @@
             x:Name="GameView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="Transparent">
+            Background="Transparent"
+            RenderTransformOrigin="0.5,0.5">
+
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="-45" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
 
             <!--  Cars  -->
             <Car
@@ -285,7 +580,7 @@
             <GameObject
                 x:Name="player"
                 Canvas.Left="{x:Bind Path=GameView.Width/2}"
-                Canvas.Top="{x:Bind Path=GameView.Height-250, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=((GameView.Height/1.3)-250), Mode=OneWay}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
 

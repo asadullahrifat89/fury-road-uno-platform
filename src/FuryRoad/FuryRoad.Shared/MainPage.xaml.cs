@@ -57,6 +57,8 @@ namespace FuryRoad
 
         int _accelerationCounter;
 
+        double windowHeight, windowWidth;
+
         #endregion
 
         #region Ctor
@@ -66,6 +68,9 @@ namespace FuryRoad
             this.InitializeComponent();
 
             isGameOver = true;
+
+            windowHeight = Window.Current.Bounds.Height;
+            windowWidth = Window.Current.Bounds.Width;
 
             AdjustView();
 
@@ -225,7 +230,7 @@ namespace FuryRoad
             //    //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
             //    RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
             //}
-        }      
+        }
 
         private void GameViewLoop()
         {
@@ -626,8 +631,8 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            RoadView.Width = Window.Current.Bounds.Width > 900 ? Window.Current.Bounds.Width / 1.5 : Window.Current.Bounds.Width;
-            RoadView.Height = Window.Current.Bounds.Height;
+            RoadView.Width = windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Height = windowHeight * 2;
 
             var scale = GetGameObjectScale();
 
@@ -636,6 +641,9 @@ namespace FuryRoad
 
             GameView.Width = RoadView.Width - 40 * scale;
             GameView.Height = RoadView.Height;
+
+            BackgroundView.Width = windowWidth * 3;
+            BackgroundView.Height = windowHeight * 2;
 
             CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
             CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
@@ -723,6 +731,7 @@ namespace FuryRoad
 
             player.Width = CarWidth;
             player.Height = CarHeight;
+            //Canvas.SetTop(player, GameView.Height - 250 * scale);
 
             HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
             HighWayDividerWidth = HighWayDividerWidth * scale;
@@ -773,6 +782,11 @@ namespace FuryRoad
 
         private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
         {
+            windowWidth = args.NewSize.Width;
+            windowHeight = args.NewSize.Height;
+
+            Console.WriteLine($"WINDOWS SIZE: {windowWidth}x{windowHeight}");
+
             AdjustView();
         }
 
