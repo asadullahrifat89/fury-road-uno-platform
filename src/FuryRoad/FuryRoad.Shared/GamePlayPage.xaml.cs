@@ -30,7 +30,8 @@ namespace FuryRoad
         readonly int playerSpeed = 6;
         int markNum;
         int powerUpCounter = 30;
-        int powerModeCounter = 10000;
+        int powerModeCounter = 250;
+        readonly int powerModeDelay = 250;
         int lives = 3;
 
         double score;
@@ -63,11 +64,13 @@ namespace FuryRoad
         private bool isGamePaused;
 
         private bool isRecoveringFromDamage;
-
         private bool isPointerActivated;
         readonly TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
-        int accelerationCounter = 0, damageRecoveryCounter = 100, damageRecoveryDelay = 500;
+        private int accelerationCounter;
+
+        private int damageRecoveryCounter = 100;
+        private readonly int damageRecoveryDelay = 500;
 
         double windowHeight, windowWidth;
 
@@ -429,6 +432,7 @@ namespace FuryRoad
 
             isGameOver = false;
             isPowerMode = false;
+            powerModeCounter = powerModeDelay;
             isRecoveringFromDamage = false;
             damageRecoveryCounter = damageRecoveryDelay;
 
@@ -922,7 +926,7 @@ namespace FuryRoad
             {
                 gameViewRemovableObjects.Add(powerUp);
                 isPowerMode = true;
-                powerModeCounter = 200;
+                powerModeCounter = powerModeDelay;
             }
 
             if (powerUp.GetTop() > GameView.Height)
