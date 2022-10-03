@@ -65,6 +65,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
