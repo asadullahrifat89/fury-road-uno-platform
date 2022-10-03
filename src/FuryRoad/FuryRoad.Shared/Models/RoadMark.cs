@@ -12,7 +12,7 @@ namespace FuryRoad
         {
             Tag = Constants.ROADMARK_TAG;
 
-            SetContent(new Uri("ms-appx:///Assets/Images/road-dash2.png"));
+            SetContent(new Uri("ms-appx:///Assets/Images/road-mark2.png"));
         }
     }
 

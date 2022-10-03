@@ -32,7 +32,7 @@ namespace FuryRoad
         int gameSpeed = 6;
         int defaultGameSpeed = 6;
         int playerSpeed = 6;
-        int carNum;
+        int markNum;
         int powerUpCounter = 30;
         int powerModeCounter = 10000;
 
@@ -104,8 +104,8 @@ namespace FuryRoad
             // set the score text to its default content
             scoreText.Text = "Score: 0";
 
-            //// assign the player image to the player rectangle from the canvas
-            //player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
+            // assign the player image to the player rectangle from the canvas
+            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
 
             // set the default background colour to gray
             RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
@@ -372,20 +372,8 @@ namespace FuryRoad
 
         private void RandomizeRoadMark(GameObject roadMark)
         {
-            carNum = rand.Next(1, 4);
-
-            switch (carNum)
-            {
-                case 1:
-                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash1.png"));
-                    break;
-                case 2:
-                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash2.png"));
-                    break;
-                case 3:
-                    roadMark.SetContent(new Uri("ms-appx:///Assets/Images/road-dash3.png"));
-                    break;
-            }
+            markNum = rand.Next(0, AssetTemplates.ROADMARK_TEMPLATES.Length);
+            roadMark.SetContent(AssetTemplates.ROADMARK_TEMPLATES[markNum]);
         }
 
         private void RandomizeRoadSide(GameObject roadSide)
@@ -451,29 +439,9 @@ namespace FuryRoad
 
         private void RecyleCar(GameObject car)
         {
-            carNum = rand.Next(1, 6);
+            markNum = rand.Next(0, AssetTemplates.CAR_TEMPLATES.Length);
 
-            switch (carNum)
-            {
-                case 1:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car1.png"));
-                    break;
-                case 2:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car2.png"));
-                    break;
-                case 3:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car3.png"));
-                    break;
-                case 4:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car4.png"));
-                    break;
-                case 5:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car5.png"));
-                    break;
-                case 6:
-                    car.SetContent(new Uri("ms-appx:///Assets/Images/car6.png"));
-                    break;
-            }
+            car.SetContent(AssetTemplates.CAR_TEMPLATES[markNum]);
 
             car.Width = CarWidth;
             car.Height = CarHeight;
@@ -485,23 +453,9 @@ namespace FuryRoad
 
         private void RecyleTruck(GameObject truck)
         {
-            carNum = rand.Next(1, 5);
+            markNum = rand.Next(0, AssetTemplates.TRUCK_TEMPLATES.Length);
 
-            switch (carNum)
-            {
-                case 1:
-                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck1.png"));
-                    break;
-                case 2:
-                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck2.png"));
-                    break;
-                case 3:
-                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck3.png"));
-                    break;
-                case 4:
-                    truck.SetContent(new Uri("ms-appx:///Assets/Images/truck4.png"));
-                    break;
-            }
+            truck.SetContent(AssetTemplates.TRUCK_TEMPLATES[markNum]);
 
             truck.Width = TruckWidth;
             truck.Height = TruckHeight;
