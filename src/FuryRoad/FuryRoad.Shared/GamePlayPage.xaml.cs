@@ -17,7 +17,7 @@ namespace FuryRoad
     {
         #region Fields
 
-        PeriodicTimer GameViewTimer;        
+        PeriodicTimer GameViewTimer;
 
         readonly List<GameObject> GameViewRemovableObjects = new();
         readonly Random rand = new();
@@ -31,7 +31,10 @@ namespace FuryRoad
         int powerUpCounter = 30;
         int powerModeCounter = 250;
         readonly int powerModeDelay = 250;
+
+        int healthCounter = 500;
         int lives = 3;
+        readonly int maxLives = 3;
 
         double score;
 
@@ -226,7 +229,7 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            GameView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? windowWidth / 1.6 : windowWidth / 1.7; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            GameView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? windowWidth / 1.6 : windowWidth / 1.6;
             GameView.Height = windowHeight * 2;
 
             double scale = GetGameObjectScale();
@@ -354,7 +357,7 @@ namespace FuryRoad
             highWayLeftSide.Width = RoadSideWidth;
             highWayRightSide.Width = RoadSideWidth;
 
-            Canvas.SetLeft(highWayRightSide, GameView.Width - RoadSideWidth);          
+            Canvas.SetLeft(highWayRightSide, GameView.Width - RoadSideWidth);
 
             player.SetSize(CarWidth, CarHeight);
 
@@ -395,7 +398,7 @@ namespace FuryRoad
         {
             Console.WriteLine("GAME STARTED");
 
-            lives = 3;
+            lives = maxLives;
             SetLives();
 
             gameSpeed = 6;
@@ -458,6 +461,7 @@ namespace FuryRoad
                             RecyleTruck(x);
                         }
                         break;
+                    case Constants.HEALTH_TAG:
                     case Constants.POWERUP_TAG:
                         {
                             GameViewRemovableObjects.Add(x);
@@ -467,7 +471,7 @@ namespace FuryRoad
                         break;
                 }
             }
-           
+
             foreach (GameObject y in GameViewRemovableObjects)
             {
                 GameView.Children.Remove(y);
@@ -507,10 +511,21 @@ namespace FuryRoad
                 UpdatePlayer();
             }
 
-            if (powerUpCounter < 1)
+            if (powerUpCounter < 0)
             {
                 SpawnPowerUp();
                 powerUpCounter = rand.Next(500, 800);
+            }
+
+            if (lives < maxLives)
+            {
+                healthCounter--;
+
+                if (healthCounter < 0)
+                {
+                    SpawnHealth();
+                    healthCounter = rand.Next(500, 800);
+                }
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
@@ -545,6 +560,11 @@ namespace FuryRoad
                     case Constants.POWERUP_TAG:
                         {
                             UpdatePowerUp(x);
+                        }
+                        break;
+                    case Constants.HEALTH_TAG:
+                        {
+                            UpdateHealth(x);
                         }
                         break;
                     default:
@@ -923,10 +943,48 @@ namespace FuryRoad
                 RenderTransform = new RotateTransform() { Angle = Convert.ToDouble(this.Resources["FoliageViewRotationAngle"]) },
             };
 
-            powerUp.SetContent(new Uri("ms-appx:///Assets/Images/powerup.png"));
             powerUp.SetPosition(rand.Next(100, (int)GameView.Height) * -1, rand.Next(0, (int)(GameView.Width - 55)));
 
             GameView.Children.Add(powerUp);
+        }
+
+        #endregion
+
+        #region Healths
+
+        private void SpawnHealth()
+        {
+            double scale = GetGameObjectScale();
+
+            Health health = new()
+            {
+                Height = 80 * scale,
+                Width = 80 * scale,
+                RenderTransformOrigin = new Point(0.5, 0.5),
+                RenderTransform = new RotateTransform() { Angle = Convert.ToDouble(this.Resources["FoliageViewRotationAngle"]) },
+            };
+
+            health.SetPosition(rand.Next(100, (int)GameView.Height) * -1, rand.Next(0, (int)(GameView.Width - 55)));
+            GameView.Children.Add(health);
+        }
+
+        private void UpdateHealth(GameObject health)
+        {
+            health.SetTop(health.GetTop() + 5);
+
+            // if player gets a health
+            if (playerHitBox.IntersectsWith(health.GetHitBox()))
+            {
+                GameViewRemovableObjects.Add(health);
+
+                lives++;
+                SetLives();
+            }
+
+            if (health.GetTop() > GameView.Height)
+            {
+                GameViewRemovableObjects.Add(health);
+            }
         }
 
         #endregion

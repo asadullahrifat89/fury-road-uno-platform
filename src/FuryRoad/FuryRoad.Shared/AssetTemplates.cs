@@ -33,7 +33,7 @@ namespace FuryRoad
         };
 
         public static Uri[] TREE_TEMPLATES = new Uri[]
-      {
+        {
             new Uri("ms-appx:///Assets/Images/tree1.png"),
             new Uri("ms-appx:///Assets/Images/tree2.png"),
             new Uri("ms-appx:///Assets/Images/tree3.png"),
@@ -41,6 +41,9 @@ namespace FuryRoad
             new Uri("ms-appx:///Assets/Images/tree5.png"),
             new Uri("ms-appx:///Assets/Images/tree6.png"),
             new Uri("ms-appx:///Assets/Images/tree7.png"),
-      };
+        };
+
+        public static Uri POWERUP_TEMPLATE = new Uri("ms-appx:///Assets/Images/powerup.gif");
+        public static Uri HEALTH_TEMPLATE = new Uri("ms-appx:///Assets/Images/health.gif");
     }
 }
