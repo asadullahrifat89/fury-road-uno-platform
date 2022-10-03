@@ -39,9 +39,17 @@ namespace FuryRoad
 
         public bool IsVehicle { get; set; }
 
-        public bool IsRoadMark { get; set; } 
+        public bool IsRoadMark { get; set; }
 
         #endregion
+
+        #region Methods
+
+        public void SetSize(double width, double height)
+        {
+            Width = width;
+            Height = height;            
+        }
 
         public double GetTop()
         {
@@ -69,10 +77,12 @@ namespace FuryRoad
             Canvas.SetLeft(this, left);
         }
 
-        public void SetContent(Uri uri) 
+        public void SetContent(Uri uri)
         {
             _content.Source = new BitmapImage(uri);
-        }
+        } 
+
+        #endregion
     }
 }
 

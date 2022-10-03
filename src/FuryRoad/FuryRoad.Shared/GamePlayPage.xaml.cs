@@ -126,6 +126,8 @@ namespace FuryRoad
 
 
                 //TODO: capture pointer activation and move car to pointer position
+
+
                 //if (isGamePaused)
                 //{
                 //    RunGame();
@@ -312,21 +314,18 @@ namespace FuryRoad
                 {
                     // if we find any rectangle with the car tag on it then we will
                     case Constants.CAR_TAG:
-                        {
-                            x.Height = CarHeight;
-                            x.Width = CarWidth;
+                        {                           
+                            x.SetSize(CarWidth, CarHeight);
                         }
                         break;
                     case Constants.TRUCK_TAG:
                         {
-                            x.Height = TruckHeight;
-                            x.Width = TruckWidth;
+                            x.SetSize(TruckWidth, TruckHeight);
                         }
                         break;
                     case Constants.POWERUP_TAG:
                         {
-                            x.Width = 50 * scale;
-                            x.Height = 50 * scale;
+                            x.SetSize(50 * scale, 50 * scale);
                         }
                         break;
                     default:
@@ -344,22 +343,19 @@ namespace FuryRoad
                 switch ((string)x.Tag)
                 {
                     case Constants.ROADMARK_TAG:
-                        {
-                            x.Width = RoadMarkWidth;
-                            x.Height = RoadMarkHeight;
+                        {                            
+                            x.SetSize(RoadMarkWidth, RoadMarkHeight);
                         }
                         break;
                     case Constants.TREE_TAG:
                         {
-                            x.Width = TreeWidth;
-                            x.Height = TreeHeight;
+                            x.SetSize(TreeWidth, TreeHeight);
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
                     case Constants.LAMPPOST_RIGHT_TAG:
                         {
-                            x.Width = LampPostWidth;
-                            x.Height = LampPostHeight;
+                            x.SetSize(LampPostWidth, LampPostHeight);
                         }
                         break;
                     default:
@@ -367,8 +363,7 @@ namespace FuryRoad
                 }
             }
 
-            player.Width = CarWidth;
-            player.Height = CarHeight;
+            player.SetSize(CarWidth, CarHeight);
 
             var carY = (GameView.Height / 1.3) - (370 * scale);
             Console.WriteLine($"CAR Y: {carY}");
@@ -435,8 +430,7 @@ namespace FuryRoad
 
             RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
-            player.Width = CarWidth;
-            player.Height = CarHeight;
+            player.SetSize(CarWidth, CarHeight);
 
             // set game view objects
             foreach (var x in GameView.Children.OfType<GameObject>())
