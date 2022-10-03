@@ -11,6 +11,6 @@
   <Import Project="FuryRoad.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
   <ItemGroup>
-    <_Globbed_Compile Remove="Extensions\StringExtensions.cs" />
-  </ItemGroup>  
+    <_Globbed_Content Remove="Assets\Images\health.gif" />
+  </ItemGroup>
 </Project>
