@@ -43,14 +43,30 @@ namespace FuryRoad
 
         #endregion
 
-        public double GetY()
+        public double GetTop()
         {
             return Canvas.GetTop(this);
         }
 
-        public double GetX()
+        public double GetLeft()
         {
             return Canvas.GetLeft(this);
+        }
+
+        public void SetTop(double top)
+        {
+            Canvas.SetTop(this, top);
+        }
+
+        public void SetLeft(double left)
+        {
+            Canvas.SetLeft(this, left);
+        }
+
+        public void SetPosition(double top, double left)
+        {
+            Canvas.SetTop(this, top);
+            Canvas.SetLeft(this, left);
         }
 
         public void SetContent(Uri uri) 
