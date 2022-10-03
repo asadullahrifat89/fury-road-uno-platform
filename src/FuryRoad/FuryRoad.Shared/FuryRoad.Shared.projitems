@@ -29,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PowerUp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RoadMark.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Tree.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Truck.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +58,8 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\Tree4.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck11.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\whitetruck.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car3.png" />

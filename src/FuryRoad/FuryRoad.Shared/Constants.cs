@@ -12,5 +12,6 @@ namespace FuryRoad
         public const string POWERUP_TAG = "powerup";
         public const string ROADMARK_TAG = "roadmark";
         public const string ROADSIDE_TAG = "roadside";
+        public const string TREE_TAG = "tree";
     }
 }

@@ -22,6 +22,7 @@ namespace FuryRoad
 
         PeriodicTimer gameViewTimer;
         PeriodicTimer roadViewTimer;
+        PeriodicTimer foliageViewTimer;
 
         List<GameObject> gameViewRemovableObjects = new List<GameObject>();
 
@@ -49,6 +50,9 @@ namespace FuryRoad
 
         double RoadSideWidth;
         double RoadSideHeight;
+
+        double TreeWidth;
+        double TreeHeight;
 
         double HighWayDividerWidth;
 
@@ -81,7 +85,242 @@ namespace FuryRoad
 
         #endregion
 
+        #region Events
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.SizeChanged -= MainPage_SizeChanged;
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
+        {
+            windowWidth = args.NewSize.Width;
+            windowHeight = args.NewSize.Height;
+
+            Console.WriteLine($"WINDOWS SIZE: {windowWidth}x{windowHeight}");
+
+            AdjustView();
+        }
+
+        private void GameView_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (isGameOver)
+            {
+                GameView.Focus(FocusState.Programmatic);
+
+                StartGame();
+            }
+            else
+            {
+                if (isGamePaused)
+                {
+                    RunGame();
+                    isGamePaused = false;
+                }
+                else
+                {
+                    StopGame();
+                    isGamePaused = true;
+                }
+            }
+        }
+
+        private void StopGame()
+        {
+            gameViewTimer.Dispose();
+            roadViewTimer.Dispose();
+            foliageViewTimer.Dispose();
+        }
+
+        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Left)
+            {
+                moveLeft = true;
+                moveRight = false;
+            }
+            if (e.Key == VirtualKey.Right)
+            {
+                moveRight = true;
+                moveLeft = false;
+            }
+        }
+
+        private void OnKeyUP(object sender, KeyRoutedEventArgs e)
+        {
+            _accelerationCounter = 0;
+
+            // when the player releases the left or right key it will set the designated boolean to false
+            if (e.Key == VirtualKey.Left)
+            {
+                moveLeft = false;
+            }
+            if (e.Key == VirtualKey.Right)
+            {
+                moveRight = false;
+            }
+
+            // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
+            if (e.Key == VirtualKey.Enter && isGameOver == true)
+            {
+                StartGame();
+            }
+        }
+
+        #endregion
+
         #region Methods
+
+        #region View
+
+        private void AdjustView()
+        {
+            RoadView.Width = windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Height = windowHeight * 2;
+
+            var scale = GetGameObjectScale();
+
+            RoadView.Width = RoadView.Width - 50;
+            RoadView.Height = RoadView.Height - 50;
+
+            GameView.Width = RoadView.Width - 40 * scale;
+            GameView.Height = RoadView.Height;
+
+            SoilView.Width = windowWidth * 3;
+            SoilView.Height = windowHeight * 2;
+
+            FoliageView.Width = windowWidth * 3;
+            FoliageView.Height = windowHeight * 2;
+
+            CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
+            CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
+
+            TruckWidth = Convert.ToDouble(this.Resources["TruckWidth"]);
+            TruckHeight = Convert.ToDouble(this.Resources["TruckHeight"]);
+
+            TreeWidth = Convert.ToDouble(this.Resources["TreeWidth"]);
+            TreeHeight = Convert.ToDouble(this.Resources["TreeHeight"]);
+
+            CarWidth = CarWidth * scale; CarHeight = CarHeight * scale;
+            TruckWidth = TruckWidth * scale; TruckHeight = TruckHeight * scale;
+            TreeWidth = TreeWidth * scale; TreeHeight = TreeHeight * scale;
+
+            Console.WriteLine($"CAR WIDTH {CarWidth}");
+            Console.WriteLine($"CAR HEIGHT {CarHeight}");
+
+            Console.WriteLine($"TRUCK WIDTH {TruckWidth}");
+            Console.WriteLine($"TRUCK HEIGHT {TruckHeight}");
+
+            RoadMarkWidth = Convert.ToDouble(this.Resources["RoadMarkWidth"]);
+            RoadMarkHeight = Convert.ToDouble(this.Resources["RoadMarkHeight"]);
+
+            RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
+            RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
+
+            RoadMarkWidth = RoadMarkWidth * scale; RoadMarkHeight = RoadMarkHeight * scale;
+            RoadSideWidth = RoadSideWidth * scale; RoadSideHeight = RoadSideHeight * scale;
+
+            Console.WriteLine($"ROAD MARK WIDTH {RoadMarkWidth}");
+            Console.WriteLine($"ROAD MARK HEIGHT {RoadMarkHeight}");
+
+            Console.WriteLine($"ROAD SIDE WIDTH {RoadSideWidth}");
+            Console.WriteLine($"ROAD SIDE HEIGHT {RoadSideHeight}");
+
+            // run a initial foreach loop to set up the cars and remove any star in the game
+            foreach (var x in GameView.Children.OfType<GameObject>())
+            {
+                var tag = (string)x.Tag;
+
+                switch (tag)
+                {
+                    // if we find any rectangle with the car tag on it then we will
+                    case Constants.CAR_TAG:
+                        {
+                            x.Height = CarHeight;
+                            x.Width = CarWidth;
+                        }
+                        break;
+                    case Constants.TRUCK_TAG:
+                        {
+                            x.Height = TruckHeight;
+                            x.Width = TruckWidth;
+                        }
+                        break;
+                    case Constants.POWERUP_TAG:
+                        {
+                            x.Width = 50 * scale;
+                            x.Height = 50 * scale;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            highWayLeftSide.Width = RoadSideWidth;
+            highWayRightSide.Width = RoadSideWidth;
+
+            Canvas.SetLeft(highWayRightSide, RoadView.Width - RoadSideWidth);
+
+            foreach (var x in RoadView.Children.OfType<GameObject>())
+            {
+                x.Width = RoadMarkWidth;
+                x.Height = RoadMarkHeight;
+            }
+
+            foreach (var x in FoliageView.Children.OfType<GameObject>())
+            {
+                x.Width = TreeWidth;
+                x.Height = TreeHeight;
+            }
+
+            player.Width = CarWidth;
+            player.Height = CarHeight;
+
+            var carY = (GameView.Height / 1.3) - (370 * scale);
+            Console.WriteLine($"CAR Y: {carY}");
+
+            Canvas.SetTop(player, carY);
+
+            HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
+            HighWayDividerWidth = HighWayDividerWidth * scale;
+            Console.WriteLine($"HIGHWAY DIVIDER WIDTH {HighWayDividerWidth}");
+
+            highWayDivider.Width = HighWayDividerWidth;
+            Canvas.SetLeft(highWayDivider, (RoadView.Width / 2) - (highWayDivider.Width / 2));
+        }
+
+        public double GetGameObjectScale()
+        {
+            switch (RoadView.Width)
+            {
+                case <= 300:
+                    return 0.65;
+                case <= 400:
+                    return 0.70;
+                case <= 500:
+                    return 0.75;
+                case <= 700:
+                    return 0.80;
+                case <= 900:
+                    return 0.85;
+                case <= 1000:
+                    return 0.90;
+                case <= 1400:
+                    return 0.95;
+                case <= 2000:
+                    return 1;
+                default:
+                    return 1;
+            }
+        }
+
+        #endregion
 
         #region Game Start, Run, Loop, Over
 
@@ -143,15 +382,12 @@ namespace FuryRoad
 
             foreach (var x in RoadView.Children.OfType<GameObject>())
             {
-                var tag = (string)x.Tag;
+                RandomizeRoadMark(x);
+            }
 
-                switch (tag)
-                {
-                    case Constants.ROADMARK_TAG: { RandomizeRoadMark(x); } break;
-                    case Constants.ROADSIDE_TAG: { RandomizeRoadSide(x); } break;
-                    default:
-                        break;
-                }
+            foreach (var x in FoliageView.Children.OfType<GameObject>())
+            {
+                RandomizeTree(x);
             }
 
             foreach (GameObject y in gameViewRemovableObjects)
@@ -166,6 +402,7 @@ namespace FuryRoad
         {
             RunGameView();
             RunRoadView();
+            RunFoliageView();
         }
 
         private async void RunGameView()
@@ -188,28 +425,22 @@ namespace FuryRoad
             }
         }
 
+        private async void RunFoliageView()
+        {
+            foliageViewTimer = new PeriodicTimer(frameTime);
+
+            while (await foliageViewTimer.WaitForNextTickAsync())
+            {
+                FoliageViewLoop();
+            }
+        }
+
         private void RoadViewLoop()
         {
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
             foreach (var gameObject in RoadView.Children.OfType<GameObject>())
             {
-                var tag = (string)gameObject.Tag;
-
-                switch (tag)
-                {
-                    case Constants.ROADMARK_TAG:
-                        {
-                            UpdateRoadMark(gameObject);
-                        }
-                        break;
-                    case Constants.ROADSIDE_TAG:
-                        {
-                            UpdateRoadSide(gameObject);
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                UpdateRoadMark(gameObject);
             }
 
             if (isGameOver)
@@ -231,6 +462,17 @@ namespace FuryRoad
             //    //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
             //    RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
             //}
+        }
+
+        private void FoliageViewLoop()
+        {
+            foreach (var gameObject in FoliageView.Children.OfType<GameObject>())
+            {
+                UpdateTree(gameObject);
+            }
+
+            if (isGameOver)
+                return;
         }
 
         private void GameViewLoop()
@@ -293,8 +535,7 @@ namespace FuryRoad
         {
             player.SetContent(new Uri("ms-appx:///Assets/Images/player-crashed.png"));
 
-            gameViewTimer.Dispose();
-            roadViewTimer.Dispose();
+            StopGame();
 
             scoreText.Text += " Press Enter to replay";
             isGameOver = true;
@@ -340,16 +581,6 @@ namespace FuryRoad
             }
         }
 
-        private void UpdateRoadSide(GameObject roadSide)
-        {
-            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
-
-            if (Canvas.GetTop(roadSide) > RoadView.Height)
-            {
-                RecyleRoadSide(roadSide);
-            }
-        }
-
         private void RecyleRoadMark(GameObject roadMark)
         {
             RandomizeRoadMark(roadMark);
@@ -360,25 +591,40 @@ namespace FuryRoad
             Canvas.SetTop(roadMark, ((roadMark.Height * 2) * -1));
         }
 
-        private void RecyleRoadSide(GameObject roadSide)
-        {
-            RandomizeRoadSide(roadSide);
-
-            //roadSide.Width = RoadSideWidth;
-            //roadSide.Height = RoadSideHeight;
-
-            Canvas.SetTop(roadSide, (roadSide.Height * -1));
-        }
-
         private void RandomizeRoadMark(GameObject roadMark)
         {
             markNum = rand.Next(0, AssetTemplates.ROADMARK_TEMPLATES.Length);
             roadMark.SetContent(AssetTemplates.ROADMARK_TEMPLATES[markNum]);
         }
 
-        private void RandomizeRoadSide(GameObject roadSide)
+        #endregion
+
+        #region Tree
+
+        private void UpdateTree(GameObject roadSide)
         {
-            roadSide.SetContent(new Uri("ms-appx:///Assets/Images/road-side.png"));
+            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
+
+            if (Canvas.GetTop(roadSide) > RoadView.Height)
+            {
+                RecyleTree(roadSide);
+            }
+        }
+
+        private void RecyleTree(GameObject tree)
+        {
+            RandomizeTree(tree);
+
+            tree.Width = TreeWidth;
+            tree.Height = TreeHeight;
+
+            Canvas.SetTop(tree, (rand.Next(100, (int)FoliageView.Height) * -1));
+        }
+
+        private void RandomizeTree(GameObject tree)
+        {
+            markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
+            tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
         }
 
         #endregion
@@ -581,234 +827,6 @@ namespace FuryRoad
         }
 
         #endregion
-
-        #region View
-
-        private void AdjustView()
-        {
-            RoadView.Width = windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
-            RoadView.Height = windowHeight * 2;
-
-            var scale = GetGameObjectScale();
-
-            RoadView.Width = RoadView.Width - 50;
-            RoadView.Height = RoadView.Height - 50;
-
-            GameView.Width = RoadView.Width - 40 * scale;
-            GameView.Height = RoadView.Height;
-
-            BackgroundView.Width = windowWidth * 3;
-            BackgroundView.Height = windowHeight * 2;
-
-            CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
-            CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
-
-            TruckWidth = Convert.ToDouble(this.Resources["TruckWidth"]);
-            TruckHeight = Convert.ToDouble(this.Resources["TruckHeight"]);
-
-            CarWidth = CarWidth * scale; CarHeight = CarHeight * scale;
-            TruckWidth = TruckWidth * scale; TruckHeight = TruckHeight * scale;
-
-            Console.WriteLine($"CAR WIDTH {CarWidth}");
-            Console.WriteLine($"CAR HEIGHT {CarHeight}");
-
-            Console.WriteLine($"TRUCK WIDTH {TruckWidth}");
-            Console.WriteLine($"TRUCK HEIGHT {TruckHeight}");
-
-            RoadMarkWidth = Convert.ToDouble(this.Resources["RoadMarkWidth"]);
-            RoadMarkHeight = Convert.ToDouble(this.Resources["RoadMarkHeight"]);
-
-            RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
-            RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
-
-            RoadMarkWidth = RoadMarkWidth * scale; RoadMarkHeight = RoadMarkHeight * scale;
-            RoadSideWidth = RoadSideWidth * scale; RoadSideHeight = RoadSideHeight * scale;
-
-            Console.WriteLine($"ROAD MARK WIDTH {RoadMarkWidth}");
-            Console.WriteLine($"ROAD MARK HEIGHT {RoadMarkHeight}");
-
-            Console.WriteLine($"ROAD SIDE WIDTH {RoadSideWidth}");
-            Console.WriteLine($"ROAD SIDE HEIGHT {RoadSideHeight}");
-
-            // run a initial foreach loop to set up the cars and remove any star in the game
-            foreach (var x in GameView.Children.OfType<GameObject>())
-            {
-                var tag = (string)x.Tag;
-
-                switch (tag)
-                {
-                    // if we find any rectangle with the car tag on it then we will
-                    case Constants.CAR_TAG:
-                        {
-                            x.Height = CarHeight;
-                            x.Width = CarWidth;
-                        }
-                        break;
-                    case Constants.TRUCK_TAG:
-                        {
-                            x.Height = TruckHeight;
-                            x.Width = TruckWidth;
-                        }
-                        break;
-                    case Constants.POWERUP_TAG:
-                        {
-                            x.Width = 50 * scale;
-                            x.Height = 50 * scale;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            highWayLeftSide.Width = RoadSideWidth;
-            highWayRightSide.Width = RoadSideWidth;
-
-            Canvas.SetLeft(highWayRightSide, RoadView.Width - RoadSideWidth);
-
-            foreach (var x in RoadView.Children.OfType<GameObject>())
-            {
-                var tag = (string)x.Tag;
-
-                switch (tag)
-                {
-                    case Constants.ROADMARK_TAG:
-                        {
-                            x.Width = RoadMarkWidth;
-                            x.Height = RoadMarkHeight;
-                        }
-                        break;
-                    //case Constants.ROADSIDE_TAG: { RandomizeRoadSide(x); } break;
-                    default:
-                        break;
-                }
-            }
-
-            player.Width = CarWidth;
-            player.Height = CarHeight;
-
-            var carY = (GameView.Height / 1.3) - (370 * scale);
-            Console.WriteLine($"CAR Y: {carY}");
-
-            Canvas.SetTop(player, carY);
-
-            HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
-            HighWayDividerWidth = HighWayDividerWidth * scale;
-            Console.WriteLine($"HIGHWAY DIVIDER WIDTH {HighWayDividerWidth}");
-
-            highWayDivider.Width = HighWayDividerWidth;
-            Canvas.SetLeft(highWayDivider, (RoadView.Width / 2) - (highWayDivider.Width / 2));
-        }
-
-        public double GetGameObjectScale()
-        {
-            switch (RoadView.Width)
-            {
-                case <= 300:
-                    return 0.65;
-                case <= 400:
-                    return 0.70;
-                case <= 500:
-                    return 0.75;
-                case <= 700:
-                    return 0.80;
-                case <= 900:
-                    return 0.85;
-                case <= 1000:
-                    return 0.90;
-                case <= 1400:
-                    return 0.95;
-                case <= 2000:
-                    return 1;
-                default:
-                    return 1;
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Events
-
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.SizeChanged += MainPage_SizeChanged;
-        }
-
-        private void MainPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.SizeChanged -= MainPage_SizeChanged;
-        }
-
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs args)
-        {
-            windowWidth = args.NewSize.Width;
-            windowHeight = args.NewSize.Height;
-
-            Console.WriteLine($"WINDOWS SIZE: {windowWidth}x{windowHeight}");
-
-            AdjustView();
-        }
-
-        private void GameView_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            if (isGameOver)
-            {
-                GameView.Focus(FocusState.Programmatic);
-
-                StartGame();
-            }
-            else
-            {
-                if (isGamePaused)
-                {
-                    RunGame();
-                    isGamePaused = false;
-                }
-                else
-                {
-                    gameViewTimer.Dispose();
-                    roadViewTimer.Dispose();
-                    isGamePaused = true;
-                }
-            }
-        }
-
-        private void OnKeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Left)
-            {
-                moveLeft = true;
-                moveRight = false;
-            }
-            if (e.Key == VirtualKey.Right)
-            {
-                moveRight = true;
-                moveLeft = false;
-            }
-        }
-
-        private void OnKeyUP(object sender, KeyRoutedEventArgs e)
-        {
-            _accelerationCounter = 0;
-
-            // when the player releases the left or right key it will set the designated boolean to false
-            if (e.Key == VirtualKey.Left)
-            {
-                moveLeft = false;
-            }
-            if (e.Key == VirtualKey.Right)
-            {
-                moveRight = false;
-            }
-
-            // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
-            if (e.Key == VirtualKey.Enter && isGameOver == true)
-            {
-                StartGame();
-            }
-        }
 
         #endregion
     }

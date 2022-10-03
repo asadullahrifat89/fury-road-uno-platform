@@ -15,13 +15,5 @@ namespace FuryRoad
             SetContent(new Uri("ms-appx:///Assets/Images/road-mark2.png"));
         }
     }
-
-    public class RoadSide : GameObject
-    {
-        public RoadSide()
-        {
-            Tag = Constants.ROADSIDE_TAG;
-        }
-    }
 }
 

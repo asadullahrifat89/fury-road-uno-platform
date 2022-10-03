@@ -30,5 +30,13 @@ namespace FuryRoad
             new Uri("ms-appx:///Assets/Images/road-mark2.png"),
             new Uri("ms-appx:///Assets/Images/road-mark3.png"),
         };
+
+        public static Uri[] TREE_TEMPLATES = new Uri[]
+      {
+            new Uri("ms-appx:///Assets/Images/tree1.png"),
+            new Uri("ms-appx:///Assets/Images/tree2.png"),
+            new Uri("ms-appx:///Assets/Images/tree3.png"),
+            new Uri("ms-appx:///Assets/Images/tree4.png"),
+      };
     }
 }
