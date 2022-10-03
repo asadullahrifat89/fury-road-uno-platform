@@ -56,7 +56,7 @@ namespace FuryRoad
             _systemNavigationManager = SystemNavigationManager.GetForCurrentView();
 
             //_goBackNotAllowedToPages = new List<Type>() { typeof(GamePlayPage) };
-            //_goBackPageRoutes = new List<(Type IfGoingBackTo, Type RouteTo)>() { (IfGoingBackTo: typeof(GameOverPage), RouteTo: typeof(GameStartPage)) };
+            //_goBackPageRoutes = new List<(Type IfGoingBackTo, Type RouteTo)>() { (IfGoingBackTo: typeof(GameOverPage), RouteTo: typeof(GamePlayPage)) };
 
             //CurrentCulture = "en";
         }
@@ -149,7 +149,7 @@ namespace FuryRoad
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(GameStartPage), args.Arguments);
+                    rootFrame.Navigate(typeof(GamePlayPage), args.Arguments);
                 }
 
                 // Ensure the current window is active

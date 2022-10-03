@@ -22,8 +22,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameObjectExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)GameStartPage.xaml.cs">
-      <DependentUpon>GameStartPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)GamePlayPage.xaml.cs">
+      <DependentUpon>GamePlayPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Car.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameObject.cs" />
@@ -34,7 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Truck.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)GameStartPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)GamePlayPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
