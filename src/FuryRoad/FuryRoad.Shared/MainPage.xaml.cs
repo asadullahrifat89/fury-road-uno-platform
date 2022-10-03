@@ -29,7 +29,8 @@ namespace FuryRoad
 
         Rect playerHitBox;
 
-        int gameSpeed = 15;
+        int gameSpeed = 6;
+        int defaultGameSpeed = 6;
         int playerSpeed = 6;
         int carNum;
         int powerUpCounter = 30;
@@ -88,7 +89,7 @@ namespace FuryRoad
         {
             Console.WriteLine("GAME STARTED");
 
-            gameSpeed = 8; // set speed to 8
+            gameSpeed = 6; // set speed to 8
             RunGame();
 
             // set all of the boolean to false
@@ -584,44 +585,44 @@ namespace FuryRoad
         {
             if (score >= 10 && score < 20)
             {
-                gameSpeed = 10;
+                gameSpeed = defaultGameSpeed + 2;
             }
 
             if (score >= 20 && score < 30)
             {
-                gameSpeed = 12;
+                gameSpeed = defaultGameSpeed + 4;
             }
             if (score >= 30 && score < 40)
             {
-                gameSpeed = 14;
+                gameSpeed = defaultGameSpeed + 6;
             }
             if (score >= 40 && score < 50)
             {
-                gameSpeed = 16;
+                gameSpeed = defaultGameSpeed + 8;
             }
             if (score >= 50 && score < 80)
             {
-                gameSpeed = 18;
+                gameSpeed = defaultGameSpeed + 10;
             }
             if (score >= 80 && score < 100)
             {
-                gameSpeed = 20;
+                gameSpeed = defaultGameSpeed + 12;
             }
             if (score >= 100 && score < 130)
             {
-                gameSpeed = 22;
+                gameSpeed = defaultGameSpeed + 14;
             }
             if (score >= 130 && score < 150)
             {
-                gameSpeed = 24;
+                gameSpeed = defaultGameSpeed + 16;
             }
             if (score >= 150 && score < 180)
             {
-                gameSpeed = 26;
+                gameSpeed = defaultGameSpeed + 18;
             }
             if (score >= 180 && score < 200)
             {
-                gameSpeed = 28;
+                gameSpeed = defaultGameSpeed + 20;
             }
         }
 
@@ -731,7 +732,11 @@ namespace FuryRoad
 
             player.Width = CarWidth;
             player.Height = CarHeight;
-            //Canvas.SetTop(player, GameView.Height - 250 * scale);
+
+            var carY = (GameView.Height / 1.3) - (370 * scale);
+            Console.WriteLine($"CAR Y: {carY}");
+
+            Canvas.SetTop(player, carY);
 
             HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
             HighWayDividerWidth = HighWayDividerWidth * scale;
@@ -746,15 +751,17 @@ namespace FuryRoad
             switch (RoadView.Width)
             {
                 case <= 300:
+                    return 0.65;
+                case <= 400:
                     return 0.70;
                 case <= 500:
                     return 0.75;
                 case <= 700:
-                    return 0.85;
+                    return 0.80;
                 case <= 900:
-                    return 0.90;
+                    return 0.85;
                 case <= 1000:
-                    return 0.95;
+                    return 0.90;
                 case <= 1400:
                     return 0.95;
                 case <= 2000:
