@@ -564,11 +564,9 @@ namespace FuryRoad
 
             if (isPowerMode)
             {
-                powerModeCounter -= 1;
+                PowerUpCoolDown();
 
-                PowerUp();
-
-                if (powerModeCounter < 1)
+                if (powerModeCounter <= 0)
                 {
                     PowerDown();
                 }
@@ -919,14 +917,14 @@ namespace FuryRoad
 
         private void UpdatePowerUp(GameObject powerUp)
         {
-            // move it down the screen 5 pixels at a time
             powerUp.SetTop(powerUp.GetTop() + 5);
 
+            // if player gets a power up
             if (playerHitBox.IntersectsWith(powerUp.GetHitBox()))
             {
                 gameViewRemovableObjects.Add(powerUp);
-                isPowerMode = true;
-                powerModeCounter = powerModeDelay;
+
+                TriggerPowerUp();
             }
 
             if (powerUp.GetTop() > GameView.Height)
@@ -935,16 +933,35 @@ namespace FuryRoad
             }
         }
 
-        private void PowerUp()
+        private void TriggerPowerUp()
         {
+            powerUpText.Visibility = Visibility.Visible;
+            isPowerMode = true;
+            powerModeCounter = powerModeDelay;
+        }
+
+        private void PowerUpCoolDown()
+        {
+            powerModeCounter -= 1;
             RoadView.Background = new SolidColorBrush(Colors.Goldenrod);
             player.Opacity = 0.7d;
+
+            //set power up text ⚡
+
+            var remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
+            powerUpText.Text = "";
+
+            for (int i = 0; i < remainingPow; i++)
+            {
+                powerUpText.Text += "⚡";
+            }
         }
 
         private void PowerDown()
         {
             isPowerMode = false;
             player.Opacity = 1;
+            powerUpText.Visibility = Visibility.Collapsed;
 
             RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
         }
