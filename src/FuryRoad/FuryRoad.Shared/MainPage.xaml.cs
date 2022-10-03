@@ -178,7 +178,7 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            RoadView.Width = windowWidth < 500 ? 500 : windowWidth / 1.6; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? 800 : windowWidth / 1.6; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
             RoadView.Height = windowHeight * 2;
 
             var scale = GetGameObjectScale();

@@ -22,6 +22,7 @@ namespace FuryRoad
             new Uri("ms-appx:///Assets/Images/truck2.png"),
             new Uri("ms-appx:///Assets/Images/truck3.png"),
             new Uri("ms-appx:///Assets/Images/truck4.png"),
+            new Uri("ms-appx:///Assets/Images/truck5.png"),
         };
 
         public static Uri[] ROADMARK_TEMPLATES = new Uri[]

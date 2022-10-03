@@ -51,6 +51,7 @@
 		 without manipulating the projitem file.
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car1.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppostleft.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player-crashed.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-mark1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-mark2.png" />
@@ -62,7 +63,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\whitetruck.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car3.png" />

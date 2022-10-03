@@ -23,6 +23,7 @@
     <_Globbed_Compile Remove="Models\Truck.cs" />
   </ItemGroup>
   <ItemGroup>
+    <_Globbed_Content Remove="Assets\Images\lamppostleft.png" />
     <_Globbed_Content Remove="Assets\Images\tree4.png" />
     <_Globbed_Content Remove="Assets\Images\tree5.png" />
     <_Globbed_Content Remove="Assets\Images\tree6.png" />
