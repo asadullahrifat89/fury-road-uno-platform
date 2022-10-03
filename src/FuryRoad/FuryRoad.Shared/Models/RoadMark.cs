@@ -11,6 +11,8 @@ namespace FuryRoad
         public RoadMark()
         {
             Tag = Constants.ROADMARK_TAG;
+
+            SetContent(new Uri("ms-appx:///Assets/Images/road-dash2.png"));
         }
     }
 

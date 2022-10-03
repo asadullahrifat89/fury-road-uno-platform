@@ -104,8 +104,8 @@ namespace FuryRoad
             // set the score text to its default content
             scoreText.Text = "Score: 0";
 
-            // assign the player image to the player rectangle from the canvas
-            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
+            //// assign the player image to the player rectangle from the canvas
+            //player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
 
             // set the default background colour to gray
             RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;

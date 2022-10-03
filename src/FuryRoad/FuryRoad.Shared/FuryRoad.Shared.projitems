@@ -25,6 +25,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Car.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PowerUp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RoadMark.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Truck.cs" />
