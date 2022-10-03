@@ -28,8 +28,8 @@
 
             <system:Double x:Key="HighWayDividerWidth">25</system:Double>
 
-            <system:Double x:Key="GameViewRotationAngle">-45</system:Double>
-            <system:Double x:Key="FoliageViewRotationAngle">45</system:Double>
+            <system:Double x:Key="GameViewRotationAngle">-30</system:Double>
+            <system:Double x:Key="FoliageViewRotationAngle">30</system:Double>
 
             <SolidColorBrush x:Key="RoadBackgroundColor" Color="#365985" />
             <SolidColorBrush x:Key="GrassColor" Color="#369f1d" />
@@ -37,211 +37,19 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid x:Name="RootGrid" Background="{StaticResource GrassColor}">
+    <Grid x:Name="RootGrid">
 
         <!--  Soil view  -->
-        <Canvas x:Name="SoilView" RenderTransformOrigin="0.5,0.5">
+        <Canvas
+            x:Name="SoilView"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{StaticResource GrassColor}"
+            RenderTransformOrigin="0.5,0.5">
 
             <Canvas.RenderTransform>
                 <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
             </Canvas.RenderTransform>
-
-            <!--  grass stripes  -->
-            <Border
-                Canvas.Left="{x:Bind Path=-5*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height*2, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=-4*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=-3*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=-2*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=-1*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=0*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=1*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=2*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=3*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=4*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=5*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=6*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=7*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=8*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=9*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=10*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=11*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=12*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=13*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=14*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=15*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=16*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=17*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=18*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=19*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=20*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=21*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
-
-            <Border
-                Canvas.Left="{x:Bind Path=22*60, Mode=OneWay}"
-                Canvas.Top="0"
-                Width="30"
-                Height="{x:Bind Path=SoilView.Height, Mode=OneWay}"
-                Background="{StaticResource GrassStripeColor}" />
 
         </Canvas>
 
@@ -593,6 +401,8 @@
         <!--  Foliage view  -->
         <Canvas
             x:Name="FoliageView"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             Background="Transparent"
             RenderTransformOrigin="0.5,0.5">
 
@@ -602,7 +412,7 @@
 
             <!--  Left side  -->
             <Tree
-                Canvas.Left="{x:Bind Path=0+30, Mode=OneWay}"
+                Canvas.Left="{x:Bind Path=FoliageView.Width/2, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=FoliageView.Height-250, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
@@ -692,6 +502,7 @@
 
         </Canvas>
 
+        <!--  Score text  -->
         <TextBlock
             Name="scoreText"
             HorizontalAlignment="Center"
@@ -700,6 +511,7 @@
             FontWeight="Bold"
             Text="Score: 0" />
 
+        <!--  Input border  -->
         <Border
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -707,5 +519,7 @@
             KeyDown="OnKeyDown"
             KeyUp="OnKeyUP"
             PointerPressed="GameView_PointerPressed" />
+
     </Grid>
+
 </Page>

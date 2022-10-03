@@ -185,17 +185,35 @@ namespace FuryRoad
 
             var scale = GetGameObjectScale();
 
-            RoadView.Width = RoadView.Width - 50;
-            RoadView.Height = RoadView.Height - 50;
+            RootGrid.Width = windowWidth;
+            RootGrid.Height = windowHeight;
 
             GameView.Width = RoadView.Width - 40 * scale;
             GameView.Height = RoadView.Height;
 
-            SoilView.Width = windowWidth * 3;
-            SoilView.Height = windowHeight * 2;
+            SoilView.Width = windowWidth * 2;
+            SoilView.Height = RoadView.Height;
 
-            FoliageView.Width = windowWidth * 3;
-            FoliageView.Height = windowHeight * 2;
+            FoliageView.Width = SoilView.Width;
+            FoliageView.Height = SoilView.Height;
+
+            SoilView.Children.Clear();
+
+
+            for (int i = -5; i < 60; i++)
+            {
+                var border = new Border()
+                {
+                    Width = 30 * scale,
+                    Height = SoilView.Height,
+                    Background = this.Resources["GrassStripeColor"] as SolidColorBrush,
+                };
+
+                Canvas.SetLeft(border, i * 60);
+                Canvas.SetTop(border, 0);
+
+                SoilView.Children.Add(border);
+            }
 
             CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
             CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
