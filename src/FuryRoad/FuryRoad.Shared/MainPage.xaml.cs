@@ -22,7 +22,6 @@ namespace FuryRoad
 
         PeriodicTimer gameViewTimer;
         PeriodicTimer roadViewTimer;
-        PeriodicTimer foliageViewTimer;
 
         List<GameObject> gameViewRemovableObjects = new List<GameObject>();
 
@@ -134,7 +133,6 @@ namespace FuryRoad
         {
             gameViewTimer.Dispose();
             roadViewTimer.Dispose();
-            foliageViewTimer.Dispose();
         }
 
         private void OnKeyDown(object sender, KeyRoutedEventArgs e)
@@ -180,7 +178,7 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            RoadView.Width = windowWidth < 500 ? 500 : windowWidth / 1.5; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Width = windowWidth < 500 ? 500 : windowWidth / 1.6; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
             RoadView.Height = windowHeight * 2;
 
             var scale = GetGameObjectScale();
@@ -196,11 +194,9 @@ namespace FuryRoad
             SoilView.Width = windowWidth * 2;
             SoilView.Height = RoadView.Height;
 
-            FoliageView.Width = SoilView.Width;
-            FoliageView.Height = SoilView.Height;
-
             SoilView.Children.Clear();
 
+            // draw grass stripes
             for (int i = -5; i < 60; i++)
             {
                 var border = new Border()
@@ -288,14 +284,23 @@ namespace FuryRoad
 
             foreach (var x in RoadView.Children.OfType<GameObject>())
             {
-                x.Width = RoadMarkWidth;
-                x.Height = RoadMarkHeight;
-            }
-
-            foreach (var x in FoliageView.Children.OfType<GameObject>())
-            {
-                x.Width = TreeWidth;
-                x.Height = TreeHeight;
+                switch ((string)x.Tag)
+                {
+                    case Constants.ROADMARK_TAG:
+                        {
+                            x.Width = RoadMarkWidth;
+                            x.Height = RoadMarkHeight;
+                        }
+                        break;
+                    case Constants.TREE_TAG:
+                        {
+                            x.Width = TreeWidth;
+                            x.Height = TreeHeight;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
             player.Width = CarWidth;
@@ -331,9 +336,9 @@ namespace FuryRoad
                 case <= 1000:
                     return 0.85;
                 case <= 1400:
-                    return 0.95;
+                    return 0.90;
                 case <= 2000:
-                    return 1;
+                    return 0.95;
                 default:
                     return 1;
             }
@@ -401,12 +406,21 @@ namespace FuryRoad
 
             foreach (var x in RoadView.Children.OfType<GameObject>())
             {
-                RandomizeRoadMark(x);
-            }
-
-            foreach (var x in FoliageView.Children.OfType<GameObject>())
-            {
-                RandomizeTree(x);
+                switch ((string)x.Tag)
+                {
+                    case Constants.ROADMARK_TAG:
+                        {
+                            RandomizeRoadMark(x);
+                        }
+                        break;
+                    case Constants.TREE_TAG:
+                        {
+                            RandomizeTree(x);
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
 
             foreach (GameObject y in gameViewRemovableObjects)
@@ -421,7 +435,6 @@ namespace FuryRoad
         {
             RunGameView();
             RunRoadView();
-            RunFoliageView();
         }
 
         private async void RunGameView()
@@ -444,22 +457,29 @@ namespace FuryRoad
             }
         }
 
-        private async void RunFoliageView()
-        {
-            foliageViewTimer = new PeriodicTimer(frameTime);
-
-            while (await foliageViewTimer.WaitForNextTickAsync())
-            {
-                FoliageViewLoop();
-            }
-        }
 
         private void RoadViewLoop()
         {
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var gameObject in RoadView.Children.OfType<GameObject>())
+            foreach (var x in RoadView.Children.OfType<GameObject>())
             {
-                UpdateRoadMark(gameObject);
+                switch ((string)x.Tag)
+                {
+                    case Constants.ROADMARK_TAG:
+                        {
+                            UpdateRoadMark(x);
+                        }
+                        break;
+                    case Constants.TREE_TAG:
+                        {
+                            UpdateTree(x);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+
             }
 
             if (isGameOver)
@@ -481,17 +501,6 @@ namespace FuryRoad
             //    //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
             //    RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
             //}
-        }
-
-        private void FoliageViewLoop()
-        {
-            foreach (var gameObject in FoliageView.Children.OfType<GameObject>())
-            {
-                UpdateTree(gameObject);
-            }
-
-            if (isGameOver)
-                return;
         }
 
         private void GameViewLoop()
@@ -516,21 +525,21 @@ namespace FuryRoad
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var gameObject in GameView.Children.OfType<GameObject>())
+            foreach (var x in GameView.Children.OfType<GameObject>())
             {
-                var tag = (string)gameObject.Tag;
+                var tag = (string)x.Tag;
 
                 switch (tag)
                 {
                     case Constants.CAR_TAG:
                     case Constants.TRUCK_TAG:
                         {
-                            UpdateVehicle(gameObject);
+                            UpdateVehicle(x);
                         }
                         break;
                     case Constants.POWERUP_TAG:
                         {
-                            UpdatePowerUp(gameObject);
+                            UpdatePowerUp(x);
                         }
                         break;
                     default:
@@ -637,7 +646,7 @@ namespace FuryRoad
             tree.Width = TreeWidth;
             tree.Height = TreeHeight;
 
-            Canvas.SetTop(tree, (rand.Next(100, (int)FoliageView.Height) * -1));
+            Canvas.SetTop(tree, (rand.Next(100, (int)RoadView.Height) * -1));
         }
 
         private void RandomizeTree(GameObject tree)
