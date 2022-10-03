@@ -58,7 +58,7 @@ namespace FuryRoad
 
         double HighWayDividerWidth;
 
-        bool moveLeft, moveRight, isGameOver, isPowerMode, isGamePaused;
+        bool moveLeft, moveRight, moveUp, moveDown, isGameOver, isPowerMode, isGamePaused;
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
@@ -150,6 +150,16 @@ namespace FuryRoad
                 moveRight = true;
                 moveLeft = false;
             }
+            if (e.Key == VirtualKey.Up)
+            {
+                moveUp = true;
+                moveDown = false;
+            }
+            if (e.Key == VirtualKey.Down)
+            {
+                moveDown = true;
+                moveUp = false;
+            }
         }
 
         private void OnKeyUP(object sender, KeyRoutedEventArgs e)
@@ -164,6 +174,14 @@ namespace FuryRoad
             if (e.Key == VirtualKey.Right)
             {
                 moveRight = false;
+            }
+            if (e.Key == VirtualKey.Up)
+            {
+                moveUp = false;
+            }
+            if (e.Key == VirtualKey.Down)
+            {
+                moveDown = false;
             }
 
             // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
@@ -381,6 +399,9 @@ namespace FuryRoad
 
             moveLeft = false;
             moveRight = false;
+            moveUp = false;
+            moveDown = false;
+
             isGameOver = false;
             isPowerMode = false;
 
@@ -541,7 +562,7 @@ namespace FuryRoad
 
             playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
 
-            if (moveLeft || moveRight)
+            if (moveLeft || moveRight || moveUp || moveDown)
             {
                 UpdatePlayer();
             }
@@ -611,15 +632,26 @@ namespace FuryRoad
 
             //Console.WriteLine("ACC:" + _accelerationCounter);
 
-            var left = Canvas.GetLeft(player);
+            var scale = GetGameObjectScale();
 
-            if (moveLeft == true && left > 0)
+            var left = Canvas.GetLeft(player);
+            var top = Canvas.GetTop(player);
+
+            if (moveLeft && left > 0)
             {
                 Canvas.SetLeft(player, left - effectiveSpeed);
             }
-            if (moveRight == true && left + player.Width < GameView.Width)
+            if (moveRight && left + player.Width < GameView.Width)
             {
                 Canvas.SetLeft(player, left + effectiveSpeed);
+            }
+            if (moveUp && top > (GameView.Height / 3.3) + 100 * scale)
+            {
+                Canvas.SetTop(player, top - effectiveSpeed);
+            }
+            if (moveDown && top < ((GameView.Height / 1.3) - 370 * scale))
+            {
+                Canvas.SetTop(player, top + effectiveSpeed);
             }
         }
 
@@ -744,14 +776,7 @@ namespace FuryRoad
             // if vehicle collides with player
             if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
             {
-                if (isPowerMode)
-                {
-                    //if ((string)vehicle.Tag == Constants.TRUCK_TAG)
-                    //    RecyleTruck(vehicle);
-                    //else
-                    //    RecyleCar(vehicle);
-                }
-                else
+                if (!isPowerMode)
                 {
                     GameOver();
                 }
