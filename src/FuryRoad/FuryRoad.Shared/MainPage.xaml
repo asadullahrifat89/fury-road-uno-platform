@@ -562,7 +562,6 @@
                 <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
             </Canvas.RenderTransform>
 
-            <!--  Cars  -->
             <!--#region Cars-->
             <Car
                 Canvas.Left="{x:Bind Path=GameView.Width/1.5}"
