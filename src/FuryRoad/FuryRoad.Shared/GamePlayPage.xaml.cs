@@ -58,13 +58,15 @@ namespace FuryRoad
 
         double HighWayDividerWidth;
 
-        bool moveLeft, moveRight, moveUp, moveDown, isGameOver, isPowerMode, isGamePaused;
+        bool moveLeft, moveRight, moveUp, moveDown, isGameOver, isPowerMode, isGamePaused, isPointerActivated;
 
         TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
-        int _accelerationCounter;
+        int accelerationCounter;
 
         double windowHeight, windowWidth;
+
+        Point pointerPosition;
 
         #endregion
 
@@ -109,7 +111,7 @@ namespace FuryRoad
             AdjustView();
         }
 
-        private void GameView_PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void InputView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (isGameOver)
             {
@@ -119,17 +121,37 @@ namespace FuryRoad
             }
             else
             {
-                if (isGamePaused)
-                {
-                    RunGame();
-                    isGamePaused = false;
-                }
-                else
-                {
-                    StopGame();
-                    isGamePaused = true;
-                }
+                isPointerActivated = true;
+
+                
+
+                //TODO: capture pointer activation and move car to pointer position
+                //if (isGamePaused)
+                //{
+                //    RunGame();
+                //    isGamePaused = false;
+                //}
+                //else
+                //{
+                //    StopGame();
+                //    isGamePaused = true;
+                //}
             }
+        }
+
+        private void InputView_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (isPointerActivated)
+            {
+                var point = e.GetCurrentPoint(GameView);
+
+                pointerPosition = point.Position;
+            }
+        }
+
+        private void InputView_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            isPointerActivated = false;
         }
 
         private void StopGame()
@@ -164,7 +186,7 @@ namespace FuryRoad
 
         private void OnKeyUP(object sender, KeyRoutedEventArgs e)
         {
-            _accelerationCounter = 0;
+            accelerationCounter = 0;
 
             // when the player releases the left or right key it will set the designated boolean to false
             if (e.Key == VirtualKey.Left)
@@ -560,7 +582,7 @@ namespace FuryRoad
 
             scoreText.Text = "Score: " + score.ToString("#");
 
-            playerHitBox = new Rect(Canvas.GetLeft(player), Canvas.GetTop(player), player.Width, player.Height);
+            playerHitBox = new Rect(player.GetX(), player.GetY(), player.Width, player.Height);
 
             if (moveLeft || moveRight || moveUp || moveDown)
             {
@@ -624,18 +646,18 @@ namespace FuryRoad
 
         private void UpdatePlayer()
         {
-            var effectiveSpeed = _accelerationCounter >= playerSpeed ? playerSpeed : _accelerationCounter / 1.3;
+            var effectiveSpeed = accelerationCounter >= playerSpeed ? playerSpeed : accelerationCounter / 1.3;
 
             // increase acceleration and stop when player speed is reached
-            if (_accelerationCounter <= playerSpeed)
-                _accelerationCounter++;
+            if (accelerationCounter <= playerSpeed)
+                accelerationCounter++;
 
             //Console.WriteLine("ACC:" + _accelerationCounter);
 
             var scale = GetGameObjectScale();
 
-            var left = Canvas.GetLeft(player);
-            var top = Canvas.GetTop(player);
+            var left = player.GetX();
+            var top = player.GetY();
 
             if (moveLeft && left > 0)
             {
@@ -661,9 +683,9 @@ namespace FuryRoad
 
         private void UpdateRoadMark(GameObject roadMark)
         {
-            Canvas.SetTop(roadMark, Canvas.GetTop(roadMark) + gameSpeed);
+            Canvas.SetTop(roadMark, roadMark.GetY() + gameSpeed);
 
-            if (Canvas.GetTop(roadMark) > RoadView.Height)
+            if (roadMark.GetY() > RoadView.Height)
             {
                 RecyleRoadMark(roadMark);
             }
@@ -691,9 +713,9 @@ namespace FuryRoad
 
         private void UpdateTree(GameObject roadSide)
         {
-            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
+            Canvas.SetTop(roadSide, roadSide.GetY() + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > RoadView.Height)
+            if (roadSide.GetY() > RoadView.Height)
             {
                 RecyleTree(roadSide);
             }
@@ -721,9 +743,9 @@ namespace FuryRoad
 
         private void UpdateLampPost(GameObject roadSide)
         {
-            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
+            Canvas.SetTop(roadSide, roadSide.GetY() + gameSpeed);
 
-            if (Canvas.GetTop(roadSide) > RoadView.Height)
+            if (roadSide.GetY() > RoadView.Height)
             {
                 RecyleLampPost(roadSide);
             }
@@ -762,10 +784,10 @@ namespace FuryRoad
         private void UpdateVehicle(GameObject vehicle)
         {
             // move down vehicle
-            Canvas.SetTop(vehicle, Canvas.GetTop(vehicle) + vehicle.Speed);
+            Canvas.SetTop(vehicle, vehicle.GetY() + vehicle.Speed);
 
             // if vechicle goes out of bounds
-            if (Canvas.GetTop(vehicle) > GameView.Height)
+            if (vehicle.GetY() > GameView.Height)
             {
                 if ((string)vehicle.Tag == Constants.TRUCK_TAG)
                     RecyleTruck(vehicle);
@@ -816,7 +838,7 @@ namespace FuryRoad
             car.Speed = gameSpeed - rand.Next(0, 7);
 
             RandomizeVehiclePostion(car);
-        }
+        }       
 
         private void RecyleTruck(GameObject truck)
         {
@@ -851,7 +873,7 @@ namespace FuryRoad
         private void UpdatePowerUp(GameObject powerUp)
         {
             // move it down the screen 5 pixels at a time
-            Canvas.SetTop(powerUp, Canvas.GetTop(powerUp) + 5);
+            Canvas.SetTop(powerUp, powerUp.GetY() + 5);
 
             if (playerHitBox.IntersectsWith(powerUp.GetHitBox()))
             {
@@ -860,7 +882,7 @@ namespace FuryRoad
                 powerModeCounter = 200;
             }
 
-            if (Canvas.GetTop(powerUp) > GameView.Height)
+            if (powerUp.GetY() > GameView.Height)
             {
                 gameViewRemovableObjects.Add(powerUp);
             }

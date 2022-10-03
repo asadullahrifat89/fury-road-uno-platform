@@ -645,12 +645,15 @@
 
         <!--  Input border  -->
         <Border
+            x:Name="InputView"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Background="Transparent"
             KeyDown="OnKeyDown"
             KeyUp="OnKeyUP"
-            PointerPressed="GameView_PointerPressed" />
+            PointerMoved="InputView_PointerMoved"
+            PointerPressed="InputView_PointerPressed"
+            PointerReleased="InputView_PointerReleased" />
 
     </Grid>
 
