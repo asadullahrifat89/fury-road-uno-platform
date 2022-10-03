@@ -314,7 +314,7 @@ namespace FuryRoad
                 {
                     // if we find any rectangle with the car tag on it then we will
                     case Constants.CAR_TAG:
-                        {                           
+                        {
                             x.SetSize(CarWidth, CarHeight);
                         }
                         break;
@@ -343,7 +343,7 @@ namespace FuryRoad
                 switch ((string)x.Tag)
                 {
                     case Constants.ROADMARK_TAG:
-                        {                            
+                        {
                             x.SetSize(RoadMarkWidth, RoadMarkHeight);
                         }
                         break;
@@ -689,9 +689,7 @@ namespace FuryRoad
         {
             RandomizeRoadMark(roadMark);
 
-            roadMark.Width = RoadMarkWidth;
-            roadMark.Height = RoadMarkHeight;
-
+            roadMark.SetSize(RoadMarkWidth, RoadMarkHeight);
             roadMark.SetTop(((roadMark.Height * 2) * -1));
         }
 
@@ -719,9 +717,7 @@ namespace FuryRoad
         {
             RandomizeTree(tree);
 
-            tree.Width = TreeWidth;
-            tree.Height = TreeHeight;
-
+            tree.SetSize(TreeWidth, TreeHeight);
             tree.SetTop((rand.Next(100, (int)RoadView.Height) * -1));
         }
 
@@ -755,9 +751,7 @@ namespace FuryRoad
                     break;
             }
 
-            lampPostLeft.Width = LampPostWidth;
-            lampPostLeft.Height = LampPostHeight;
-
+            lampPostLeft.SetSize(LampPostWidth, LampPostHeight);
             lampPostLeft.SetTop(((lampPostLeft.Height * 2) * -1));
         }
 
@@ -825,10 +819,7 @@ namespace FuryRoad
             markNum = rand.Next(0, AssetTemplates.CAR_TEMPLATES.Length);
 
             car.SetContent(AssetTemplates.CAR_TEMPLATES[markNum]);
-
-            car.Width = CarWidth;
-            car.Height = CarHeight;
-
+            car.SetSize(CarWidth, CarHeight);
             car.Speed = gameSpeed - rand.Next(0, 7);
 
             RandomizeVehiclePostion(car);
@@ -838,11 +829,8 @@ namespace FuryRoad
         {
             markNum = rand.Next(0, AssetTemplates.TRUCK_TEMPLATES.Length);
 
-            truck.SetContent(AssetTemplates.TRUCK_TEMPLATES[markNum]);
-
-            truck.Width = TruckWidth;
-            truck.Height = TruckHeight;
-
+            truck.SetContent(AssetTemplates.TRUCK_TEMPLATES[markNum]);            
+            truck.SetSize(TruckWidth, TruckHeight);
             truck.Speed = gameSpeed - rand.Next(0, 5);
 
             RandomizeVehiclePostion(truck);
