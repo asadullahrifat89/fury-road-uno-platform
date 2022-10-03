@@ -11,8 +11,16 @@
 
     <Page.Resources>
         <ResourceDictionary>
+
+            <!--#region Objects Width x Height-->
             <system:Double x:Key="RoadMarkWidth">20</system:Double>
             <system:Double x:Key="RoadMarkHeight">60</system:Double>
+
+            <system:Double x:Key="TreeWidth">220</system:Double>
+            <system:Double x:Key="TreeHeight">220</system:Double>
+
+            <system:Double x:Key="LampPostWidth">85</system:Double>
+            <system:Double x:Key="LampPostHeight">115</system:Double>
 
             <system:Double x:Key="RoadSideWidth">30</system:Double>
             <system:Double x:Key="RoadSideHeight">228</system:Double>
@@ -22,107 +30,85 @@
 
             <system:Double x:Key="TruckWidth">65</system:Double>
             <system:Double x:Key="TruckHeight">220</system:Double>
+
+            <system:Double x:Key="HighWayDividerWidth">25</system:Double>
+            <!--#endregion-->
+
+            <!--#region Rotation Angles-->
+            <system:Double x:Key="GameViewRotationAngle">-30</system:Double>
+            <system:Double x:Key="FoliageViewRotationAngle">30</system:Double>
+            <!--#endregion-->
+
+            <!--#region Colors-->
+            <SolidColorBrush x:Key="RoadBackgroundColor" Color="#365985" />
+            <SolidColorBrush x:Key="GrassColor" Color="#369f1d" />
+            <SolidColorBrush x:Key="GrassStripeColor" Color="#1b951b" />
+            <!--#endregion-->
+
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid x:Name="RootGrid">
+
+        <!--  Soil view  -->
+        <Canvas
+            x:Name="SoilView"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{StaticResource GrassColor}"
+            RenderTransformOrigin="0.5,0.5">
+
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
+
+        </Canvas>
 
         <!--  Road view  -->
         <Canvas
             x:Name="RoadView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="{StaticResource RoadBackgroundColor}">
+            Background="{StaticResource RoadBackgroundColor}"
+            RenderTransformOrigin="0.5,0.5">
 
-            <!--  High way border  -->
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
+
+            <!--#region Highway Borders-->
+            <!--  High way left side border  -->
             <Border
+                x:Name="highWayLeftSide"
+                Canvas.Left="0"
+                Width="{StaticResource RoadSideWidth}"
+                Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
+                Background="#acb8c4"
+                BorderBrush="#0e123f"
+                BorderThickness="4,0" />
+
+            <!--  High way middle border  -->
+            <Border
+                x:Name="highWayDivider"
                 Canvas.Left="{x:Bind Path=((RoadView.Width/2)-(25/2)), Mode=OneWay}"
-                Width="25"
+                Width="{StaticResource HighWayDividerWidth}"
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
-                Background="#d9a93a" />
+                Background="#d9a93a"
+                BorderBrush="DarkGoldenrod"
+                BorderThickness="4,0" />
 
+            <!--  High way right side border  -->
             <Border
-                Canvas.Left="0"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
-                Background="#acb8c4"
-                BorderBrush="#0e123f"
-                BorderThickness="0,0,4,0" />
-
-            <Border
+                x:Name="highWayRightSide"
                 Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
                 Width="{StaticResource RoadSideWidth}"
                 Height="{x:Bind Path=RoadView.Height, Mode=OneWay}"
                 Background="#acb8c4"
                 BorderBrush="#0e123f"
-                BorderThickness="0,0,4,0" />
+                BorderThickness="4,0" />
+            <!--#endregion-->
 
-            <!--  Road sides: Left  -->
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*-1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*0}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*2}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*3}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="0"
-                Canvas.Top="{x:Bind Path=228*4}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-
-
-            <!--  Road sides: Right  -->
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*-1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*0}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*1}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*2}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*3}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-            <RoadSide
-                Canvas.Left="{x:Bind Path=RoadView.Width-30, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=228*4}"
-                Width="{StaticResource RoadSideWidth}"
-                Height="{StaticResource RoadSideHeight}" />
-
-            <!--  Road marks: Left  -->
+            <!--#region Road Marks: Left-->
             <RoadMark
                 Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*-1}"
@@ -168,8 +154,79 @@
                 Canvas.Top="{x:Bind Path=120*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*8}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*9}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*10}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*11}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*12}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*13}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*14}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*15}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*16}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*17}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*18}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*19}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*20}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/4, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*21}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <!--#endregion-->
 
-            <!--  Road marks: Right  -->
+            <!--#region Road Marks: Right-->
             <RoadMark
                 Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*-1}"
@@ -215,6 +272,301 @@
                 Canvas.Top="{x:Bind Path=120*7}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*8}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*9}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*10}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*11}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*12}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*13}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*14}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*15}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*16}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*17}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*18}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*19}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*20}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <RoadMark
+                Canvas.Left="{x:Bind Path=RoadView.Width/2-10+RoadView.Width/4-10, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=120*21}"
+                Width="{StaticResource RoadMarkWidth}"
+                Height="{StaticResource RoadMarkHeight}" />
+            <!--#endregion-->
+
+            <!--#region Lamp Posts: Left-->
+            <GameObject
+                Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*-1}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-left">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*0}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-left">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*1}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-left">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*2}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-left">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
+            </GameObject>
+            <!--#endregion-->
+
+            <!--#region Trees: Left-->
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="1000"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="1500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="2000"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
+                Canvas.Top="2500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <!--#endregion-->
+
+            <!--#region Lamp Posts: Right-->
+            <GameObject
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*-1}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-right">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*0}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-right">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*1}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-right">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
+                Canvas.Left="{x:Bind Path=RoadView.Width-40, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=580*2}"
+                Width="{StaticResource LampPostWidth}"
+                Height="{StaticResource LampPostHeight}"
+                RenderTransformOrigin="0.5,0.5"
+                Tag="lamppost-right">
+                <GameObject.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
+            </GameObject>
+            <!--#endregion-->
+
+            <!--#region Trees: Right-->
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="1000"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="1500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="2000"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <Tree
+                Canvas.Left="{x:Bind Path=RoadView.Width+5, Mode=OneWay}"
+                Canvas.Top="2500"
+                Width="{StaticResource TreeWidth}"
+                Height="{StaticResource TreeHeight}"
+                RenderTransformOrigin="0.5,0.5">
+                <Tree.RenderTransform>
+                    <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+                </Tree.RenderTransform>
+            </Tree>
+            <!--#endregion-->
 
         </Canvas>
 
@@ -223,63 +575,66 @@
             x:Name="GameView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="Transparent">
+            Background="Transparent"
+            RenderTransformOrigin="0.5,0.5">
 
-            <!--  Cars  -->
+            <Canvas.RenderTransform>
+                <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
+            </Canvas.RenderTransform>
+
+            <!--#region Cars-->
             <Car
                 Canvas.Left="{x:Bind Path=GameView.Width/1.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-150}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
-
             <Car
                 Canvas.Left="{x:Bind Path=GameView.Width/2.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-250}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
-
             <Car
                 Canvas.Left="{x:Bind Path=GameView.Width/3.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-10}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
-
             <Car
                 Canvas.Left="{x:Bind Path=GameView.Width/4.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-50}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
+            <!--#endregion-->
 
-
-            <!--  Trucks  -->
+            <!--#region Trucks-->
             <Truck
                 Canvas.Left="{x:Bind Path=GameView.Width/7.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}" />
-
             <Truck
                 Canvas.Left="{x:Bind Path=GameView.Width/7.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}" />
-
             <Truck
                 Canvas.Left="{x:Bind Path=GameView.Width/7.5}"
                 Canvas.Top="{x:Bind Path=GameView.Height-150}"
                 Width="{StaticResource TruckWidth}"
                 Height="{StaticResource TruckHeight}" />
+            <!--#endregion-->
 
-            <!--  Player  -->
-            <GameObject
+            <!--#region Player-->
+            <Player
                 x:Name="player"
                 Canvas.Left="{x:Bind Path=GameView.Width/2}"
-                Canvas.Top="{x:Bind Path=GameView.Height-250, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=((GameView.Height/1.3)-370), Mode=OneWay}"
                 Width="{StaticResource CarWidth}"
                 Height="{StaticResource CarHeight}" />
+            <!--#endregion-->
 
         </Canvas>
 
+        <!--  Score text  -->
         <TextBlock
             Name="scoreText"
             HorizontalAlignment="Center"
@@ -288,6 +643,7 @@
             FontWeight="Bold"
             Text="Score: 0" />
 
+        <!--  Input border  -->
         <Border
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -295,5 +651,7 @@
             KeyDown="OnKeyDown"
             KeyUp="OnKeyUP"
             PointerPressed="GameView_PointerPressed" />
+
     </Grid>
+
 </Page>

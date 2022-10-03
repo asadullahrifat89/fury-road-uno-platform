@@ -11,14 +11,8 @@ namespace FuryRoad
         public RoadMark()
         {
             Tag = Constants.ROADMARK_TAG;
-        }
-    }
 
-    public class RoadSide : GameObject
-    {
-        public RoadSide()
-        {
-            Tag = Constants.ROADSIDE_TAG;
+            SetContent(new Uri("ms-appx:///Assets/Images/road-mark2.png"));
         }
     }
 }
