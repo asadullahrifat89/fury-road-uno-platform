@@ -1,15 +1,12 @@
 ﻿using Microsoft.UI;
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Runtime.ConstrainedExecution;
 using System.Threading;
 using Windows.Foundation;
 using Windows.System;
@@ -23,15 +20,14 @@ namespace FuryRoad
         PeriodicTimer gameViewTimer;
         PeriodicTimer roadViewTimer;
 
-        List<GameObject> gameViewRemovableObjects = new List<GameObject>();
-
-        Random rand = new Random();
+        readonly List<GameObject> gameViewRemovableObjects = new();
+        readonly Random rand = new();
 
         Rect playerHitBox;
 
         int gameSpeed = 6;
-        int defaultGameSpeed = 6;
-        int playerSpeed = 6;
+        readonly int defaultGameSpeed = 6;
+        readonly int playerSpeed = 6;
         int markNum;
         int powerUpCounter = 30;
         int powerModeCounter = 10000;
@@ -57,10 +53,15 @@ namespace FuryRoad
         double LampPostHeight;
 
         double HighWayDividerWidth;
-
-        bool moveLeft, moveRight, moveUp, moveDown, isGameOver, isPowerMode, isGamePaused, isPointerActivated;
-
-        TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
+        private bool moveLeft;
+        private bool moveRight;
+        private bool moveUp;
+        private bool moveDown;
+        private bool isGameOver;
+        private bool isPowerMode;
+        private bool isGamePaused;
+        private bool isPointerActivated;
+        readonly TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
         int accelerationCounter;
 
@@ -145,8 +146,7 @@ namespace FuryRoad
         {
             if (isPointerActivated)
             {
-                var point = e.GetCurrentPoint(GameView);
-
+                PointerPoint point = e.GetCurrentPoint(GameView);
                 pointerPosition = point.Position;
             }
         }
@@ -154,6 +154,7 @@ namespace FuryRoad
         private void InputView_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             isPointerActivated = false;
+            pointerPosition = null;
         }
 
         private void StopGame()
@@ -188,7 +189,7 @@ namespace FuryRoad
 
         private void OnKeyUP(object sender, KeyRoutedEventArgs e)
         {
-            accelerationCounter = 0;
+
 
             // when the player releases the left or right key it will set the designated boolean to false
             if (e.Key == VirtualKey.Left)
@@ -208,6 +209,9 @@ namespace FuryRoad
                 moveDown = false;
             }
 
+            if (!moveLeft && !moveRight && !moveUp && !moveDown)
+                accelerationCounter = 0;
+
             // in this case we will listen for the enter key aswell but for this to execute we will need the game over boolean to be true
             if (e.Key == VirtualKey.Enter && isGameOver == true)
             {
@@ -226,7 +230,7 @@ namespace FuryRoad
             RoadView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? windowWidth / 1.6 : windowWidth / 1.7; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
             RoadView.Height = windowHeight * 2;
 
-            var scale = GetGameObjectScale();
+            double scale = GetGameObjectScale();
 
             RoadView.Width = RoadView.Width * scale;
 
@@ -244,7 +248,7 @@ namespace FuryRoad
             // draw grass stripes
             for (int i = -5; i < 60; i++)
             {
-                var border = new Border()
+                Border border = new()
                 {
                     Width = 30 * scale,
                     Height = SoilView.Height,
@@ -306,9 +310,9 @@ namespace FuryRoad
             Console.WriteLine($"ROAD SIDE HEIGHT {RoadSideHeight}");
 
             // run a initial foreach loop to set up the cars and remove any star in the game
-            foreach (var x in GameView.Children.OfType<GameObject>())
+            foreach (GameObject x in GameView.Children.OfType<GameObject>())
             {
-                var tag = (string)x.Tag;
+                string tag = (string)x.Tag;
 
                 switch (tag)
                 {
@@ -338,7 +342,7 @@ namespace FuryRoad
 
             Canvas.SetLeft(highWayRightSide, RoadView.Width - RoadSideWidth);
 
-            foreach (var x in RoadView.Children.OfType<GameObject>())
+            foreach (GameObject x in RoadView.Children.OfType<GameObject>())
             {
                 switch ((string)x.Tag)
                 {
@@ -365,7 +369,7 @@ namespace FuryRoad
 
             player.SetSize(CarWidth, CarHeight);
 
-            var carY = (GameView.Height / 1.3) - (370 * scale);
+            double carY = (GameView.Height / 1.3) - (370 * scale);
             Console.WriteLine($"CAR Y: {carY}");
 
             player.SetTop(carY);
@@ -380,27 +384,18 @@ namespace FuryRoad
 
         public double GetGameObjectScale()
         {
-            switch (RoadView.Width)
+            return RoadView.Width switch
             {
-                case <= 300:
-                    return 0.60;
-                case <= 400:
-                    return 0.65;
-                case <= 500:
-                    return 0.70;
-                case <= 700:
-                    return 0.75;
-                case <= 900:
-                    return 0.80;
-                case <= 1000:
-                    return 0.85;
-                case <= 1400:
-                    return 0.90;
-                case <= 2000:
-                    return 0.95;
-                default:
-                    return 1;
-            }
+                <= 300 => 0.60,
+                <= 400 => 0.65,
+                <= 500 => 0.70,
+                <= 700 => 0.75,
+                <= 900 => 0.80,
+                <= 1000 => 0.85,
+                <= 1400 => 0.90,
+                <= 2000 => 0.95,
+                _ => 1,
+            };
         }
 
         #endregion
@@ -433,9 +428,9 @@ namespace FuryRoad
             player.SetSize(CarWidth, CarHeight);
 
             // set game view objects
-            foreach (var x in GameView.Children.OfType<GameObject>())
+            foreach (GameObject x in GameView.Children.OfType<GameObject>())
             {
-                var tag = (string)x.Tag;
+                string tag = (string)x.Tag;
 
                 switch (tag)
                 {
@@ -461,7 +456,7 @@ namespace FuryRoad
             }
 
             // set road view objects
-            foreach (var x in RoadView.Children.OfType<GameObject>())
+            foreach (GameObject x in RoadView.Children.OfType<GameObject>())
             {
                 switch ((string)x.Tag)
                 {
@@ -527,7 +522,7 @@ namespace FuryRoad
         private void RoadViewLoop()
         {
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var x in RoadView.Children.OfType<GameObject>())
+            foreach (GameObject x in RoadView.Children.OfType<GameObject>())
             {
                 switch ((string)x.Tag)
                 {
@@ -590,9 +585,9 @@ namespace FuryRoad
             }
 
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
-            foreach (var x in GameView.Children.OfType<GameObject>())
+            foreach (GameObject x in GameView.Children.OfType<GameObject>())
             {
-                var tag = (string)x.Tag;
+                string tag = (string)x.Tag;
 
                 switch (tag)
                 {
@@ -640,7 +635,7 @@ namespace FuryRoad
 
         private void UpdatePlayer()
         {
-            var effectiveSpeed = accelerationCounter >= playerSpeed ? playerSpeed : accelerationCounter / 1.3;
+            double effectiveSpeed = accelerationCounter >= playerSpeed ? playerSpeed : accelerationCounter / 1.3;
 
             // increase acceleration and stop when player speed is reached
             if (accelerationCounter <= playerSpeed)
@@ -648,10 +643,10 @@ namespace FuryRoad
 
             //Console.WriteLine("ACC:" + _accelerationCounter);
 
-            var scale = GetGameObjectScale();
+            double scale = GetGameObjectScale();
 
-            var left = player.GetLeft();
-            var top = player.GetTop();
+            double left = player.GetLeft();
+            double top = player.GetTop();
 
             if (moveLeft && left > 0)
             {
@@ -829,7 +824,7 @@ namespace FuryRoad
         {
             markNum = rand.Next(0, AssetTemplates.TRUCK_TEMPLATES.Length);
 
-            truck.SetContent(AssetTemplates.TRUCK_TEMPLATES[markNum]);            
+            truck.SetContent(AssetTemplates.TRUCK_TEMPLATES[markNum]);
             truck.SetSize(TruckWidth, TruckHeight);
             truck.Speed = gameSpeed - rand.Next(0, 5);
 
@@ -885,9 +880,9 @@ namespace FuryRoad
 
         private void SpawnPowerUp()
         {
-            var scale = GetGameObjectScale();
+            double scale = GetGameObjectScale();
 
-            PowerUp newStar = new PowerUp
+            PowerUp newStar = new()
             {
                 Height = 50 * scale,
                 Width = 50 * scale,
