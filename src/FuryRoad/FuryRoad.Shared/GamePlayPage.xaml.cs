@@ -934,7 +934,7 @@ namespace FuryRoad
         }
 
         private void TriggerPowerUp()
-        {
+        {           
             powerUpText.Visibility = Visibility.Visible;
             isPowerMode = true;
             powerModeCounter = powerModeDelay;
@@ -948,9 +948,9 @@ namespace FuryRoad
 
             //set power up text ⚡
 
-            var remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
-            powerUpText.Text = "";
+            var remainingPow = powerModeCounter / powerModeDelay * 4;           
 
+            powerUpText.Text = "";
             for (int i = 0; i < remainingPow; i++)
             {
                 powerUpText.Text += "⚡";
@@ -976,7 +976,7 @@ namespace FuryRoad
                 Width = 50 * scale,
             };
 
-            newStar.SetContent(new Uri("ms-appx:///Assets/Images/star.png"));
+            newStar.SetContent(new Uri("ms-appx:///Assets/Images/powerup.png"));
             newStar.SetPosition(rand.Next(100, (int)GameView.Height) * -1, rand.Next(0, (int)(GameView.Width - 55)));
 
             GameView.Children.Add(newStar);
