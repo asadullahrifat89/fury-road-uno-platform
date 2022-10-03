@@ -31,6 +31,7 @@ namespace FuryRoad
         int markNum;
         int powerUpCounter = 30;
         int powerModeCounter = 10000;
+        int lives = 3;
 
         double score;
 
@@ -60,10 +61,13 @@ namespace FuryRoad
         private bool isGameOver;
         private bool isPowerMode;
         private bool isGamePaused;
+
+        private bool isRecoveringFromDamage;
+
         private bool isPointerActivated;
         readonly TimeSpan frameTime = TimeSpan.FromMilliseconds(18);
 
-        int accelerationCounter;
+        int accelerationCounter = 0, damageRecoveryCounter = 100, damageRecoveryDelay = 500;
 
         double windowHeight, windowWidth;
 
@@ -406,6 +410,8 @@ namespace FuryRoad
         {
             Console.WriteLine("GAME STARTED");
 
+            lives = 3;
+            SetLives();
             gameSpeed = 6;
             RunGame();
 
@@ -416,6 +422,8 @@ namespace FuryRoad
 
             isGameOver = false;
             isPowerMode = false;
+            isRecoveringFromDamage = false;
+            damageRecoveryCounter = damageRecoveryDelay;
 
             score = 0;
 
@@ -550,7 +558,7 @@ namespace FuryRoad
             if (isGameOver)
                 return;
 
-            if (isPowerMode == true)
+            if (isPowerMode)
             {
                 powerModeCounter -= 1;
 
@@ -673,7 +681,7 @@ namespace FuryRoad
                 if (pointerPosition.X > playerMiddleX + playerSpeed)
                 {
                     player.SetLeft(left + effectiveSpeed);
-                }              
+                }
             }
             else
             {
@@ -808,12 +816,32 @@ namespace FuryRoad
                     RecyleCar(vehicle);
             }
 
-            // if vehicle collides with player
-            if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
+            if (isRecoveringFromDamage)
             {
-                if (!isPowerMode)
+                player.Opacity = 0.66;
+                damageRecoveryCounter--;
+
+                if (damageRecoveryCounter <= 0)
                 {
-                    GameOver();
+                    player.Opacity = 1;
+                    isRecoveringFromDamage = false;
+                }
+            }
+            else
+            {
+                // if vehicle collides with player
+                if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
+                {
+                    if (!isPowerMode)
+                    {
+                        lives--;
+                        damageRecoveryCounter = damageRecoveryDelay;
+                        isRecoveringFromDamage = true;
+                        SetLives();
+
+                        if (lives == 0)
+                            GameOver();
+                    }
                 }
             }
 
@@ -836,6 +864,15 @@ namespace FuryRoad
                 {
                     collidingVehicle.Speed = vehicle.Speed;
                 }
+            }
+        }
+
+        private void SetLives()
+        {
+            livesText.Text = "";
+            for (int i = 0; i < lives; i++)
+            {
+                livesText.Text += "❤️";
             }
         }
 
