@@ -573,7 +573,7 @@ namespace FuryRoad
 
             playerHitBox = new Rect(player.GetLeft(), player.GetTop(), player.Width, player.Height);
 
-            if (moveLeft || moveRight || moveUp || moveDown)
+            if (moveLeft || moveRight || moveUp || moveDown || isPointerActivated)
             {
                 UpdatePlayer();
             }
@@ -648,21 +648,40 @@ namespace FuryRoad
             double left = player.GetLeft();
             double top = player.GetTop();
 
-            if (moveLeft && left > 0)
+            double playerMiddleX = left + player.Width / 2;
+
+            if (isPointerActivated)
             {
-                player.SetLeft(left - effectiveSpeed);
+                // move left
+                if (pointerPosition.X < playerMiddleX - playerSpeed)
+                {
+                    player.SetLeft(left - effectiveSpeed);
+                }
+
+                // move right
+                if (pointerPosition.X > playerMiddleX + playerSpeed)
+                {
+                    player.SetLeft(left + effectiveSpeed);
+                }
             }
-            if (moveRight && left + player.Width < GameView.Width)
+            else
             {
-                player.SetLeft(left + effectiveSpeed);
-            }
-            if (moveUp && top > (GameView.Height / 3.3) + 100 * scale)
-            {
-                player.SetTop(top - effectiveSpeed);
-            }
-            if (moveDown && top < ((GameView.Height / 1.3) - 370 * scale))
-            {
-                player.SetTop(top + effectiveSpeed);
+                if (moveLeft && left > 0)
+                {
+                    player.SetLeft(left - effectiveSpeed);
+                }
+                if (moveRight && left + player.Width < GameView.Width)
+                {
+                    player.SetLeft(left + effectiveSpeed);
+                }
+                if (moveUp && top > (GameView.Height / 3.3) + 100 * scale)
+                {
+                    player.SetTop(top - effectiveSpeed);
+                }
+                if (moveDown && top < ((GameView.Height / 1.3) - 370 * scale))
+                {
+                    player.SetTop(top + effectiveSpeed);
+                }
             }
         }
 
