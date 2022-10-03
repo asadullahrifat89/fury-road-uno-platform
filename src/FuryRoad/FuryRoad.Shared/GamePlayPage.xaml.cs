@@ -412,8 +412,15 @@ namespace FuryRoad
 
             lives = 3;
             SetLives();
+
             gameSpeed = 6;
             RunGame();
+
+            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
+            player.SetSize(CarWidth, CarHeight);
+            player.Opacity = 1;
+
+            RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             moveLeft = false;
             moveRight = false;
@@ -426,14 +433,7 @@ namespace FuryRoad
             damageRecoveryCounter = damageRecoveryDelay;
 
             score = 0;
-
             scoreText.Text = "Score: 0";
-
-            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
-
-            RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
-
-            player.SetSize(CarWidth, CarHeight);
 
             // set game view objects
             foreach (GameObject x in GameView.Children.OfType<GameObject>())
@@ -667,7 +667,7 @@ namespace FuryRoad
                     player.SetTop(top - effectiveSpeed);
                 }
                 // move left
-                if (pointerPosition.X < playerMiddleX - playerSpeed)
+                if (pointerPosition.X < playerMiddleX - playerSpeed && left > 0)
                 {
                     player.SetLeft(left - effectiveSpeed);
                 }
@@ -678,7 +678,7 @@ namespace FuryRoad
                     player.SetTop(top + effectiveSpeed);
                 }
                 // move right
-                if (pointerPosition.X > playerMiddleX + playerSpeed)
+                if (pointerPosition.X > playerMiddleX + playerSpeed && left + player.Width < GameView.Width)
                 {
                     player.SetLeft(left + effectiveSpeed);
                 }

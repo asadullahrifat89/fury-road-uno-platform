@@ -634,9 +634,10 @@
 
         </Canvas>
 
-        <!--  Score text  -->
+        <!--#region Game Score-->
         <Border
             x:Name="scorePanel"
+            Height="40"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="Goldenrod"
@@ -645,7 +646,7 @@
             CornerRadius="50,0,0,50">
             <TextBlock
                 Name="scoreText"
-                Margin="15,3,10,3"
+                Margin="10,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 FontSize="20"
@@ -654,9 +655,12 @@
                 Text="Score: 0"
                 TextAlignment="Right" />
         </Border>
+        <!--#endregion-->
 
+        <!--#region Player Lives-->
         <Border
             x:Name="livesPanel"
+            Height="40"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Background="Goldenrod"
@@ -665,7 +669,7 @@
             CornerRadius="0,50,50,0">
             <TextBlock
                 Name="livesText"
-                Margin="15,3,10,3"
+                Margin="10,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 FontSize="20"
@@ -674,6 +678,7 @@
                 Text="❤️❤️❤️"
                 TextAlignment="Left" />
         </Border>
+        <!--#endregion-->
 
         <!--  Input border  -->
         <Border
