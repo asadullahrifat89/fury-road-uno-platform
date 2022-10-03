@@ -24,6 +24,9 @@
   </ItemGroup>
   <ItemGroup>
     <_Globbed_Content Remove="Assets\Images\tree4.png" />
+    <_Globbed_Content Remove="Assets\Images\tree5.png" />
+    <_Globbed_Content Remove="Assets\Images\tree6.png" />
+    <_Globbed_Content Remove="Assets\Images\tree7.png" />
     <_Globbed_Content Remove="Assets\redtruck.png" />
     <_Globbed_Content Remove="Assets\road-dash.png" />
     <_Globbed_Content Remove="Assets\road-dash1.png" />

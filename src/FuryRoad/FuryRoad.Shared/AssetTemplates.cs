@@ -37,6 +37,9 @@ namespace FuryRoad
             new Uri("ms-appx:///Assets/Images/tree2.png"),
             new Uri("ms-appx:///Assets/Images/tree3.png"),
             new Uri("ms-appx:///Assets/Images/tree4.png"),
+            new Uri("ms-appx:///Assets/Images/tree5.png"),
+            new Uri("ms-appx:///Assets/Images/tree6.png"),
+            new Uri("ms-appx:///Assets/Images/tree7.png"),
       };
     }
 }
