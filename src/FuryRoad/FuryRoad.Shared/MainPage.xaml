@@ -20,7 +20,7 @@
             <system:Double x:Key="TreeHeight">220</system:Double>
 
             <system:Double x:Key="LampPostWidth">85</system:Double>
-            <system:Double x:Key="LampPostHeight">105</system:Double>
+            <system:Double x:Key="LampPostHeight">115</system:Double>
 
             <system:Double x:Key="RoadSideWidth">30</system:Double>
             <system:Double x:Key="RoadSideHeight">228</system:Double>
@@ -355,6 +355,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
@@ -366,6 +369,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
@@ -377,6 +383,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=0+15, Mode=OneWay}"
@@ -388,6 +397,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-left.png" />
+                </GameObject.Child>
             </GameObject>
             <!--#endregion-->
 
@@ -445,6 +457,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
@@ -456,6 +471,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
@@ -467,6 +485,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=RoadView.Width-55, Mode=OneWay}"
@@ -478,6 +499,9 @@
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
+                <GameObject.Child>
+                    <Image Source="ms-appx:///Assets/Images/lamppost-right.png" />
+                </GameObject.Child>
             </GameObject>
             <!--#endregion-->
 
