@@ -53,6 +53,9 @@ namespace FuryRoad
         double TreeWidth;
         double TreeHeight;
 
+        double LampPostWidth;
+        double LampPostHeight;
+
         double HighWayDividerWidth;
 
         bool moveLeft, moveRight, isGameOver, isPowerMode, isGamePaused;
@@ -178,7 +181,7 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            RoadView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? 800 : windowWidth / 1.6; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
+            RoadView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? windowWidth / 1.6 : windowWidth / 1.7; //windowWidth > 200 && windowWidth < 700 ? windowWidth * 1.2 : windowWidth > 900 ? windowWidth / 1.5 : windowWidth;
             RoadView.Height = windowHeight * 2;
 
             var scale = GetGameObjectScale();
@@ -221,9 +224,20 @@ namespace FuryRoad
             TreeWidth = Convert.ToDouble(this.Resources["TreeWidth"]);
             TreeHeight = Convert.ToDouble(this.Resources["TreeHeight"]);
 
-            CarWidth = CarWidth * scale; CarHeight = CarHeight * scale;
-            TruckWidth = TruckWidth * scale; TruckHeight = TruckHeight * scale;
-            TreeWidth = TreeWidth * scale; TreeHeight = TreeHeight * scale;
+            LampPostWidth = Convert.ToDouble(this.Resources["LampPostWidth"]);
+            LampPostHeight = Convert.ToDouble(this.Resources["LampPostHeight"]);
+
+            CarWidth = CarWidth * scale;
+            CarHeight = CarHeight * scale;
+
+            TruckWidth = TruckWidth * scale;
+            TruckHeight = TruckHeight * scale;
+
+            TreeWidth = TreeWidth * scale;
+            TreeHeight = TreeHeight * scale;
+
+            LampPostWidth = LampPostWidth * scale;
+            LampPostHeight = LampPostHeight * scale;
 
             Console.WriteLine($"CAR WIDTH {CarWidth}");
             Console.WriteLine($"CAR HEIGHT {CarHeight}");
@@ -237,8 +251,11 @@ namespace FuryRoad
             RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
             RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
 
-            RoadMarkWidth = RoadMarkWidth * scale; RoadMarkHeight = RoadMarkHeight * scale;
-            RoadSideWidth = RoadSideWidth * scale; RoadSideHeight = RoadSideHeight * scale;
+            RoadMarkWidth = RoadMarkWidth * scale;
+            RoadMarkHeight = RoadMarkHeight * scale;
+
+            RoadSideWidth = RoadSideWidth * scale;
+            RoadSideHeight = RoadSideHeight * scale;
 
             Console.WriteLine($"ROAD MARK WIDTH {RoadMarkWidth}");
             Console.WriteLine($"ROAD MARK HEIGHT {RoadMarkHeight}");
@@ -298,6 +315,13 @@ namespace FuryRoad
                             x.Height = TreeHeight;
                         }
                         break;
+                    case Constants.LAMPPOST_LEFT_TAG:
+                    case Constants.LAMPPOST_RIGHT_TAG:
+                        {
+                            x.Width = LampPostWidth;
+                            x.Height = LampPostHeight;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -352,31 +376,26 @@ namespace FuryRoad
         {
             Console.WriteLine("GAME STARTED");
 
-            gameSpeed = 6; // set speed to 8
+            gameSpeed = 6;
             RunGame();
 
-            // set all of the boolean to false
             moveLeft = false;
             moveRight = false;
             isGameOver = false;
             isPowerMode = false;
 
-            // set score to 0
             score = 0;
 
-            // set the score text to its default content
             scoreText.Text = "Score: 0";
 
-            // assign the player image to the player rectangle from the canvas
             player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
 
-            // set the default background colour to gray
             RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
             player.Width = CarWidth;
             player.Height = CarHeight;
 
-            // run a initial foreach loop to set up the cars and remove any star in the game
+            // set game view objects
             foreach (var x in GameView.Children.OfType<GameObject>())
             {
                 var tag = (string)x.Tag;
@@ -404,6 +423,7 @@ namespace FuryRoad
                 }
             }
 
+            // set road view objects
             foreach (var x in RoadView.Children.OfType<GameObject>())
             {
                 switch ((string)x.Tag)
@@ -416,6 +436,16 @@ namespace FuryRoad
                     case Constants.TREE_TAG:
                         {
                             RandomizeTree(x);
+                        }
+                        break;
+                    case Constants.LAMPPOST_LEFT_TAG:
+                        {
+                            RandomizeLampPostLeft(x);
+                        }
+                        break;
+                    case Constants.LAMPPOST_RIGHT_TAG:
+                        {
+                            RandomizeLampPostRight(x);
                         }
                         break;
                     default:
@@ -457,7 +487,6 @@ namespace FuryRoad
             }
         }
 
-
         private void RoadViewLoop()
         {
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
@@ -475,11 +504,15 @@ namespace FuryRoad
                             UpdateTree(x);
                         }
                         break;
+                    case Constants.LAMPPOST_LEFT_TAG:
+                    case Constants.LAMPPOST_RIGHT_TAG:
+                        {
+                            UpdateLampPost(x);
+                        }
+                        break;
                     default:
                         break;
                 }
-
-
             }
 
             if (isGameOver)
@@ -496,11 +529,6 @@ namespace FuryRoad
                     PowerDown();
                 }
             }
-            //else
-            //{
-            //    //playerImage.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Images/player.png"));
-            //    RoadView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
-            //}
         }
 
         private void GameViewLoop()
@@ -653,6 +681,46 @@ namespace FuryRoad
         {
             markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
             tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
+        }
+
+        #endregion
+
+        #region Lamp Posts
+
+        private void UpdateLampPost(GameObject roadSide)
+        {
+            Canvas.SetTop(roadSide, Canvas.GetTop(roadSide) + gameSpeed);
+
+            if (Canvas.GetTop(roadSide) > RoadView.Height)
+            {
+                RecyleLampPost(roadSide);
+            }
+        }
+
+        private void RecyleLampPost(GameObject lampPostLeft)
+        {
+            switch ((string)lampPostLeft.Tag)
+            {
+                case Constants.LAMPPOST_LEFT_TAG: { RandomizeLampPostLeft(lampPostLeft); } break;
+                case Constants.LAMPPOST_RIGHT_TAG: { RandomizeLampPostRight(lampPostLeft); } break;
+                default:
+                    break;
+            }
+
+            lampPostLeft.Width = LampPostWidth;
+            lampPostLeft.Height = LampPostHeight;
+
+            Canvas.SetTop(lampPostLeft, ((lampPostLeft.Height * 2) * -1));
+        }
+
+        private void RandomizeLampPostLeft(GameObject lampPostLeft)
+        {
+            lampPostLeft.SetContent(new Uri("ms-appx:///Assets/Images/lamppost-left.png"));
+        }
+
+        private void RandomizeLampPostRight(GameObject lampPostLeft)
+        {
+            lampPostLeft.SetContent(new Uri("ms-appx:///Assets/Images/lamppost-right.png"));
         }
 
         #endregion

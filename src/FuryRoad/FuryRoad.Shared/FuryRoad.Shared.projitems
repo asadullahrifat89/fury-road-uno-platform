@@ -51,7 +51,8 @@
 		 without manipulating the projitem file.
 	-->
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car1.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppostleft.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppost-left.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\lamppost-right.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\player-crashed.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-mark1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-mark2.png" />
