@@ -649,20 +649,31 @@ namespace FuryRoad
             double top = player.GetTop();
 
             double playerMiddleX = left + player.Width / 2;
+            double playerMiddleY = top + player.Height / 2;
 
             if (isPointerActivated)
             {
+                // move up
+                if (pointerPosition.Y < playerMiddleY - playerSpeed)
+                {
+                    player.SetTop(top - effectiveSpeed);
+                }
                 // move left
                 if (pointerPosition.X < playerMiddleX - playerSpeed)
                 {
                     player.SetLeft(left - effectiveSpeed);
                 }
 
+                // move down
+                if (pointerPosition.Y > playerMiddleY + playerSpeed)
+                {
+                    player.SetTop(top + effectiveSpeed);
+                }
                 // move right
                 if (pointerPosition.X > playerMiddleX + playerSpeed)
                 {
                     player.SetLeft(left + effectiveSpeed);
-                }
+                }              
             }
             else
             {
