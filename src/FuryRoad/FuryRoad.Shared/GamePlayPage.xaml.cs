@@ -269,17 +269,17 @@ namespace FuryRoad
             LampPostWidth = Convert.ToDouble(this.Resources["LampPostWidth"]);
             LampPostHeight = Convert.ToDouble(this.Resources["LampPostHeight"]);
 
-            CarWidth = CarWidth * scale;
-            CarHeight = CarHeight * scale;
+            CarWidth *= scale;
+            CarHeight *= scale;
 
-            TruckWidth = TruckWidth * scale;
-            TruckHeight = TruckHeight * scale;
+            TruckWidth *= scale;
+            TruckHeight *= scale;
 
-            TreeWidth = TreeWidth * scale;
-            TreeHeight = TreeHeight * scale;
+            TreeWidth *= scale;
+            TreeHeight *= scale;
 
-            LampPostWidth = LampPostWidth * scale;
-            LampPostHeight = LampPostHeight * scale;
+            LampPostWidth *= scale;
+            LampPostHeight *= scale;
 
             Console.WriteLine($"CAR WIDTH {CarWidth}");
             Console.WriteLine($"CAR HEIGHT {CarHeight}");
@@ -293,11 +293,11 @@ namespace FuryRoad
             RoadSideWidth = Convert.ToDouble(this.Resources["RoadSideWidth"]);
             RoadSideHeight = Convert.ToDouble(this.Resources["RoadSideHeight"]);
 
-            RoadMarkWidth = RoadMarkWidth * scale;
-            RoadMarkHeight = RoadMarkHeight * scale;
+            RoadMarkWidth *= scale;
+            RoadMarkHeight *= scale;
 
-            RoadSideWidth = RoadSideWidth * scale;
-            RoadSideHeight = RoadSideHeight * scale;
+            RoadSideWidth *= scale;
+            RoadSideHeight *= scale;
 
             Console.WriteLine($"ROAD MARK WIDTH {RoadMarkWidth}");
             Console.WriteLine($"ROAD MARK HEIGHT {RoadMarkHeight}");
@@ -371,7 +371,7 @@ namespace FuryRoad
             player.SetTop(carY);
 
             HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
-            HighWayDividerWidth = HighWayDividerWidth * scale;
+            HighWayDividerWidth *= scale;
             Console.WriteLine($"HIGHWAY DIVIDER WIDTH {HighWayDividerWidth}");
 
             highWayDivider.Width = HighWayDividerWidth;
