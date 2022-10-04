@@ -24,8 +24,8 @@ namespace FuryRoad
 
         Rect playerHitBox;
 
-        int gameSpeed = 6;
-        readonly int defaultGameSpeed = 6;
+        int gameSpeed;
+        readonly int defaultGameSpeed = 4; // TODO: make it 4
         readonly int playerSpeed = 6;
         int markNum;
         int powerUpCounter = 30;
@@ -40,6 +40,9 @@ namespace FuryRoad
 
         double CarWidth;
         double CarHeight;
+
+        double PlayerWidth;
+        double PlayerHeight;
 
         double TruckWidth;
         double TruckHeight;
@@ -75,7 +78,7 @@ namespace FuryRoad
         private readonly int damageRecoveryDelay = 500;
 
         double windowHeight, windowWidth;
-
+        double scale;
         Point pointerPosition;
 
         #endregion
@@ -229,9 +232,9 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            double scale = GetGameObjectScale();
+            scale = GetGameObjectScale();
 
-            GameView.Width = 600 * scale;
+            GameView.Width = 850 * scale;
             GameView.Height = windowHeight * 2;
 
             GameView.Width = GameView.Width * scale;
@@ -260,6 +263,9 @@ namespace FuryRoad
             //    SoilView.Children.Add(border);
             //}
 
+            PlayerWidth = Convert.ToDouble(this.Resources["PlayerWidth"]);
+            PlayerHeight = Convert.ToDouble(this.Resources["PlayerHeight"]);
+
             CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
             CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
 
@@ -272,6 +278,9 @@ namespace FuryRoad
             LampPostWidth = Convert.ToDouble(this.Resources["LampPostWidth"]);
             LampPostHeight = Convert.ToDouble(this.Resources["LampPostHeight"]);
 
+            PlayerWidth *= scale;
+            PlayerHeight *= scale;
+
             CarWidth *= scale;
             CarHeight *= scale;
 
@@ -283,6 +292,9 @@ namespace FuryRoad
 
             LampPostWidth *= scale;
             LampPostHeight *= scale;
+
+            Console.WriteLine($"PLAYER WIDTH {PlayerWidth}");
+            Console.WriteLine($"PLAYER HEIGHT {PlayerHeight}");
 
             Console.WriteLine($"CAR WIDTH {CarWidth}");
             Console.WriteLine($"CAR HEIGHT {CarHeight}");
@@ -359,6 +371,11 @@ namespace FuryRoad
                             x.SetSize(50 * scale, 50 * scale);
                         }
                         break;
+                    case Constants.PLAYER_TAG:
+                        {
+                            x.SetSize(PlayerWidth, PlayerHeight);
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -369,9 +386,7 @@ namespace FuryRoad
 
             Canvas.SetLeft(highWayRightSide, GameView.Width - RoadSideWidth);
 
-            player.SetSize(CarWidth, CarHeight);
-
-            double carY = (GameView.Height / 1.3) - (370 * scale);
+            double carY = (GameView.Height / 1.3) - (170 * scale);
             Console.WriteLine($"CAR Y: {carY}");
 
             player.SetTop(carY);
@@ -411,11 +426,11 @@ namespace FuryRoad
             lives = maxLives;
             SetLives();
 
-            gameSpeed = 6;
+            gameSpeed = defaultGameSpeed;
             RunGame();
 
-            player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
-            player.SetSize(CarWidth, CarHeight);
+            //player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
+            //player.SetSize(PlayerWidth, PlayerHeight);
             player.Opacity = 1;
 
             GameView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
@@ -627,9 +642,7 @@ namespace FuryRoad
             if (accelerationCounter <= playerSpeed)
                 accelerationCounter++;
 
-            //Console.WriteLine("ACC:" + _accelerationCounter);
-
-            double scale = GetGameObjectScale();
+            //Console.WriteLine("ACC:" + _accelerationCounter);            
 
             double left = player.GetLeft();
             double top = player.GetTop();
@@ -809,7 +822,7 @@ namespace FuryRoad
             else
             {
                 // if vehicle collides with player
-                if (playerHitBox.IntersectsWith(vehicle.GetHitBox()))
+                if (playerHitBox.IntersectsWith(vehicle.GetHitBox(scale)))
                 {
                     if (!isPowerMode)
                     {
@@ -831,8 +844,8 @@ namespace FuryRoad
             // if vechicle will collide with another vehicle
             if (GameView.Children.OfType<GameObject>()
                 .Where(x => (string)x.Tag is Constants.CAR_TAG or Constants.TRUCK_TAG)
-                .LastOrDefault(v => v.GetDistantHitBox()
-                .IntersectsWith(vehicle.GetDistantHitBox())) is GameObject collidingVehicle)
+                .LastOrDefault(v => v.GetDistantHitBox(scale)
+                .IntersectsWith(vehicle.GetDistantHitBox(scale))) is GameObject collidingVehicle)
             {
                 // slower vehicles will slow down faster vehicles
                 if (collidingVehicle.Speed > vehicle.Speed)
@@ -897,7 +910,7 @@ namespace FuryRoad
             powerUp.SetTop(powerUp.GetTop() + 5);
 
             // if player gets a power up
-            if (playerHitBox.IntersectsWith(powerUp.GetHitBox()))
+            if (playerHitBox.IntersectsWith(powerUp.GetHitBox(scale)))
             {
                 GameViewRemovableObjects.Add(powerUp);
 
@@ -921,7 +934,7 @@ namespace FuryRoad
         {
             powerModeCounter -= 1;
             GameView.Background = new SolidColorBrush(Colors.Goldenrod);
-            player.Opacity = 0.7d;
+            player.Opacity = 0.77;
 
             double remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
 
@@ -943,8 +956,6 @@ namespace FuryRoad
 
         private void SpawnPowerUp()
         {
-            double scale = GetGameObjectScale();
-
             PowerUp powerUp = new()
             {
                 Height = 50 * scale,
@@ -964,8 +975,6 @@ namespace FuryRoad
 
         private void SpawnHealth()
         {
-            double scale = GetGameObjectScale();
-
             Health health = new()
             {
                 Height = 80 * scale,
@@ -983,7 +992,7 @@ namespace FuryRoad
             health.SetTop(health.GetTop() + 5);
 
             // if player gets a health
-            if (playerHitBox.IntersectsWith(health.GetHitBox()))
+            if (playerHitBox.IntersectsWith(health.GetHitBox(scale)))
             {
                 GameViewRemovableObjects.Add(health);
 

@@ -25,10 +25,13 @@
             <system:Double x:Key="RoadSideWidth">25</system:Double>
             <system:Double x:Key="RoadSideHeight">228</system:Double>
 
-            <system:Double x:Key="CarWidth">60</system:Double>
-            <system:Double x:Key="CarHeight">110</system:Double>
+            <system:Double x:Key="PlayerWidth">48</system:Double>
+            <system:Double x:Key="PlayerHeight">90</system:Double>
 
-            <system:Double x:Key="TruckWidth">75</system:Double>
+            <system:Double x:Key="CarWidth">55</system:Double>
+            <system:Double x:Key="CarHeight">90</system:Double>
+
+            <system:Double x:Key="TruckWidth">70</system:Double>
             <system:Double x:Key="TruckHeight">120</system:Double>
 
             <system:Double x:Key="HighWayDividerWidth">20</system:Double>
@@ -41,8 +44,8 @@
             <!--#endregion-->
 
             <!--#region Rotation Angles-->
-            <system:Double x:Key="GameViewRotationAngle">-60</system:Double>
-            <system:Double x:Key="FoliageViewRotationAngle">60</system:Double>
+            <system:Double x:Key="GameViewRotationAngle">-62</system:Double>
+            <system:Double x:Key="FoliageViewRotationAngle">62</system:Double>
             <system:Double x:Key="VehicleRotationAngle">0</system:Double>
             <!--#endregion-->
 
@@ -697,9 +700,9 @@
             <Player
                 x:Name="player"
                 Canvas.Left="{x:Bind Path=GameView.Width/2}"
-                Canvas.Top="{x:Bind Path=((GameView.Height/1.3)-370), Mode=OneWay}"
-                Width="{StaticResource CarWidth}"
-                Height="{StaticResource CarHeight}">
+                Canvas.Top="{x:Bind Path=((GameView.Height/1.3)-470), Mode=OneWay}"
+                Width="{StaticResource PlayerWidth}"
+                Height="{StaticResource PlayerHeight}">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource VehicleRotationAngle}" CenterX="0.5" CenterY="0.5" />
                 </GameObject.RenderTransform>
