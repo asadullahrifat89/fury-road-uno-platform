@@ -234,7 +234,7 @@ namespace FuryRoad
         {
             scale = GetGameObjectScale();
 
-            GameView.Width = 850 * scale;
+            GameView.Width = windowHeight > windowWidth ? 850 * scale : 450 * scale;
             GameView.Height = windowHeight > windowWidth ? windowHeight : windowWidth /** 2*/;
 
             SoilView.Width = windowWidth/** 1.5*/;
