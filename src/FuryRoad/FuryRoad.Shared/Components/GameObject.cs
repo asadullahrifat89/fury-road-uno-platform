@@ -14,7 +14,7 @@ namespace FuryRoad
     {
         #region Fields
 
-        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Fill }; 
+        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Uniform }; 
 
         #endregion
 

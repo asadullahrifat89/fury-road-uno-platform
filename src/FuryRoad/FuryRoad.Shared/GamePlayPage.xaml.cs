@@ -229,39 +229,36 @@ namespace FuryRoad
 
         private void AdjustView()
         {
-            GameView.Width = windowWidth < 500 ? 500 : windowWidth < 1200 ? 700 : windowWidth < 1400 ? windowWidth / 1.6 : windowWidth / 1.6;
-            GameView.Height = windowHeight * 2;
-
             double scale = GetGameObjectScale();
+
+            GameView.Width = 600 * scale;
+            GameView.Height = windowHeight * 2;
 
             GameView.Width = GameView.Width * scale;
 
             RootGrid.Width = windowWidth;
             RootGrid.Height = windowHeight;
 
-            //GameView.Width = GameView.Width - 40 * scale;
-            //GameView.Height = GameView.Height;
-
-            SoilView.Width = windowWidth * 2;
-            SoilView.Height = GameView.Height;
+            SoilView.Width = windowWidth * 1.5;
+            SoilView.Height = windowHeight * 2;
 
             SoilView.Children.Clear();
 
             // draw grass stripes
-            for (int i = -5; i < 60; i++)
-            {
-                Border border = new()
-                {
-                    Width = 30 * scale,
-                    Height = SoilView.Height,
-                    Background = this.Resources["GrassStripeColor"] as SolidColorBrush,
-                };
+            //for (int i = -5; i < 60; i++)
+            //{
+            //    Border border = new()
+            //    {
+            //        Width = 30 * scale,
+            //        Height = SoilView.Height,
+            //        Background = this.Resources["GrassStripeColor"] as SolidColorBrush,
+            //    };
 
-                Canvas.SetLeft(border, i * 60);
-                Canvas.SetTop(border, 0);
+            //    Canvas.SetLeft(border, i * 60);
+            //    Canvas.SetTop(border, 0);
 
-                SoilView.Children.Add(border);
-            }
+            //    SoilView.Children.Add(border);
+            //}
 
             CarWidth = Convert.ToDouble(this.Resources["CarWidth"]);
             CarHeight = Convert.ToDouble(this.Resources["CarHeight"]);
@@ -389,7 +386,7 @@ namespace FuryRoad
 
         public double GetGameObjectScale()
         {
-            return GameView.Width switch
+            return windowWidth switch
             {
                 <= 300 => 0.60,
                 <= 400 => 0.65,
@@ -610,7 +607,7 @@ namespace FuryRoad
 
         private void GameOver()
         {
-            player.SetContent(new Uri("ms-appx:///Assets/Images/player-crashed.png"));
+            //player.SetContent(new Uri("ms-appx:///Assets/Images/player-crashed.png"));
 
             StopGame();
 
