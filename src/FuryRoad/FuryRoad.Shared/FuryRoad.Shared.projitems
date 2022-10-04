@@ -19,6 +19,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AssetTemplates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\GameEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameObjectExtensions.cs" />
@@ -31,7 +32,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\PowerUp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\RoadMark.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Tree.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Truck.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +66,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck2.png" />

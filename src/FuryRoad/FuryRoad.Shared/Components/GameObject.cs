@@ -14,7 +14,7 @@ namespace FuryRoad
     {
         #region Fields
 
-        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Fill }; 
+        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Uniform };
 
         #endregion
 
@@ -26,10 +26,11 @@ namespace FuryRoad
             //BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
             //BorderBrush = new SolidColorBrush(Colors.Black);
 
-            //BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
-            //BorderBrush = new SolidColorBrush(Colors.Transparent);
+            BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
+            BorderBrush = new SolidColorBrush(Colors.Transparent);
+            RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
             Child = _content;
-        } 
+        }
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace FuryRoad
         public void SetSize(double width, double height)
         {
             Width = width;
-            Height = height;            
+            Height = height;
         }
 
         public double GetTop()
@@ -80,7 +81,7 @@ namespace FuryRoad
         public void SetContent(Uri uri)
         {
             _content.Source = new BitmapImage(uri);
-        } 
+        }
 
         #endregion
     }

@@ -2,7 +2,8 @@
     x:Class="FuryRoad.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FuryRoad">
+    xmlns:local="using:FuryRoad"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -10,9 +11,6 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!--  Add resource dictionaries here  -->
             </ResourceDictionary.MergedDictionaries>
-
-            <SolidColorBrush x:Key="SystemAccentColorLight2" Color="Goldenrod" />
-            <SolidColorBrush x:Key="SystemAccentColorDark1" Color="Goldenrod" />
 
             <Style x:Key="DefaultButton" TargetType="Button" />
             <Style TargetType="Button">
@@ -26,10 +24,16 @@
                 <Setter Property="BorderBrush" Value="#4d437d" />
             </Style>
 
+            <!--#region Colors-->
+            <SolidColorBrush x:Key="SystemAccentColorLight2" Color="Goldenrod" />
+            <SolidColorBrush x:Key="SystemAccentColorDark1" Color="Goldenrod" />
+
             <SolidColorBrush x:Key="FrameBackgroundColor" Color="#27223f" />
             <SolidColorBrush x:Key="ProgressBarErrorColor" Color="Yellow" />
             <SolidColorBrush x:Key="ProgressBarForegroundColor" Color="Goldenrod" />
             <SolidColorBrush x:Key="ProgressBarOkColor" Color="LightGreen" />
+            <!--#endregion-->
+
         </ResourceDictionary>
     </Application.Resources>
 

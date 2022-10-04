@@ -12,6 +12,7 @@ namespace FuryRoad
         {
             Tag = Constants.ROADMARK_TAG;
 
+            RenderTransform = new SkewTransform() { AngleY = 40 };
             SetContent(new Uri("ms-appx:///Assets/Images/road-mark2.png"));
         }
     }
