@@ -81,6 +81,8 @@ namespace FuryRoad
         double scale;
         Point pointerPosition;
 
+        bool isPortraitDisplay;
+
         #endregion
 
         #region Ctor
@@ -234,11 +236,13 @@ namespace FuryRoad
         {
             scale = GetGameObjectScale();
 
-            GameView.Width = windowHeight > windowWidth ? 850 * scale : 450 * scale;
-            GameView.Height = windowHeight > windowWidth ? windowHeight : windowWidth /** 2*/;
+            isPortraitDisplay = windowHeight > windowWidth;
 
-            SoilView.Width = windowWidth/** 1.5*/;
-            SoilView.Height = windowHeight/** 2*/;
+            GameView.Width = isPortraitDisplay ? 850 * scale : 450 * scale;
+            GameView.Height = isPortraitDisplay ? windowHeight : windowWidth;
+
+            SoilView.Width = windowWidth;
+            SoilView.Height = windowHeight;
 
             SoilView.Children.Clear();
 
