@@ -329,9 +329,15 @@ namespace FuryRoad
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
+                        {
+                            x.SetSize(LampPostWidth, LampPostHeight);
+                            x.SetLeft(0 + (19 * scale));
+                        }
+                        break;
                     case Constants.LAMPPOST_RIGHT_TAG:
                         {
                             x.SetSize(LampPostWidth, LampPostHeight);
+                            x.SetLeft(GameView.Width - (57 * scale));
                         }
                         break;
                     case Constants.CAR_TAG:
@@ -718,13 +724,14 @@ namespace FuryRoad
             RandomizeTree(tree);
 
             tree.SetSize(TreeWidth, TreeHeight);
-            tree.SetTop((rand.Next(100, (int)GameView.Height) * -1));
+            //tree.SetTop((rand.Next(100, (int)GameView.Height) * -1));
+            tree.SetTop(((tree.Height) * -1));
         }
 
         private void RandomizeTree(GameObject tree)
         {
-            markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
-            tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
+            //markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
+            //tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
         }
 
         #endregion
@@ -911,9 +918,7 @@ namespace FuryRoad
             GameView.Background = new SolidColorBrush(Colors.Goldenrod);
             player.Opacity = 0.7d;
 
-            //set power up text ⚡
-
-            var remainingPow = powerModeCounter / powerModeDelay * 4;
+            double remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
 
             powerUpText.Text = "";
             for (int i = 0; i < remainingPow; i++)
