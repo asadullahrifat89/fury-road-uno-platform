@@ -657,7 +657,7 @@
         </Border>
         <!--#endregion-->
 
-        <!--#region Player Lives-->
+        <!--#region Player Lives & Power Ups-->
         <Border
             x:Name="livesPanel"
             Height="40"
@@ -668,10 +668,9 @@
             BorderBrush="White"
             BorderThickness="3"
             CornerRadius="0,50,50,0">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="10,0" Orientation="Horizontal">
                 <TextBlock
                     Name="livesText"
-                    Margin="10,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="20"
@@ -681,7 +680,6 @@
                     TextAlignment="Left" />
                 <TextBlock
                     Name="powerUpText"
-                    Margin="0,0,10,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     FontSize="20"

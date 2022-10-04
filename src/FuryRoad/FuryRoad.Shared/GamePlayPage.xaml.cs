@@ -913,7 +913,7 @@ namespace FuryRoad
 
             //set power up text ⚡
 
-            var remainingPow = powerModeCounter / powerModeDelay * 4;
+            var remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
 
             powerUpText.Text = "";
             for (int i = 0; i < remainingPow; i++)
