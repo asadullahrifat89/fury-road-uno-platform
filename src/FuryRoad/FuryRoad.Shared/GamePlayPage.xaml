@@ -39,7 +39,7 @@
 
             <!--#region Colors-->
             <SolidColorBrush x:Key="RoadBackgroundColor" Color="#7160e8" />
-            <SolidColorBrush x:Key="GrassColor" Color="#222730" />
+            <SolidColorBrush x:Key="GrassColor" Color="#116211" />
             <SolidColorBrush x:Key="GrassStripeColor" Color="#3d4656" />
             <!--#endregion-->
 

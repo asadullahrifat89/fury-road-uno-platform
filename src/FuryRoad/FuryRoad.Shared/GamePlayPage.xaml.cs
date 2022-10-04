@@ -353,7 +353,7 @@ namespace FuryRoad
                     case Constants.LAMPPOST_RIGHT_TAG:
                         {
                             x.SetSize(LampPostWidth, LampPostHeight);
-                            x.SetLeft(GameView.Width - (57 * scale));
+                            x.SetLeft(GameView.Width - (25 * scale));
                         }
                         break;
                     case Constants.CAR_TAG:
