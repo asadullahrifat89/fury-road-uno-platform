@@ -235,15 +235,10 @@ namespace FuryRoad
             scale = GetGameObjectScale();
 
             GameView.Width = 850 * scale;
-            GameView.Height = windowHeight /** 2*/;
+            GameView.Height = windowHeight > windowWidth ? windowHeight : windowWidth /** 2*/;
 
-            GameView.Width = GameView.Width * scale;
-
-            RootGrid.Width = windowWidth;
-            RootGrid.Height = windowHeight;
-
-            SoilView.Width = windowWidth /** 1.5*/;
-            SoilView.Height = windowHeight /** 2*/;
+            SoilView.Width = windowWidth/** 1.5*/;
+            SoilView.Height = windowHeight/** 2*/;
 
             SoilView.Children.Clear();
 
@@ -335,13 +330,13 @@ namespace FuryRoad
                     case Constants.TREE_LEFT_TAG:
                         {
                             x.SetSize(TreeWidth, TreeHeight);
-                            x.SetLeft(0 - (120 * scale));
+                            x.SetLeft(0 - (60 * scale));
                         }
                         break;
                     case Constants.TREE_RIGHT_TAG:
                         {
                             x.SetSize(TreeWidth, TreeHeight);
-                            x.SetLeft(GameView.Width + (5 * scale));
+                            x.SetLeft(GameView.Width + (10 * scale));
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
@@ -684,11 +679,11 @@ namespace FuryRoad
                 {
                     player.SetLeft(left + effectiveSpeed);
                 }
-                if (moveUp && top > (GameView.Height / 3.3) + 100 * scale)
+                if (moveUp && top > 0 + (50 * scale))
                 {
                     player.SetTop(top - effectiveSpeed);
                 }
-                if (moveDown && top < ((GameView.Height / 1.3) - 370 * scale))
+                if (moveDown && top < GameView.Height - (100 * scale))
                 {
                     player.SetTop(top + effectiveSpeed);
                 }
@@ -874,7 +869,7 @@ namespace FuryRoad
 
             car.SetContent(AssetTemplates.CAR_TEMPLATES[markNum]);
             car.SetSize(CarWidth, CarHeight);
-            car.Speed = gameSpeed - rand.Next(0, 7);
+            car.Speed = gameSpeed - rand.Next(0, 6);
 
             RandomizeVehiclePostion(car);
         }

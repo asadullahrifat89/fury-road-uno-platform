@@ -1,4 +1,6 @@
-﻿namespace FuryRoad
+﻿using Microsoft.UI.Xaml.Media;
+
+namespace FuryRoad
 {
     public class Truck : GameObject
     {
