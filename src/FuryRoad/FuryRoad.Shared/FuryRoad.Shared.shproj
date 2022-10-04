@@ -14,5 +14,6 @@
     <_Globbed_Content Remove="Assets\Images\tree1.png" />
     <_Globbed_Content Remove="Assets\Images\tree2.png" />
     <_Globbed_Content Remove="Assets\Images\tree3.png" />
+    <_Globbed_Content Remove="Assets\Images\tree4.png" />
   </ItemGroup>
 </Project>
