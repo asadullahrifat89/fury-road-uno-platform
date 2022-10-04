@@ -35,8 +35,8 @@
             <!--#endregion-->
 
             <!--#region Rotation Angles-->
-            <system:Double x:Key="GameViewRotationAngle">-30</system:Double>
-            <system:Double x:Key="FoliageViewRotationAngle">30</system:Double>
+            <system:Double x:Key="GameViewRotationAngle">-40</system:Double>
+            <system:Double x:Key="FoliageViewRotationAngle">40</system:Double>
             <!--#endregion-->
 
             <!--#region Colors-->
