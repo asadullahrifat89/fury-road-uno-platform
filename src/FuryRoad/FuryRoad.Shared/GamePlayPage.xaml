@@ -44,8 +44,8 @@
             <!--#endregion-->
 
             <!--#region Rotation Angles-->
-            <system:Double x:Key="GameViewRotationAngle">-62</system:Double>
-            <system:Double x:Key="FoliageViewRotationAngle">62</system:Double>
+            <system:Double x:Key="GameViewRotationAngle">-65</system:Double>
+            <system:Double x:Key="FoliageViewRotationAngle">65</system:Double>
             <system:Double x:Key="VehicleRotationAngle">0</system:Double>
             <!--#endregion-->
 
@@ -915,7 +915,7 @@
             VerticalAlignment="Stretch">
             <Border.Background>
                 <LinearGradientBrush Opacity="0.20" StartPoint="1,0.5" EndPoint="0,0.5">
-                    <GradientStop Offset="0.00" Color="White" />
+                    <GradientStop Offset="0.00" Color="LightSkyBlue" />
                     <GradientStop Offset="1.00" Color="Transparent" />
                 </LinearGradientBrush>
             </Border.Background>

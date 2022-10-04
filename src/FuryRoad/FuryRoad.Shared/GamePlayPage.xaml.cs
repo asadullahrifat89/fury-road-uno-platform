@@ -235,15 +235,15 @@ namespace FuryRoad
             scale = GetGameObjectScale();
 
             GameView.Width = 850 * scale;
-            GameView.Height = windowHeight * 2;
+            GameView.Height = windowHeight /** 2*/;
 
             GameView.Width = GameView.Width * scale;
 
             RootGrid.Width = windowWidth;
             RootGrid.Height = windowHeight;
 
-            SoilView.Width = windowWidth * 1.5;
-            SoilView.Height = windowHeight * 2;
+            SoilView.Width = windowWidth /** 1.5*/;
+            SoilView.Height = windowHeight /** 2*/;
 
             SoilView.Children.Clear();
 
