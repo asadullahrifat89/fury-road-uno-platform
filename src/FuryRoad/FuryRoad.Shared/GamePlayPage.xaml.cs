@@ -724,13 +724,14 @@ namespace FuryRoad
             RandomizeTree(tree);
 
             tree.SetSize(TreeWidth, TreeHeight);
-            tree.SetTop((rand.Next(100, (int)GameView.Height) * -1));
+            //tree.SetTop((rand.Next(100, (int)GameView.Height) * -1));
+            tree.SetTop(((tree.Height) * -1));
         }
 
         private void RandomizeTree(GameObject tree)
         {
-            markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
-            tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
+            //markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
+            //tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
         }
 
         #endregion

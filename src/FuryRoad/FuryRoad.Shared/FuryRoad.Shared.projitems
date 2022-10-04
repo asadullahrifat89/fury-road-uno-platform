@@ -64,11 +64,6 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\road-mark3.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree1.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree2.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree3.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree4.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree5.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree6.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Images\tree7.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck5.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\car2.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Images\truck2.png" />

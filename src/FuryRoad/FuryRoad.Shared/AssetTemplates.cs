@@ -40,7 +40,7 @@ namespace FuryRoad
             new Uri("ms-appx:///Assets/Images/tree4.png"),
             new Uri("ms-appx:///Assets/Images/tree5.png"),
             new Uri("ms-appx:///Assets/Images/tree6.png"),
-            new Uri("ms-appx:///Assets/Images/tree7.png"),
+            //new Uri("ms-appx:///Assets/Images/tree7.png"),
         };
 
         public static Uri POWERUP_TEMPLATE = new Uri("ms-appx:///Assets/Images/powerup.gif");
