@@ -329,9 +329,15 @@ namespace FuryRoad
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
+                        {
+                            x.SetSize(LampPostWidth, LampPostHeight);
+                            x.SetLeft(0 + (19 * scale));
+                        }
+                        break;
                     case Constants.LAMPPOST_RIGHT_TAG:
                         {
                             x.SetSize(LampPostWidth, LampPostHeight);
+                            x.SetLeft(GameView.Width - (57 * scale));
                         }
                         break;
                     case Constants.CAR_TAG:
@@ -911,9 +917,7 @@ namespace FuryRoad
             GameView.Background = new SolidColorBrush(Colors.Goldenrod);
             player.Opacity = 0.7d;
 
-            //set power up text ⚡
-
-            var remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
+            double remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
 
             powerUpText.Text = "";
             for (int i = 0; i < remainingPow; i++)
