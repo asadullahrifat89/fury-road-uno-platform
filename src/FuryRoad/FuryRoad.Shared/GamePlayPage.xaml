@@ -55,27 +55,27 @@
     <Grid x:Name="RootGrid">
 
         <!--#region Soil View-->
-        <Canvas
+        <GameEnvironment
             x:Name="SoilView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="{StaticResource GrassColor}"
-            RenderTransformOrigin="0.5,0.5">
+            >
 
             <Canvas.RenderTransform>
                 <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
             </Canvas.RenderTransform>
 
-        </Canvas>
+        </GameEnvironment>
         <!--#endregion-->
 
         <!--#region Game View-->
-        <Canvas
+        <GameEnvironment
             x:Name="GameView"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Background="{StaticResource RoadBackgroundColor}"
-            RenderTransformOrigin="0.5,0.5">
+            >
 
             <Canvas.RenderTransform>
                 <RotateTransform Angle="{StaticResource GameViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -209,17 +209,17 @@
                 Canvas.Top="{x:Bind Path=120*17}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*18}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+                Height="{StaticResource RoadMarkHeight}" />-->
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*19}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+                Height="{StaticResource RoadMarkHeight}" />-->
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*20}"
                 Width="{StaticResource RoadMarkWidth}"
@@ -228,7 +228,7 @@
                 Canvas.Left="{x:Bind Path=GameView.Width/4, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*21}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
+                Height="{StaticResource RoadMarkHeight}" />-->
             <!--#endregion-->
 
             <!--#region Road Marks: Right-->
@@ -327,17 +327,17 @@
                 Canvas.Top="{x:Bind Path=120*17}"
                 Width="{StaticResource RoadMarkWidth}"
                 Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2-10+GameView.Width/4-10, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*18}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+                Height="{StaticResource RoadMarkHeight}" />-->
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2-10+GameView.Width/4-10, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*19}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
-            <RoadMark
+                Height="{StaticResource RoadMarkHeight}" />-->
+            <!--<RoadMark
                 Canvas.Left="{x:Bind Path=GameView.Width/2-10+GameView.Width/4-10, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*20}"
                 Width="{StaticResource RoadMarkWidth}"
@@ -346,7 +346,7 @@
                 Canvas.Left="{x:Bind Path=GameView.Width/2-10+GameView.Width/4-10, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=120*21}"
                 Width="{StaticResource RoadMarkWidth}"
-                Height="{StaticResource RoadMarkHeight}" />
+                Height="{StaticResource RoadMarkHeight}" />-->
             <!--#endregion-->
 
             <!--#region Trees: Right-->
@@ -355,7 +355,7 @@
                 Canvas.Top="{x:Bind Path=165*-1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -373,7 +373,7 @@
                 Canvas.Top="{x:Bind Path=165*0}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -391,7 +391,7 @@
                 Canvas.Top="{x:Bind Path=165*1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -409,7 +409,7 @@
                 Canvas.Top="{x:Bind Path=165*2}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -427,7 +427,7 @@
                 Canvas.Top="{x:Bind Path=165*3}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -445,7 +445,7 @@
                 Canvas.Top="{x:Bind Path=165*4}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -463,7 +463,7 @@
                 Canvas.Top="{x:Bind Path=165*5}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -481,7 +481,7 @@
                 Canvas.Top="{x:Bind Path=165*6}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -499,7 +499,7 @@
                 Canvas.Top="{x:Bind Path=165*7}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -517,7 +517,7 @@
                 Canvas.Top="{x:Bind Path=165*8}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -535,7 +535,7 @@
                 Canvas.Top="{x:Bind Path=165*9}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -553,7 +553,7 @@
                 Canvas.Top="{x:Bind Path=165*10}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-right">
                 <GameObject.RenderTransform>
                     <CompositeTransform
@@ -574,7 +574,7 @@
                 Canvas.Top="{x:Bind Path=580*-1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-right">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -588,7 +588,7 @@
                 Canvas.Top="{x:Bind Path=580*0}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-right">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -602,7 +602,7 @@
                 Canvas.Top="{x:Bind Path=580*1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-right">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -616,7 +616,7 @@
                 Canvas.Top="{x:Bind Path=580*2}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-right">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -715,7 +715,7 @@
                 Canvas.Top="{x:Bind Path=580*-1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -729,7 +729,7 @@
                 Canvas.Top="{x:Bind Path=580*0}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -743,7 +743,7 @@
                 Canvas.Top="{x:Bind Path=580*1}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -757,7 +757,7 @@
                 Canvas.Top="{x:Bind Path=580*2}"
                 Width="{StaticResource LampPostWidth}"
                 Height="{StaticResource LampPostHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="lamppost-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -774,7 +774,7 @@
                 Canvas.Top="{x:Bind Path=165*-1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -788,7 +788,7 @@
                 Canvas.Top="{x:Bind Path=165*0}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -802,7 +802,7 @@
                 Canvas.Top="{x:Bind Path=165*1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -816,7 +816,7 @@
                 Canvas.Top="{x:Bind Path=165*2}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -830,7 +830,7 @@
                 Canvas.Top="{x:Bind Path=165*3}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -844,7 +844,7 @@
                 Canvas.Top="{x:Bind Path=165*4}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -858,7 +858,7 @@
                 Canvas.Top="{x:Bind Path=165*5}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -872,7 +872,7 @@
                 Canvas.Top="{x:Bind Path=165*6}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -886,7 +886,7 @@
                 Canvas.Top="{x:Bind Path=165*7}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -900,7 +900,7 @@
                 Canvas.Top="{x:Bind Path=165*8}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -914,7 +914,7 @@
                 Canvas.Top="{x:Bind Path=165*9}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -928,7 +928,7 @@
                 Canvas.Top="{x:Bind Path=165*10}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5"
+                
                 Tag="tree-left">
                 <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
@@ -939,7 +939,7 @@
             </GameObject>
             <!--#endregion-->
 
-        </Canvas>
+        </GameEnvironment>
         <!--#endregion-->
 
         <!--#region Gradient-->

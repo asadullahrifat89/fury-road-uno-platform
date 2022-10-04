@@ -19,6 +19,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)AssetTemplates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\GameEnvironment.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GameObjectExtensions.cs" />
