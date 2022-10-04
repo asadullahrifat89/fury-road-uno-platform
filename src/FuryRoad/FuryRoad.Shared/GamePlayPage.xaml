@@ -455,321 +455,345 @@
             <!--#endregion-->
 
             <!--#region Trees: Left-->
-            <Tree
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*-1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*0}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*2}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*3}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*4}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*5}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*6}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*7}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*8}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*9}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=0-(120), Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*10}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-left">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
+                </GameObject.Child>
+            </GameObject>
             <!--#endregion-->
 
             <!--#region Trees: Right-->
-            <Tree
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*-1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*0}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*1}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree1.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*2}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*3}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*4}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree2.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*5}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*6}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*7}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree3.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*8}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*9}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
-            <Tree
+                </GameObject.Child>
+            </GameObject>
+            <GameObject
                 Canvas.Left="{x:Bind Path=GameView.Width+5, Mode=OneWay}"
                 Canvas.Top="{x:Bind Path=165*10}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
-                RenderTransformOrigin="0.5,0.5">
-                <Tree.RenderTransform>
+                RenderTransformOrigin="0.5,0.5"
+                Tag="tree-right">
+                <GameObject.RenderTransform>
                     <RotateTransform Angle="{StaticResource FoliageViewRotationAngle}" CenterX="0.5" CenterY="0.5" />
-                </Tree.RenderTransform>
-                <Tree.Child>
+                </GameObject.RenderTransform>
+                <GameObject.Child>
                     <Image Source="ms-appx:///Assets/Images/tree4.png" />
-                </Tree.Child>
-            </Tree>
+                </GameObject.Child>
+            </GameObject>
             <!--#endregion-->
 
             <!--#region Lamp Posts: Right-->

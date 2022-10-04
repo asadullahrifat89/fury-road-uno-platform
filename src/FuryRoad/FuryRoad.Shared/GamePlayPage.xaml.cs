@@ -225,7 +225,7 @@ namespace FuryRoad
 
         #region Methods
 
-        #region View
+        #region Game View
 
         private void AdjustView()
         {
@@ -323,9 +323,16 @@ namespace FuryRoad
                             x.SetSize(RoadMarkWidth, RoadMarkHeight);
                         }
                         break;
-                    case Constants.TREE_TAG:
+                    case Constants.TREE_LEFT_TAG:
                         {
                             x.SetSize(TreeWidth, TreeHeight);
+                            x.SetLeft(0 - (120 * scale));
+                        }
+                        break;
+                    case Constants.TREE_RIGHT_TAG:
+                        {
+                            x.SetSize(TreeWidth, TreeHeight);
+                            x.SetLeft(GameView.Width + (5 * scale));
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
@@ -442,21 +449,21 @@ namespace FuryRoad
                             RandomizeRoadMark(x);
                         }
                         break;
-                    case Constants.TREE_TAG:
-                        {
-                            RandomizeTree(x);
-                        }
-                        break;
-                    case Constants.LAMPPOST_LEFT_TAG:
-                        {
-                            RandomizeLampPostLeft(x);
-                        }
-                        break;
-                    case Constants.LAMPPOST_RIGHT_TAG:
-                        {
-                            RandomizeLampPostRight(x);
-                        }
-                        break;
+                    //case Constants.TREE_LEFT_TAG:
+                    //    {
+                    //        RandomizeTree(x);
+                    //    }
+                    //    break;
+                    //case Constants.LAMPPOST_LEFT_TAG:
+                    //    {
+                    //        RandomizeLampPostLeft(x);
+                    //    }
+                    //    break;
+                    //case Constants.LAMPPOST_RIGHT_TAG:
+                    //    {
+                    //        RandomizeLampPostRight(x);
+                    //    }
+                    //    break;
                     case Constants.CAR_TAG:
                         {
                             RecyleCar(x);
@@ -546,7 +553,8 @@ namespace FuryRoad
                             UpdateRoadMark(x);
                         }
                         break;
-                    case Constants.TREE_TAG:
+                    case Constants.TREE_LEFT_TAG:
+                    case Constants.TREE_RIGHT_TAG:
                         {
                             UpdateTree(x);
                         }
@@ -750,13 +758,13 @@ namespace FuryRoad
 
         private void RecyleLampPost(GameObject lampPostLeft)
         {
-            switch ((string)lampPostLeft.Tag)
-            {
-                case Constants.LAMPPOST_LEFT_TAG: { RandomizeLampPostLeft(lampPostLeft); } break;
-                case Constants.LAMPPOST_RIGHT_TAG: { RandomizeLampPostRight(lampPostLeft); } break;
-                default:
-                    break;
-            }
+            //switch ((string)lampPostLeft.Tag)
+            //{
+            //    case Constants.LAMPPOST_LEFT_TAG: { RandomizeLampPostLeft(lampPostLeft); } break;
+            //    case Constants.LAMPPOST_RIGHT_TAG: { RandomizeLampPostRight(lampPostLeft); } break;
+            //    default:
+            //        break;
+            //}
 
             lampPostLeft.SetSize(LampPostWidth, LampPostHeight);
             lampPostLeft.SetTop(((lampPostLeft.Height * 2) * -1));
