@@ -25,7 +25,7 @@
             <system:Double x:Key="RoadSideWidth">25</system:Double>
             <system:Double x:Key="RoadSideHeight">228</system:Double>
 
-            <system:Double x:Key="PlayerWidth">48</system:Double>
+            <system:Double x:Key="PlayerWidth">55</system:Double>
             <system:Double x:Key="PlayerHeight">90</system:Double>
 
             <system:Double x:Key="CarWidth">55</system:Double>

@@ -238,7 +238,7 @@ namespace FuryRoad
 
             isPortraitDisplay = windowHeight > windowWidth;
 
-            GameView.Width = isPortraitDisplay ? 850 * scale : 450 * scale;
+            GameView.Width = isPortraitDisplay ? 850 * scale : 500 * scale;
             GameView.Height = isPortraitDisplay ? windowHeight : windowWidth;
 
             SoilView.Width = windowWidth;
@@ -528,7 +528,7 @@ namespace FuryRoad
 
             scoreText.Text = "Score: " + score.ToString("#");
 
-            playerHitBox = new Rect(player.GetLeft(), player.GetTop(), player.Width, player.Height);
+            playerHitBox = player.GetHitBox(scale);
 
             if (moveLeft || moveRight || moveUp || moveDown || isPointerActivated)
             {
@@ -1011,47 +1011,47 @@ namespace FuryRoad
 
         private void ScaleDifficulty()
         {
-            if (score >= 10 && score < 20)
-            {
-                gameSpeed = defaultGameSpeed + 2;
-            }
+            //if (score >= 10 && score < 20)
+            //{
+            //    gameSpeed = defaultGameSpeed + 2;
+            //}
 
-            if (score >= 20 && score < 30)
-            {
-                gameSpeed = defaultGameSpeed + 4;
-            }
-            if (score >= 30 && score < 40)
-            {
-                gameSpeed = defaultGameSpeed + 6;
-            }
-            if (score >= 40 && score < 50)
-            {
-                gameSpeed = defaultGameSpeed + 8;
-            }
-            if (score >= 50 && score < 80)
-            {
-                gameSpeed = defaultGameSpeed + 10;
-            }
-            if (score >= 80 && score < 100)
-            {
-                gameSpeed = defaultGameSpeed + 12;
-            }
-            if (score >= 100 && score < 130)
-            {
-                gameSpeed = defaultGameSpeed + 14;
-            }
-            if (score >= 130 && score < 150)
-            {
-                gameSpeed = defaultGameSpeed + 16;
-            }
-            if (score >= 150 && score < 180)
-            {
-                gameSpeed = defaultGameSpeed + 18;
-            }
-            if (score >= 180 && score < 200)
-            {
-                gameSpeed = defaultGameSpeed + 20;
-            }
+            //if (score >= 20 && score < 30)
+            //{
+            //    gameSpeed = defaultGameSpeed + 4;
+            //}
+            //if (score >= 30 && score < 40)
+            //{
+            //    gameSpeed = defaultGameSpeed + 6;
+            //}
+            //if (score >= 40 && score < 50)
+            //{
+            //    gameSpeed = defaultGameSpeed + 8;
+            //}
+            //if (score >= 50 && score < 80)
+            //{
+            //    gameSpeed = defaultGameSpeed + 10;
+            //}
+            //if (score >= 80 && score < 100)
+            //{
+            //    gameSpeed = defaultGameSpeed + 12;
+            //}
+            //if (score >= 100 && score < 130)
+            //{
+            //    gameSpeed = defaultGameSpeed + 14;
+            //}
+            //if (score >= 130 && score < 150)
+            //{
+            //    gameSpeed = defaultGameSpeed + 16;
+            //}
+            //if (score >= 150 && score < 180)
+            //{
+            //    gameSpeed = defaultGameSpeed + 18;
+            //}
+            //if (score >= 180 && score < 200)
+            //{
+            //    gameSpeed = defaultGameSpeed + 20;
+            //}
         }
 
         #endregion

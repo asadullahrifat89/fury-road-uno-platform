@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
 using System.Text;
+using Windows.Foundation;
 
 namespace FuryRoad
 {
@@ -14,7 +15,9 @@ namespace FuryRoad
     {
         #region Fields
 
-        private Image _content = new Image() { Stretch = Microsoft.UI.Xaml.Media.Stretch.Uniform };
+        private Image _content = new Image() { Stretch = Stretch.Uniform };
+
+        //private Border _hitBoxborder;
 
         #endregion
 
@@ -23,13 +26,35 @@ namespace FuryRoad
         public GameObject()
         {
             //TODO: remove these
+
+            #region HitBox Debug
             //BorderThickness = new Microsoft.UI.Xaml.Thickness(1);
             //BorderBrush = new SolidColorBrush(Colors.Black);
 
-            BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
-            BorderBrush = new SolidColorBrush(Colors.Transparent);
-            RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+            //_hitBoxborder = new Border()
+            //{
+            //    BorderThickness = new Microsoft.UI.Xaml.Thickness(1),
+            //    BorderBrush = new SolidColorBrush(Colors.Black)
+            //};
+
+
+            //var grid = new Grid()
+            //{
+            //    HorizontalAlignment = Microsoft.UI.Xaml.HorizontalAlignment.Center,
+            //    VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Center
+            //};
+
+            //grid.Children.Add(_hitBoxborder);
+            //grid.Children.Add(_content);
+            //Child = grid; 
+
+            #endregion
+
             Child = _content;
+            //BorderThickness = new Microsoft.UI.Xaml.Thickness(0);
+            //BorderBrush = new SolidColorBrush(Colors.Transparent);
+
+            RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
         }
 
         #endregion
@@ -82,6 +107,12 @@ namespace FuryRoad
         {
             _content.Source = new BitmapImage(uri);
         }
+
+        //public void SetHitBoxBorder(Rect rect)
+        //{
+        //    _hitBoxborder.Height = rect.Height;
+        //    _hitBoxborder.Width = rect.Width;
+        //}
 
         #endregion
     }

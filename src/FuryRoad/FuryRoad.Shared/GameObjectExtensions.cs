@@ -42,19 +42,23 @@ namespace FuryRoad
 
         public static Rect GetHitBox(this GameObject gameObject, double scale)
         {
-            return new Rect(
-                x: gameObject.GetLeft() + 5* scale,
-                y: gameObject.GetTop() + 10* scale,
-                width: gameObject.Width - 5* scale,
-                height: gameObject.Height - 10* scale);
+            var rect = new Rect(
+                x: gameObject.GetLeft() + (gameObject.Width / 3) * scale,
+                y: gameObject.GetTop() + 15 * scale,
+                width: gameObject.Width - (gameObject.Width / 3) * scale,
+                height: gameObject.Height - 15 * scale);
+
+            //gameObject.SetHitBoxBorder(rect);
+
+            return rect;
         }
 
         public static Rect GetDistantHitBox(this GameObject gameObject, double scale)
         {
             return new Rect(
-                x: gameObject.GetLeft() - 5* scale,
-                y: gameObject.GetTop() - 50* scale,
-                width: gameObject.Width + 5 * scale,
+                x: gameObject.GetLeft() - (gameObject.Width / 2) * scale,
+                y: gameObject.GetTop() - 50 * scale,
+                width: gameObject.Width + (gameObject.Width / 2) * scale,
                 height: gameObject.Height + 50 * scale);
         }
 
