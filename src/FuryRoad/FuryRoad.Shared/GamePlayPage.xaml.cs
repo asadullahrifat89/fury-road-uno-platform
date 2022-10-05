@@ -19,7 +19,7 @@ namespace FuryRoad
 
         PeriodicTimer GameViewTimer;
 
-        readonly List<GameObject> GameViewRemovableObjects = new();
+        readonly List<GameObject> removableGameObjects = new();
         readonly Random rand = new();
 
         Rect playerHitBox;
@@ -82,6 +82,10 @@ namespace FuryRoad
         Point pointerPosition;
 
         bool isPortraitDisplay;
+
+        double treeSpawnCounter;
+        double treeSpawnDelay = 127;
+
 
         #endregion
 
@@ -236,10 +240,12 @@ namespace FuryRoad
         {
             scale = GetGameObjectScale();
 
+            treeSpawnDelay = 127 * scale;
+
             isPortraitDisplay = windowHeight > windowWidth;
 
-            GameView.Width = isPortraitDisplay ? 850 * scale : 500 * scale;
-            GameView.Height = isPortraitDisplay ? windowHeight : windowWidth;
+            GameView.Width = windowWidth;
+            GameView.Height = windowHeight;
 
             SoilView.Width = windowWidth;
             SoilView.Height = windowHeight;
@@ -319,6 +325,37 @@ namespace FuryRoad
             Console.WriteLine($"ROAD SIDE WIDTH {RoadSideWidth}");
             Console.WriteLine($"ROAD SIDE HEIGHT {RoadSideHeight}");
 
+            //GameView.Children.Clear();
+
+            // add trees
+            //for (int i = -1; i < 5; i++)
+            //{
+            //    var treeTop = new GameObject()
+            //    {
+            //        Width = TreeWidth,
+            //        Height = TreeHeight,
+            //        Tag = Constants.TREES_TOP,
+            //    };
+            //    treeTop.SetLeft(TreeWidth * i);
+            //    treeTop.SetTop(0-TreeHeight);
+            //    treeTop.SetContent(AssetTemplates.TREES_TOP_TEMPLATE);
+
+            //    GameView.Children.Add(treeTop);
+
+            //    var treeBottom = new GameObject()
+            //    {
+            //        Width = TreeWidth,
+            //        Height = TreeHeight,
+            //        Tag = Constants.TREES_BOTTOM,
+            //    };
+
+            //    treeBottom.SetLeft(TreeWidth * i);
+            //    treeBottom.SetTop(GameView.Height);
+            //    treeBottom.SetContent(AssetTemplates.TREES_BOTTOM_TEMPLATE);
+
+            //    GameView.Children.Add(treeBottom);
+            //}
+
             // run a initial foreach loop to set up the cars and remove any star in the game
             foreach (GameObject x in GameView.Children.OfType<GameObject>())
             {
@@ -331,16 +368,16 @@ namespace FuryRoad
                             x.SetSize(RoadMarkWidth, RoadMarkHeight);
                         }
                         break;
-                    case Constants.TREE_LEFT_TAG:
+                    case Constants.TREES_TOP:
                         {
                             x.SetSize(TreeWidth, TreeHeight);
-                            x.SetLeft(0 - (60 * scale));
+                            //x.SetLeft(0 - (60 * scale));
                         }
                         break;
-                    case Constants.TREE_RIGHT_TAG:
+                    case Constants.TREES_BOTTOM:
                         {
                             x.SetSize(TreeWidth, TreeHeight);
-                            x.SetLeft(GameView.Width + (10 * scale));
+                            //x.SetLeft(GameView.Width + (10 * scale));
                         }
                         break;
                     case Constants.LAMPPOST_LEFT_TAG:
@@ -380,22 +417,22 @@ namespace FuryRoad
                 }
             }
 
-            highWayLeftSide.Width = RoadSideWidth;
-            highWayRightSide.Width = RoadSideWidth;
+            //highWayLeftSide.Width = RoadSideWidth;
+            //highWayRightSide.Width = RoadSideWidth;
 
-            Canvas.SetLeft(highWayRightSide, GameView.Width - RoadSideWidth);
+            //Canvas.SetLeft(highWayRightSide, GameView.Width - RoadSideWidth);
 
             double carY = (GameView.Height / 1.3) - (170 * scale);
             Console.WriteLine($"CAR Y: {carY}");
 
-            player.SetTop(carY);
+            //player.SetTop(carY);
 
             HighWayDividerWidth = Convert.ToDouble(this.Resources["HighWayDividerWidth"]);
             HighWayDividerWidth *= scale;
             Console.WriteLine($"HIGHWAY DIVIDER WIDTH {HighWayDividerWidth}");
 
-            highWayDivider.Width = HighWayDividerWidth;
-            Canvas.SetLeft(highWayDivider, (GameView.Width / 2) - (highWayDivider.Width / 2));
+            //highWayDivider.Width = HighWayDividerWidth;
+            //Canvas.SetLeft(highWayDivider, (GameView.Width / 2) - (highWayDivider.Width / 2));
         }
 
         public double GetGameObjectScale()
@@ -430,7 +467,7 @@ namespace FuryRoad
 
             //player.SetContent(new Uri("ms-appx:///Assets/Images/player.png"));
             //player.SetSize(PlayerWidth, PlayerHeight);
-            player.Opacity = 1;
+            //player.Opacity = 1;
 
             GameView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
 
@@ -488,7 +525,7 @@ namespace FuryRoad
                     case Constants.HEALTH_TAG:
                     case Constants.POWERUP_TAG:
                         {
-                            GameViewRemovableObjects.Add(x);
+                            removableGameObjects.Add(x);
                         }
                         break;
                     default:
@@ -496,18 +533,17 @@ namespace FuryRoad
                 }
             }
 
-            foreach (GameObject y in GameViewRemovableObjects)
+            foreach (GameObject y in removableGameObjects)
             {
                 GameView.Children.Remove(y);
             }
 
-            GameViewRemovableObjects.Clear();
+            removableGameObjects.Clear();
         }
 
         private void RunGame()
         {
             RunGameView();
-
         }
 
         private async void RunGameView()
@@ -524,11 +560,11 @@ namespace FuryRoad
         {
             score += .05; // increase the score by .5 each tick of the timer
 
-            powerUpCounter -= 1;
+            powerUpCounter -= 1;           
 
             scoreText.Text = "Score: " + score.ToString("#");
 
-            playerHitBox = player.GetHitBox(scale);
+            //playerHitBox = player.GetHitBox(scale);
 
             if (moveLeft || moveRight || moveUp || moveDown || isPointerActivated)
             {
@@ -552,6 +588,40 @@ namespace FuryRoad
                 }
             }
 
+            //if (treeSpawnCounter < 1)
+            //{
+            //    //TODO: spawn tree
+            //    treeSpawnCounter = treeSpawnDelay;
+
+            //    var treeTop = new GameObject()
+            //    {
+            //        Width = TreeWidth,
+            //        Height = TreeHeight,
+            //        Tag = Constants.TREES_TOP,
+            //    };
+            //    treeTop.SetLeft(TreeWidth * -1);
+            //    treeTop.SetTop(0 - TreeHeight);
+            //    treeTop.SetContent(AssetTemplates.TREES_TEMPLATE);
+
+            //    GameView.Children.Add(treeTop);
+
+            //    var treeBottom = new GameObject()
+            //    {
+            //        Width = TreeWidth,
+            //        Height = TreeHeight,
+            //        Tag = Constants.TREES_BOTTOM,
+            //    };
+
+            //    treeBottom.SetLeft(TreeWidth * -1);
+            //    treeBottom.SetTop(GameView.Height);
+            //    treeBottom.SetContent(AssetTemplates.TREES_TEMPLATE);
+
+            //    GameView.Children.Add(treeBottom);
+
+
+
+            //}
+
             // below is the main game loop, inside of this loop we will go through all of the rectangles available in this game
             foreach (GameObject x in GameView.Children.OfType<GameObject>())
             {
@@ -564,8 +634,8 @@ namespace FuryRoad
                             UpdateRoadMark(x);
                         }
                         break;
-                    case Constants.TREE_LEFT_TAG:
-                    case Constants.TREE_RIGHT_TAG:
+                    case Constants.TREES_TOP:
+                    case Constants.TREES_BOTTOM:
                         {
                             UpdateTree(x);
                         }
@@ -610,7 +680,7 @@ namespace FuryRoad
                 }
             }
 
-            foreach (GameObject y in GameViewRemovableObjects)
+            foreach (GameObject y in removableGameObjects)
             {
                 GameView.Children.Remove(y);
             }
@@ -643,54 +713,54 @@ namespace FuryRoad
 
             //Console.WriteLine("ACC:" + _accelerationCounter);            
 
-            double left = player.GetLeft();
-            double top = player.GetTop();
+            //double left = player.GetLeft();
+            //double top = player.GetTop();
 
-            double playerMiddleX = left + player.Width / 2;
-            double playerMiddleY = top + player.Height / 2;
+            //double playerMiddleX = left + player.Width / 2;
+            //double playerMiddleY = top + player.Height / 2;
 
             if (isPointerActivated)
             {
-                // move up
-                if (pointerPosition.Y < playerMiddleY - playerSpeed)
-                {
-                    player.SetTop(top - effectiveSpeed);
-                }
-                // move left
-                if (pointerPosition.X < playerMiddleX - playerSpeed && left > 0)
-                {
-                    player.SetLeft(left - effectiveSpeed);
-                }
+                //// move up
+                //if (pointerPosition.Y < playerMiddleY - playerSpeed)
+                //{
+                //    player.SetTop(top - effectiveSpeed);
+                //}
+                //// move left
+                //if (pointerPosition.X < playerMiddleX - playerSpeed && left > 0)
+                //{
+                //    player.SetLeft(left - effectiveSpeed);
+                //}
 
-                // move down
-                if (pointerPosition.Y > playerMiddleY + playerSpeed)
-                {
-                    player.SetTop(top + effectiveSpeed);
-                }
-                // move right
-                if (pointerPosition.X > playerMiddleX + playerSpeed && left + player.Width < GameView.Width)
-                {
-                    player.SetLeft(left + effectiveSpeed);
-                }
+                //// move down
+                //if (pointerPosition.Y > playerMiddleY + playerSpeed)
+                //{
+                //    player.SetTop(top + effectiveSpeed);
+                //}
+                //// move right
+                //if (pointerPosition.X > playerMiddleX + playerSpeed && left + player.Width < GameView.Width)
+                //{
+                //    player.SetLeft(left + effectiveSpeed);
+                //}
             }
             else
             {
-                if (moveLeft && left > 0)
-                {
-                    player.SetLeft(left - effectiveSpeed);
-                }
-                if (moveRight && left + player.Width < GameView.Width)
-                {
-                    player.SetLeft(left + effectiveSpeed);
-                }
-                if (moveUp && top > 0 + (50 * scale))
-                {
-                    player.SetTop(top - effectiveSpeed);
-                }
-                if (moveDown && top < GameView.Height - (100 * scale))
-                {
-                    player.SetTop(top + effectiveSpeed);
-                }
+                //if (moveLeft && left > 0)
+                //{
+                //    player.SetLeft(left - effectiveSpeed);
+                //}
+                //if (moveRight && left + player.Width < GameView.Width)
+                //{
+                //    player.SetLeft(left + effectiveSpeed);
+                //}
+                //if (moveUp && top > 0 + (50 * scale))
+                //{
+                //    player.SetTop(top - effectiveSpeed);
+                //}
+                //if (moveDown && top < GameView.Height - (100 * scale))
+                //{
+                //    player.SetTop(top + effectiveSpeed);
+                //}
             }
         }
 
@@ -726,30 +796,30 @@ namespace FuryRoad
 
         #region Tree
 
-        private void UpdateTree(GameObject roadSide)
+        private void UpdateTree(GameObject tree)
         {
-            roadSide.SetTop(roadSide.GetTop() + gameSpeed);
+            tree.SetLeft(tree.GetLeft() + gameSpeed);
 
-            if (roadSide.GetTop() > GameView.Height)
+            if (tree.GetLeft() > GameView.Width)
             {
-                RecyleTree(roadSide);
+                RecyleTree(tree);
             }
         }
 
         private void RecyleTree(GameObject tree)
         {
-            RandomizeTree(tree);
+            //RandomizeTree(tree);
 
             tree.SetSize(TreeWidth, TreeHeight);
-            //tree.SetTop((rand.Next(100, (int)GameView.Height) * -1));
-            tree.SetTop(((tree.Height) * -1));
+            tree.SetLeft(TreeWidth * -1);
+            
         }
 
-        private void RandomizeTree(GameObject tree)
-        {
-            //markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
-            //tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
-        }
+        //private void RandomizeTree(GameObject tree)
+        //{
+        //    markNum = rand.Next(0, AssetTemplates.TREE_TEMPLATES.Length);
+        //    tree.SetContent(AssetTemplates.TREE_TEMPLATES[markNum]);
+        //}
 
         #endregion
 
@@ -809,12 +879,12 @@ namespace FuryRoad
 
             if (isRecoveringFromDamage)
             {
-                player.Opacity = 0.66;
+                //player.Opacity = 0.66;
                 damageRecoveryCounter--;
 
                 if (damageRecoveryCounter <= 0)
                 {
-                    player.Opacity = 1;
+                    //player.Opacity = 1;
                     isRecoveringFromDamage = false;
                 }
             }
@@ -906,19 +976,19 @@ namespace FuryRoad
 
         private void UpdatePowerUp(GameObject powerUp)
         {
-            powerUp.SetTop(powerUp.GetTop() + 5);
+            powerUp.SetLeft(powerUp.GetLeft() + 5);
 
             // if player gets a power up
             if (playerHitBox.IntersectsWith(powerUp.GetHitBox(scale)))
             {
-                GameViewRemovableObjects.Add(powerUp);
+                removableGameObjects.Add(powerUp);
 
                 TriggerPowerUp();
             }
 
-            if (powerUp.GetTop() > GameView.Height)
+            if (powerUp.GetLeft() > GameView.Width)
             {
-                GameViewRemovableObjects.Add(powerUp);
+                removableGameObjects.Add(powerUp);
             }
         }
 
@@ -933,7 +1003,7 @@ namespace FuryRoad
         {
             powerModeCounter -= 1;
             GameView.Background = new SolidColorBrush(Colors.Goldenrod);
-            player.Opacity = 0.77;
+            //player.Opacity = 0.77;
 
             double remainingPow = (double)powerModeCounter / (double)powerModeDelay * 4;
 
@@ -947,7 +1017,7 @@ namespace FuryRoad
         private void PowerDown()
         {
             isPowerMode = false;
-            player.Opacity = 1;
+            //player.Opacity = 1;
             powerUpText.Visibility = Visibility.Collapsed;
 
             GameView.Background = this.Resources["RoadBackgroundColor"] as SolidColorBrush;
@@ -963,7 +1033,7 @@ namespace FuryRoad
                 RenderTransform = new RotateTransform() { Angle = Convert.ToDouble(this.Resources["FoliageViewRotationAngle"]) },
             };
 
-            powerUp.SetPosition(rand.Next(100, (int)GameView.Height) * -1, rand.Next(0, (int)(GameView.Width - 55)));
+            powerUp.SetPosition(top: rand.Next(100, (int)GameView.Height) * -1, left: rand.Next(0, (int)(GameView.Width - 55)));
 
             GameView.Children.Add(powerUp);
         }
@@ -993,7 +1063,7 @@ namespace FuryRoad
             // if player gets a health
             if (playerHitBox.IntersectsWith(health.GetHitBox(scale)))
             {
-                GameViewRemovableObjects.Add(health);
+                removableGameObjects.Add(health);
 
                 lives++;
                 SetLives();
@@ -1001,7 +1071,7 @@ namespace FuryRoad
 
             if (health.GetTop() > GameView.Height)
             {
-                GameViewRemovableObjects.Add(health);
+                removableGameObjects.Add(health);
             }
         }
 

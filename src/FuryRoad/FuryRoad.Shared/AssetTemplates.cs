@@ -42,5 +42,8 @@ namespace FuryRoad
 
         public static Uri POWERUP_TEMPLATE = new Uri("ms-appx:///Assets/Images/powerup.gif");
         public static Uri HEALTH_TEMPLATE = new Uri("ms-appx:///Assets/Images/health.gif");
+
+
+        public static Uri TREES_TEMPLATE = new Uri("ms-appx:///Assets/Images/trees-many.png");        
     }
 }

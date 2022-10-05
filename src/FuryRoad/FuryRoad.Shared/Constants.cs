@@ -16,8 +16,8 @@ namespace FuryRoad
         
         public const string ROADMARK_TAG = "roadmark";        
         
-        public const string TREE_LEFT_TAG = "tree-left";
-        public const string TREE_RIGHT_TAG = "tree-right";
+        public const string TREES_TOP = "trees-top";
+        public const string TREES_BOTTOM = "trees-bottom";
 
         public const string LAMPPOST_LEFT_TAG = "lamppost-left";
         public const string LAMPPOST_RIGHT_TAG = "lamppost-right";
