@@ -62,12 +62,16 @@
         <!--#endregion-->
 
         <!--#region Game View-->
-        <GameEnvironment x:Name="GameView" Background="{StaticResource RoadBackgroundColor}">
+        <GameEnvironment
+            x:Name="GameView"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{StaticResource RoadBackgroundColor}">
 
             <!--#region Trees: Top-->
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*-1, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0-TreeHeight/3, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=0-TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-top">
@@ -77,7 +81,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*0, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0-TreeHeight/3, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=0-TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-top">
@@ -87,7 +91,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*1, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0-TreeHeight/3, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=0-TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-top">
@@ -97,7 +101,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*2, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=0-TreeHeight/3, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=0-TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-top">
@@ -110,7 +114,7 @@
             <!--#region Trees: Bottom-->
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*-1, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=GameView.Height/1.5, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=GameView.Height/2+TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-bottom">
@@ -120,7 +124,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*0, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=GameView.Height/1.5, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=GameView.Height/2+TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-bottom">
@@ -130,7 +134,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*1, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=GameView.Height/1.5, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=GameView.Height/2+TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-bottom">
@@ -140,7 +144,7 @@
             </GameObject>
             <GameObject
                 Canvas.Left="{x:Bind Path=TreeWidth*2, Mode=OneWay}"
-                Canvas.Top="{x:Bind Path=GameView.Height/1.5, Mode=OneWay}"
+                Canvas.Top="{x:Bind Path=GameView.Height/2+TreeHeight, Mode=OneWay}"
                 Width="{StaticResource TreeWidth}"
                 Height="{StaticResource TreeHeight}"
                 Tag="trees-bottom">
